@@ -1,52 +1,78 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-enum GameMapName {GAMEMAP_BASEMENT = 0, GAMEMAP_WALLS = 1, GAMEMAP_KITCHEN = 2};
+public enum GameMapName {GAMEMAP_BASEMENT = 0, GAMEMAP_WALLS = 1, GAMEMAP_KITCHEN = 2};
 
 public class globalData : MonoBehaviour 
 {
 
+	void Awake ()
+	{
+		//Allow this object to always exist.
+		DontDestroyOnLoad (this.gameObject);
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
-		mChangedGameMap = false;
-
-		mMainCamera = GameObject.Find ("Main Camera");
+		//The current bound being created.
+		Bounds boundBasement = new Bounds ();
+		Bounds boundWalls = new Bounds ();
+		Bounds boundKitchen = new Bounds ();
 
 		mGameMapBounds = new Bounds[3];
 
-		//The current bound being created.
-		Bounds bound1 = new Bounds();
+		boundBasement.SetMinMax (new Vector3 (8.0f, 5.0f, -10.0f), new Vector3 (30.0f, 8.0f, 10.0f));
+		boundWalls.SetMinMax (new Vector3 (4.0f, 5.0f, -10.0f), new Vector3 (16.0f, 30.0f, 10.0f));
+		boundKitchen.SetMinMax (new Vector3 (8.0f, 5.0f, -10.0f), new Vector3 (30.0f, 8.0f, 10.0f));
 
-		bound1.SetMinMax(new Vector3(8.0f, 5.0f, -10.0f), new Vector3(30.0f, 8.0f, 10.0f));
-
-		mGameMapBounds [(int)GameMapName.GAMEMAP_BASEMENT] = bound1;
-		mGameMapBounds [(int)GameMapName.GAMEMAP_WALLS] = bound1;
-		mGameMapBounds [(int)GameMapName.GAMEMAP_KITCHEN] = bound1;
-
-		//TODO: For now, set the game map name and bounds here.
-		mCurGameMapName = GameMapName.GAMEMAP_BASEMENT;
-		mCurGameMapBounds = mGameMapBounds [(int)GameMapName.GAMEMAP_BASEMENT];
-
-		//TODO: For now, set the changing game map to true.
-		mChangedGameMap = true;
+		mGameMapBounds [(int)GameMapName.GAMEMAP_BASEMENT] = boundBasement;
+		mGameMapBounds [(int)GameMapName.GAMEMAP_WALLS] = boundWalls;
+		mGameMapBounds [(int)GameMapName.GAMEMAP_KITCHEN] = boundKitchen;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (mChangedGameMap == true) 
-		{
-			camera cameraSript = mMainCamera.GetComponent<camera> ();
+		if (mChangedGameMap) {
+			mMainCamera = GameObject.Find ("MainCamera");
+
+			if (mMainCamera != null) {
 				
-			if (cameraSript != null) 
-			{
-				cameraSript.UpdateCameraBounds (mCurGameMapBounds);
+				mCurGameMapBounds = mGameMapBounds [(int)mCurGameMapName];
+
+				camera cameraSript = mMainCamera.GetComponent<camera> ();
+
+				if (cameraSript != null) 
+				{
+					//Check if camera scrolling should be used.
+					if (mCurGameMapName == GameMapName.GAMEMAP_WALLS) 
+					{
+						cameraSript.SetIsScrollingUp (true);
+					} 
+					else 
+					{
+						cameraSript.SetIsScrollingUp (false);
+					}
+
+					Debug.Log ("Changed camera bounds.");
+					cameraSript.UpdateCameraBounds (mCurGameMapBounds);
+				}
 			}
 
 			mChangedGameMap = false;
 		}
+	}
+
+	public void ChangeMap(string sceneName, GameMapName gameMapName)
+	{
+		SceneManager.LoadScene (sceneName);
+
+		mCurGameMapName = gameMapName;
+
+		mChangedGameMap = true;
 	}
 
 	//Getters.
@@ -61,7 +87,7 @@ public class globalData : MonoBehaviour
 	}
 
 	//Checks if currently changing the game map.
-	bool mChangedGameMap;
+	bool mChangedGameMap = false;
 
 	//The name of the current game map being played.
 	private GameMapName mCurGameMapName;

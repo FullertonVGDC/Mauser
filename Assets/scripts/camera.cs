@@ -9,6 +9,7 @@ public class camera : MonoBehaviour
 	void Start () 
 	{
 		mCamera = GetComponent<Camera> ();
+		mTransform = GetComponent<Transform> ();
 
 		mAspectRatio = 1.777777777777778f;
 
@@ -26,13 +27,27 @@ public class camera : MonoBehaviour
 		mCameraBounds = bounds;
 	}
 
+	//Setters:
+	public void SetIsScrollingUp(bool sIsScrollingUp)
+	{
+		mIsScrollingUp = sIsScrollingUp;
+	}
+
 	//Getters:
+	public bool GetIsScrollingUp()
+	{
+		return mIsScrollingUp;
+	}
+
 	public Bounds GetBounds()
 	{
 		return mCameraBounds;
 	}
 
-	//Varaibles:
+	//Variables:
+
+	//Checks if the camera is scrolling up.
+	private bool mIsScrollingUp = false;
 
 	//The srict aspect ratio for the camera.
 	private float mAspectRatio;
@@ -48,4 +63,7 @@ public class camera : MonoBehaviour
 
 	//The camera component of this camera object.
 	private Camera mCamera;
+
+	//The transform component of this camera object.
+	private Transform mTransform;
 }

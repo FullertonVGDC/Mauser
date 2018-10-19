@@ -9,6 +9,8 @@ public class bullet : MonoBehaviour
 	void Start () 
     {
         mRigidBody = this.GetComponent<Rigidbody2D>();
+	mTransform = this.GetComponent<Transform> ();
+	mCameraTransform = GameObject.Find ("MainCamera").GetComponent<Transform> ();
 	}
 	
 	// Update is called once per frame
@@ -21,7 +23,21 @@ public class bullet : MonoBehaviour
             bulletVelocity.x *= -1.0f;
         }
 
-        mRigidBody.velocity = bulletVelocity;
+        	mRigidBody.velocity = bulletVelocity;
+
+		CheckIfOutsideCamera ();
+	}
+
+	void CheckIfOutsideCamera()
+	{
+		if (mTransform.position.x < mCameraTransform.position.x - 10.0f ||
+			mTransform.position.x > mCameraTransform.position.x + 10.0f ||
+			mTransform.position.y > mCameraTransform.position.y + 10.0f ||
+			mTransform.position.y < mCameraTransform.position.y - 10.0f) 
+		{
+			Debug.Log ("Destroyed shot.");
+			Destroy (this.gameObject);
+		}
 	}
         
     //Collision Callbacks (Trigger).
@@ -32,11 +48,12 @@ public class bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-		if (collider.gameObject.tag == "enemy1")
-		{
-			Destroy(this.gameObject);
-			Destroy(collider.gameObject);
-		}
+	if (collider.gameObject.tag == "enemy1")
+	{
+		Destroy(this.gameObject);
+		Destroy(collider.gameObject);
+	}
+
     }
 
     //Setters:
@@ -53,4 +70,10 @@ public class bullet : MonoBehaviour
 
     //The rigid body of the bullet object.
     private Rigidbody2D mRigidBody;
+
+			//The transform component of the shot.
+	private Transform mTransform;
+
+	//The transform component of the camera.
+	private Transform mCameraTransform;
 }
