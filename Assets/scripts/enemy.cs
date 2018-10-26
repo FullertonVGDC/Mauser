@@ -26,6 +26,7 @@ public class enemy : MonoBehaviour
         if (!mDead)
         {
             PrimaryMovement();
+            CheckForWalls();
         }
         else
         {
@@ -130,6 +131,27 @@ public class enemy : MonoBehaviour
                     mFacingLeft = true;
                 }
             }
+        }
+    }
+
+    void CheckForWalls()
+    {
+        //The Left ray.
+        RaycastHit2D wallRayL = Physics2D.Raycast(mTransform.position - new Vector3(-0.0f, 0.1f, 0.0f), 
+            new Vector3(-1.0f, 0.0f, 0.0f), 1.0f, collidableLayerMask);
+
+        //The right ray.
+        RaycastHit2D wallRayR = Physics2D.Raycast(mTransform.position - new Vector3(0.0f, 0.1f, 0.0f), 
+            new Vector3(1.0f, 0.0f, 0.0f), 1.0f, collidableLayerMask);
+
+        if (wallRayL.collider != null)
+        {
+            mFacingLeft = false;
+        }
+
+        if (wallRayR.collider != null)
+        {
+            mFacingLeft = true;
         }
     }
 

@@ -16,18 +16,12 @@ public class bottleCap : MonoBehaviour
         {
             case BottleCapType.BOTTLECAP_TYPE_RED: 
                 mCurrency = 1;
-                //Add bottle cap sprite here.
-                mSpriteRenderer.color = new Color(0.8f, 0.4f, 0.5f);
                 break;
             case BottleCapType.BOTTLECAP_TYPE_GOLD: 
                 mCurrency = 5;
-                //Add bottle cap sprite here.
-                mSpriteRenderer.color = new Color(0.9f, 0.9f, 0.2f);
                 break;
             case BottleCapType.BOTTLECAP_TYPE_DEBUG: 
                 mCurrency = 999;
-                //Add bottle cap sprite here.
-                mSpriteRenderer.color = new Color(0.1f, 0.9f, 0.2f);
                 break;
         }
 	}
@@ -49,9 +43,11 @@ public class bottleCap : MonoBehaviour
     //The currency of the bottle cap.
     private int mCurrency = 1;
 
+    //The sprite of the bottle cap.
+    private SpriteRenderer mSpriteRenderer;
+
+    //Public variables.
+
     //The type of bottle cap. Has different currency and sprites.
     public BottleCapType bottleCapType;
-
-    //The sprite of the bottle cap.
-    public SpriteRenderer mSpriteRenderer;
 }
