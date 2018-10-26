@@ -364,51 +364,58 @@ public class player : MonoBehaviour
 
     void UpdateCameraPosition()
     {
-	//A quick reference to the player's position.
-	Vector3 curPosition = mTransform.position;
+    	//A quick reference to the player's position.
+    	Vector3 curPosition = mTransform.position;
 
-	//The current bounds of the camera.
-	Bounds curBounds = mCameraScript.GetBounds ();
+    	//The current bounds of the camera.
+    	Bounds curBounds = mCameraScript.GetBounds ();
 
-	//Camera offset for forcing the camera away from the player.
-	Vector3 cameraOffset = new Vector3 (0.0f, 0.0f, 0.0f);
+    	//Camera offset for forcing the camera away from the player.
+    	Vector3 cameraOffset = new Vector3 (0.0f, 0.0f, 0.0f);
 
-		float transformY;
+    		float transformY;
 
-		bool cameraIsScrollingUp = mCameraScript.GetIsScrollingUp ();
+    		bool cameraIsScrollingUp = mCameraScript.GetIsScrollingUp ();
 
-		if (cameraIsScrollingUp) 
-		{
-			transformY = mCameraTransform.position.y + (mScrollSpeed * Time.deltaTime);
-		} 
-		else 
-		{
-			transformY = mTransform.position.y;
-		}
-			
-	//The final camera position.
-	Vector3 finalCameraPosition = new Vector3 (mTransform.position.x, transformY, 
-	                                    mCameraTransform.position.z);
+    		if (cameraIsScrollingUp) 
+    		{
+    			transformY = mCameraTransform.position.y + (mScrollSpeed * Time.deltaTime);
+    		} 
+    		else 
+    		{
+    			transformY = mTransform.position.y;
+    		}
+    			
+    	//The final camera position.
+    	Vector3 finalCameraPosition = new Vector3 (mTransform.position.x, transformY, 
+    	                                    mCameraTransform.position.z);
 
-	//Check if the camera is outside the x bounds.
-	if (curPosition.x < curBounds.min.x) {
-		cameraOffset.x = curBounds.min.x - curPosition.x;
-	} else if (curPosition.x > curBounds.max.x) {
-		cameraOffset.x = curBounds.max.x - curPosition.x;
-	}
+    	//Check if the camera is outside the x bounds.
+    	if (curPosition.x < curBounds.min.x) 
+        {
+    		cameraOffset.x = curBounds.min.x - curPosition.x;
+    	} 
+        else if (curPosition.x > curBounds.max.x) 
+        {
+    		cameraOffset.x = curBounds.max.x - curPosition.x;
+    	}
 
-	if (!cameraIsScrollingUp) {
-		//Check if the camera is outside the y bounds.
-		if (curPosition.y < curBounds.min.y) {
-			cameraOffset.y = curBounds.min.y - curPosition.y;
-		} else if (curPosition.y > curBounds.max.y) {
-			cameraOffset.y = curBounds.max.y - curPosition.y;
-		}
-	}
+    	if (!cameraIsScrollingUp) 
+        {
+    		//Check if the camera is outside the y bounds.
+    		if (curPosition.y < curBounds.min.y) 
+            {
+    			cameraOffset.y = curBounds.min.y - curPosition.y;
+    		} 
+            else if (curPosition.y > curBounds.max.y) 
+            {
+    			cameraOffset.y = curBounds.max.y - curPosition.y;
+    		}
+    	}
 
-	finalCameraPosition += cameraOffset;
+    	finalCameraPosition += cameraOffset;
 
-	mCameraTransform.position = finalCameraPosition;
+    	mCameraTransform.position = finalCameraPosition;
     }
 
 	void CheckIfBelowCamera()
