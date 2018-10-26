@@ -36,11 +36,13 @@ public class globalData : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if (mChangedGameMap) {
+		if(mChangedGameMap) 
+        {
 			mMainCamera = GameObject.Find ("MainCamera");
+            Debug.Log("Changed to main camera.");
 
-			if (mMainCamera != null) {
-				
+			if(mMainCamera != null) 
+            {
 				mCurGameMapBounds = mGameMapBounds [(int)mCurGameMapName];
 
 				camera cameraSript = mMainCamera.GetComponent<camera> ();
@@ -75,19 +77,35 @@ public class globalData : MonoBehaviour
 		mChangedGameMap = true;
 	}
 
+    //Setters.
+    public void SetCurrency(int sCurrency)
+    {
+        mCurrency = sCurrency;
+    }
+
 	//Getters.
-	GameMapName GetCurrentGameMapName()
+    public int GetCurrency()
+    {
+        return mCurrency;
+    }
+
+	public GameMapName GetCurrentGameMapName()
 	{
 		return mCurGameMapName;
 	}
 
-	Bounds GetCurrentBound()
+	public Bounds GetCurrentBound()
 	{
 		return mCurGameMapBounds;
 	}
 
+    //Variables.
+
 	//Checks if currently changing the game map.
-	bool mChangedGameMap = false;
+	private bool mChangedGameMap = false;
+
+    //The currency of the player. Stored here for persistency.
+    private int mCurrency = 0;
 
 	//The name of the current game map being played.
 	private GameMapName mCurGameMapName;

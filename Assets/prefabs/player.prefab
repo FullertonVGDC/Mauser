@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a1b4bbbb67d4437a7a2a4e12c1efb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mScrollSpeed: 0.5
   mBulletPrefab: {fileID: 1080932654147884, guid: 854774592c7cb4188bfb8854efab4b36,
     type: 2}
 --- !u!212 &212110328530104912
@@ -135,7 +136,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 65c8f4b9bbf3947debfa752ae6ddaac6, type: 3}
   m_Color: {r: 0.3250267, g: 0.8301887, b: 0.46777037, a: 1}
   m_FlipX: 0

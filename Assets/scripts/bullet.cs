@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour 
 {
-
 	// Use this for initialization
 	void Start () 
     {
         mRigidBody = this.GetComponent<Rigidbody2D>();
-	mTransform = this.GetComponent<Transform> ();
-	mCameraTransform = GameObject.Find ("MainCamera").GetComponent<Transform> ();
+	    mTransform = this.GetComponent<Transform> ();
+	    mCameraTransform = GameObject.Find ("MainCamera").GetComponent<Transform> ();
 	}
 	
 	// Update is called once per frame
@@ -23,7 +22,7 @@ public class bullet : MonoBehaviour
             bulletVelocity.x *= -1.0f;
         }
 
-        	mRigidBody.velocity = bulletVelocity;
+        mRigidBody.velocity = bulletVelocity;
 
 		CheckIfOutsideCamera ();
 	}
@@ -35,7 +34,6 @@ public class bullet : MonoBehaviour
 			mTransform.position.y > mCameraTransform.position.y + 10.0f ||
 			mTransform.position.y < mCameraTransform.position.y - 10.0f) 
 		{
-			Debug.Log ("Destroyed shot.");
 			Destroy (this.gameObject);
 		}
 	}
@@ -48,18 +46,22 @@ public class bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-	if (collider.gameObject.tag == "enemy1")
-	{
-		Destroy(this.gameObject);
-		Destroy(collider.gameObject);
-	}
-
+    	if (collider.gameObject.tag == "enemy1")
+    	{
+    		Destroy(this.gameObject);
+    	}
     }
 
     //Setters:
     public void SetFacingRight(bool sFacingRight)
     {
         mFacingRight = sFacingRight;
+    }
+
+    //Getters:
+    public bool GetFacingRight()
+    {
+        return mFacingRight;
     }
         
     //Checks if the bullet is facing to the right.
@@ -71,7 +73,7 @@ public class bullet : MonoBehaviour
     //The rigid body of the bullet object.
     private Rigidbody2D mRigidBody;
 
-			//The transform component of the shot.
+	//The transform component of the shot.
 	private Transform mTransform;
 
 	//The transform component of the camera.

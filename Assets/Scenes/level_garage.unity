@@ -447,6 +447,11 @@ Prefab:
       propertyPath: m_Name
       value: gold (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 114720711660694352, guid: 496b63e7634fa4c0d9fe2efe39315191,
+        type: 2}
+      propertyPath: bottleCapType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
   m_IsPrefabAsset: 0
@@ -751,6 +756,11 @@ Prefab:
     - target: {fileID: 1317197495504116, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
       propertyPath: m_Name
       value: gold (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114720711660694352, guid: 496b63e7634fa4c0d9fe2efe39315191,
+        type: 2}
+      propertyPath: bottleCapType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
@@ -1108,6 +1118,57 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff771403cb7d74e32af8aba06ddabb6f, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1465763284
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 34.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -9.269531
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480829438099432, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_RootOrder
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317197495504116, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
+      propertyPath: m_Name
+      value: gold (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114720711660694352, guid: 496b63e7634fa4c0d9fe2efe39315191,
+        type: 2}
+      propertyPath: bottleCapType
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 496b63e7634fa4c0d9fe2efe39315191, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1489159403
 Prefab:

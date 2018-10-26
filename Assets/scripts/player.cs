@@ -19,7 +19,10 @@ public class player : MonoBehaviour
 
 		mSpriteRenderer = GetComponent<SpriteRenderer>();
 
-        mFiringKey = KeyCode.F;
+        //Get the global data.
+        mGlobalData = GameObject.Find("globalData").GetComponent<globalData>();
+
+	mFiringKey = KeyCode.F;
 	}
 
 	// Update is called once per frame
@@ -112,6 +115,13 @@ public class player : MonoBehaviour
 		//Check if colliding with golden cheese.
 		if (collider.gameObject.tag == "gold") 
 		{
+            //The bottle cap object being collided with.
+            bottleCap bottleCap1 = collider.gameObject.GetComponent<bottleCap>();
+
+            mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
+
+            Debug.Log("Currency: " + mGlobalData.GetCurrency());
+
 			Destroy(collider.gameObject);
 		}
 	}
@@ -122,61 +132,66 @@ public class player : MonoBehaviour
 		//Check if colliding with an enemy.
 		if (collider.gameObject.tag == "enemy1") 
 		{
-			//If the player isn't currently hurt, hurt the player.
-			if(mIsHurt == false && mIsDead == false)
-			{
-				mIsBeingKnockedBack = true;
-				mWalkingLeft = false;
-				mWalkingRight = false;
-				mGrounded = false;
-				mIsHurt = true;
+            //The other enemy that the player is colliding with.
+            enemy enemy1 = collider.gameObject.GetComponent<enemy>();
 
-				mSpriteRenderer.enabled = false;
+            //Only get affected by the enemy if it isn't already dead.
+            if (!enemy1.GetIsDead())
+            {
+                //If the player isn't currently hurt, hurt the player.
+                if (mIsHurt == false && mIsDead == false)
+                {
+                    mIsBeingKnockedBack = true;
+                    mWalkingLeft = false;
+                    mWalkingRight = false;
+                    mGrounded = false;
+                    mIsHurt = true;
 
-				//Kill the player if out of health. Otherwise take damage.
-				if(mCurHealth == 1)
-				{
-					Debug.Log("Dead!");
-					mIsDead = true;
+                    mSpriteRenderer.enabled = false;
 
-					if(mRigidBody2D.velocity.x > 0)
-					{
-						mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
-						mFacingRight = true;
-					}
-					else if(mRigidBody2D.velocity.x < 0)
-					{
-						mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
-						mFacingRight = false;
-					}
-					else
-					{
-						mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
-					}
-				}
-				else
-				{
-					mCurHealth--;
-					mHurtInvincibilityPeriodAmount = 0.0f;
+                    //Kill the player if out of health. Otherwise take damage.
+                    if (mCurHealth == 1)
+                    {
+                        Debug.Log("Dead!");
+                        mIsDead = true;
 
-					if(mRigidBody2D.velocity.x > 0)
-					{
-						mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
-						mFacingRight = true;
-					}
-					else if(mRigidBody2D.velocity.x < 0)
-					{
-						mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
-						mFacingRight = false;
-					}
-					else
-					{
-						mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
-					}
+                        if (mRigidBody2D.velocity.x > 0)
+                        {
+                            mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
+                            mFacingRight = true;
+                        }
+                        else if (mRigidBody2D.velocity.x < 0)
+                        {
+                            mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
+                            mFacingRight = false;
+                        }
+                        else
+                        {
+                            mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
+                        }
+                    }
+                    else
+                    {
+                        mCurHealth--;
+                        mHurtInvincibilityPeriodAmount = 0.0f;
 
-					Debug.Log("hurt!");
-				}
-			}
+                        if (mRigidBody2D.velocity.x > 0)
+                        {
+                            mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
+                            mFacingRight = true;
+                        }
+                        else if (mRigidBody2D.velocity.x < 0)
+                        {
+                            mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
+                            mFacingRight = false;
+                        }
+                        else
+                        {
+                            mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
+                        }
+                    }
+                }
+            }
 		}
 	}
 
@@ -354,8 +369,8 @@ public class player : MonoBehaviour
 		}
 			
 	//The final camera position.
-		Vector3 finalCameraPosition = new Vector3 (mTransform.position.x, transformY, 
-		                                    mCameraTransform.position.z);
+	Vector3 finalCameraPosition = new Vector3 (mTransform.position.x, transformY, 
+	                                    mCameraTransform.position.z);
 
 	//Check if the camera is outside the x bounds.
 	if (curPosition.x < curBounds.min.x) {
@@ -465,6 +480,9 @@ public class player : MonoBehaviour
 
 	//The camera transform component for the main camera.
 	private Transform mCameraTransform;
+
+    //The global game data.
+    private globalData mGlobalData;
 
 	//The layer mask of the collidable objects.
 	private LayerMask collidableLayerMask;

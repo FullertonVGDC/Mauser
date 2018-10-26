@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class camera : MonoBehaviour 
 {
-
 	// Use this for initialization
 	void Start () 
 	{

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212796723894822460}
   - component: {fileID: 58763115381508142}
   - component: {fileID: 50624187475482092}
+  - component: {fileID: 114720711660694352}
   m_Layer: 0
   m_Name: gold
   m_TagString: gold
@@ -77,6 +78,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &114720711660694352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1317197495504116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33f01bf1fd18426fa6db9276dbda7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottleCapType: 0
+  mSpriteRenderer: {fileID: 0}
 --- !u!212 &212796723894822460
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -111,7 +125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 67bb6b6d1d4694893aa5cf8c330ac42b, type: 3}
   m_Color: {r: 1, g: 0.93730235, b: 0, a: 1}
   m_FlipX: 0
