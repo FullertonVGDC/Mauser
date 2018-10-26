@@ -66,6 +66,10 @@ public class player : MonoBehaviour
 			RaycastHit2D groundRayR = Physics2D.Raycast(mTransform.position - new Vector3(-0.5f, 0.5f, 0.0f), 
 				new Vector3(0.0f, -1.0f, 0.0f), 0.2f, collidableLayerMask);
 
+            //The middle ray.
+            RaycastHit2D groundRayM = Physics2D.Raycast(mTransform.position - new Vector3(0.0f, 0.5f, 0.0f), 
+                new Vector3(0.0f, -1.0f, 0.0f), 0.2f, collidableLayerMask);
+
 			//If the collision occurs, check if grounded. If not, assume the player is in the air and set grounded to 
 			// false.
 			if (groundRayL) 
@@ -82,20 +86,34 @@ public class player : MonoBehaviour
 					mGrounded = true;
 				}
 			} 
-			else if (groundRayR) 
-			{
-				//If the distance is smaller than the previous distance, wait until the object stops falling. If the 
-				// distance is larger than or equal to the previous distance, then the object is grounded.
-				if (groundRayL.distance < mPrevDistanceFromGroundR) 
-				{
-					mPrevDistanceFromGroundR = groundRayL.distance;
-				} 
-				else 
-				{
-					mPrevDistanceFromGroundR = 999.0f;
-					mGrounded = true;
-				}
-			} 
+            else if (groundRayR) 
+            {
+                //If the distance is smaller than the previous distance, wait until the object stops falling. If the 
+                // distance is larger than or equal to the previous distance, then the object is grounded.
+                if (groundRayL.distance < mPrevDistanceFromGroundR) 
+                {
+                    mPrevDistanceFromGroundR = groundRayL.distance;
+                } 
+                else 
+                {
+                    mPrevDistanceFromGroundR = 999.0f;
+                    mGrounded = true;
+                }
+            } 
+            else if (groundRayM) 
+            {
+                //If the distance is smaller than the previous distance, wait until the object stops falling. If the 
+                // distance is larger than or equal to the previous distance, then the object is grounded.
+                if (groundRayM.distance < mPrevDistanceFromGroundM) 
+                {
+                    mPrevDistanceFromGroundM = groundRayM.distance;
+                } 
+                else 
+                {
+                    mPrevDistanceFromGroundM = 999.0f;
+                    mGrounded = true;
+                }
+            } 
 			else 
 			{
 				mGrounded = false;
@@ -424,6 +442,9 @@ public class player : MonoBehaviour
 
 	//The previous distance from the ground for the right ray.
 	private float mPrevDistanceFromGroundR = 999.0f;
+
+    //The previous distance from the ground for the middle ray.
+    private float mPrevDistanceFromGroundM = 999.0f;
 
     //The time elapsed for a single bullet to fire. The denominator is the bullets per second 
     // fired by the player.
