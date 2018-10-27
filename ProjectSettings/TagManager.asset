@@ -8,6 +8,7 @@ TagManager:
   - collidable
   - enemy1
   - bullet
+  - cookie
   layers:
   - Default
   - TransparentFX

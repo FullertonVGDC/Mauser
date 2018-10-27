@@ -142,6 +142,20 @@ public class player : MonoBehaviour
 
 			Destroy(collider.gameObject);
 		}
+		
+		if (collider.gameObject.tag == "cookie") 
+		{
+			mCurHealth++;
+			
+			if(mCurHealth > mMaxHealth)
+			{
+				mCurHealth = mMaxHealth;
+			}
+			
+            Debug.Log("Health: " + mCurHealth);
+
+			Destroy(collider.gameObject);
+		}
 	}
 
 	//Collision Callbacks on Stay(Trigger).
@@ -373,18 +387,83 @@ public class player : MonoBehaviour
     	//Camera offset for forcing the camera away from the player.
     	Vector3 cameraOffset = new Vector3 (0.0f, 0.0f, 0.0f);
 
-    		float transformY;
+		float transformY = 0.0f;
 
-    		bool cameraIsScrollingUp = mCameraScript.GetIsScrollingUp ();
+		float cameraYPos = mCameraTransform.position.y;
+		
+		float ySpeedInterpolation;
+		
+		bool cameraIsScrollingUp = mCameraScript.GetIsScrollingUp ();
 
-    		if (cameraIsScrollingUp) 
-    		{
-    			transformY = mCameraTransform.position.y + (mScrollSpeed * Time.deltaTime);
-    		} 
-    		else 
-    		{
-    			transformY = mTransform.position.y;
-    		}
+		if (cameraIsScrollingUp) 
+		{	
+			if(cameraYPos < 20.0f)
+			{
+				if(mScrollSpeed1Interpolation1 < 1.0f)
+				{
+					mScrollSpeed1Interpolation1 += 0.1f * Time.deltaTime;
+					
+					if(mScrollSpeed1Interpolation1 > 1.0f)
+					{
+						mScrollSpeed1Interpolation1 = 1.0f;
+					}
+					
+					ySpeedInterpolation = Mathf.Lerp(0.0f, mScrollSpeed1, mScrollSpeed1Interpolation1);
+					
+					transformY = cameraYPos + (ySpeedInterpolation * Time.deltaTime);
+				}
+				else
+				{
+					transformY = cameraYPos + (mScrollSpeed1 * Time.deltaTime);
+				}
+			}
+			else if(cameraYPos >= 20.0f && cameraYPos < 65.0f)
+			{
+				mScrollSpeed1Interpolation1 = 0.0f;
+				
+				if(mScrollSpeed1Interpolation2 < 1.0f)
+				{
+					mScrollSpeed1Interpolation2 += 0.2f * Time.deltaTime;
+					
+					if(mScrollSpeed1Interpolation2 > 1.0f)
+					{
+						mScrollSpeed1Interpolation2 = 1.0f;
+					}
+					
+					ySpeedInterpolation = Mathf.Lerp(mScrollSpeed1, mScrollSpeed2, mScrollSpeed1Interpolation2);
+					
+					transformY = cameraYPos + (ySpeedInterpolation * Time.deltaTime);
+				}
+				else
+				{
+					transformY = cameraYPos + (mScrollSpeed2 * Time.deltaTime);
+				}
+			}
+			else
+			{
+				if(mScrollSpeed1Interpolation1 < 1.0f)
+				{
+					mScrollSpeed1Interpolation1 += 0.1f * Time.deltaTime;
+					
+					if(mScrollSpeed1Interpolation1 > 1.0f)
+					{
+						mScrollSpeed1Interpolation1 = 1.0f;
+					}
+					
+					ySpeedInterpolation = Mathf.Lerp(mScrollSpeed2, 0.0f, mScrollSpeed1Interpolation1);
+					
+					transformY = cameraYPos + (ySpeedInterpolation * Time.deltaTime);
+				}
+				else
+				{
+					transformY = cameraYPos;
+				}
+			}
+		} 
+		else 
+		{
+			transformY = cameraYPos;
+		}
     			
     	//The final camera position.
     	Vector3 finalCameraPosition = new Vector3 (mTransform.position.x, transformY, 
@@ -467,8 +546,17 @@ public class player : MonoBehaviour
 	//The maximum hurt invincibility amount in seconds.
 	private float mHurtInvincibilityPeriod = 2.0f;
 
-	//The scrolling speed for the camera in the wall level.
-	public float mScrollSpeed = 0.5f;
+	//The scrolling speed for the camera in the wall level at the bottom of the level.
+	public float mScrollSpeed1 = 0.5f;
+	
+	//The scrolling speed for the camera in the wall level at the middle of the level.
+	public float mScrollSpeed2 = 0.9f;
+	
+	//The interpolation for the scroll speed at the bottom of the level.
+	public float mScrollSpeed1Interpolation1 = 0.0f;
+	
+	//The interpolation for the scroll speed at the middle of the level.
+	public float mScrollSpeed1Interpolation2 = 0.0f;
 
 	//The maximum knockback amount in seconds.
 	private float mKnockbackPeriod = 0.5f;

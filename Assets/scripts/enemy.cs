@@ -138,11 +138,11 @@ public class enemy : MonoBehaviour
     {
         //The Left ray.
         RaycastHit2D wallRayL = Physics2D.Raycast(mTransform.position - new Vector3(-0.0f, 0.1f, 0.0f), 
-            new Vector3(-1.0f, 0.0f, 0.0f), 1.0f, collidableLayerMask);
+            new Vector3(-1.0f, 0.0f, 0.0f), 0.5f, collidableLayerMask);
 
         //The right ray.
         RaycastHit2D wallRayR = Physics2D.Raycast(mTransform.position - new Vector3(0.0f, 0.1f, 0.0f), 
-            new Vector3(1.0f, 0.0f, 0.0f), 1.0f, collidableLayerMask);
+            new Vector3(1.0f, 0.0f, 0.0f), 0.5f, collidableLayerMask);
 
         if (wallRayL.collider != null)
         {
