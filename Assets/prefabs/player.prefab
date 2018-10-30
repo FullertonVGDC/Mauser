@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a1b4bbbb67d4437a7a2a4e12c1efb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mScrollSpeed1: 0.5
-  mScrollSpeed2: 0.9
+  mScrollSpeed1: 0.75
+  mScrollSpeed2: 1.5
   mScrollSpeed1Interpolation1: 0
   mScrollSpeed1Interpolation2: 0
   mBulletPrefab: {fileID: 1080932654147884, guid: 854774592c7cb4188bfb8854efab4b36,

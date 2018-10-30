@@ -9,6 +9,7 @@ public class player : MonoBehaviour
 	{
 		mTransform = GetComponent<Transform> ();
 		mRigidBody2D = GetComponent<Rigidbody2D> ();
+        mAnimator = GetComponent<Animator>();
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
 
@@ -84,6 +85,7 @@ public class player : MonoBehaviour
 				{
 					mPrevDistanceFromGroundL = 999.0f;
 					mGrounded = true;
+                    mAnimator.SetBool("Grounded", true);
 				}
 			} 
             else if (groundRayR) 
@@ -98,6 +100,7 @@ public class player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundR = 999.0f;
                     mGrounded = true;
+                    mAnimator.SetBool("Grounded", true);
                 }
             } 
             else if (groundRayM) 
@@ -112,12 +115,14 @@ public class player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundM = 999.0f;
                     mGrounded = true;
+                    mAnimator.SetBool("Grounded", true);
                 }
             } 
 			else 
 			{
 				mGrounded = false;
-			}
+                mAnimator.SetBool("Grounded", false);
+            }
 		}
 	}
 
@@ -255,14 +260,23 @@ public class player : MonoBehaviour
 			{
 	            mFacingRight = false;
 				mWalkingLeft = true;
-			}
+                mAnimator.SetBool("Moving", true);
+                mSpriteRenderer.flipX = true;
+            }
 
 			//Check if the right walking keys are down.
-			if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+			else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
 			{
 	            mFacingRight = true;
 				mWalkingRight = true;
-			}
+                mAnimator.SetBool("Moving", true);
+                mSpriteRenderer.flipX = false;
+            }
+
+            else
+            {
+                mAnimator.SetBool("Moving", false);
+            }
 
 			//Check if the jumping keys are down.
 			if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
@@ -271,6 +285,7 @@ public class player : MonoBehaviour
 				if (mGrounded) 
 				{
 					mGrounded = false;
+                    mAnimator.SetBool("Grounded", false);
 					jumpingAllowed = true;
 				}
 			}
@@ -289,13 +304,13 @@ public class player : MonoBehaviour
 			if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
 			{
 				mWalkingLeft = false;
-			}
+            }
 
 			//Check if the right walking keys are released.
-			if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
+			else if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
 			{
 				mWalkingRight = false;
-			}
+            }
 
 			//--------------------------------------------------------------------------------------------------------------
 			//Process the movement.
@@ -611,6 +626,9 @@ public class player : MonoBehaviour
 
 	//The sprite renderer.
 	private SpriteRenderer mSpriteRenderer;
+
+    //The animator.
+    private Animator mAnimator;
 
     //Public variables:
 
