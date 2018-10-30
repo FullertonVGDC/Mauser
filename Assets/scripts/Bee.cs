@@ -18,9 +18,10 @@ public class Bee : MonoBehaviour
     void Update()
     {
         deg += swaySpeed * Time.deltaTime;
-        if (deg >= 360) deg -= 360;
+        if (deg >= 720) deg -= 720;
 
-        float finalSin = 0.5f * Mathf.Sin(deg * Mathf.Deg2Rad);
-        transform.localPosition = new Vector3(anchorPos.x, anchorPos.y + finalSin, transform.localPosition.z);
+        float finalSinX = 0.5f * Mathf.Sin(0.5f * deg * Mathf.Deg2Rad);
+        float finalSinY = 0.35f * Mathf.Sin(deg * Mathf.Deg2Rad);
+        transform.localPosition = new Vector3(anchorPos.x + finalSinX, anchorPos.y + finalSinY, transform.localPosition.z);
     }
 }
