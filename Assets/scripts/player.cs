@@ -395,7 +395,7 @@ public class player : MonoBehaviour
             {
                 GameObject bulletPrefab = Instantiate(mBulletPrefab);
                 bulletPrefab.transform.position = new Vector3(mTransform.position.x, 
-                    mTransform.position.y, mTransform.position.z);
+                    mTransform.position.y + 0.5f, mTransform.position.z);
 
                 bullet bulletComponent = bulletPrefab.GetComponent<bullet>();
 
@@ -447,7 +447,7 @@ public class player : MonoBehaviour
 					transformY = cameraYPos + (mScrollSpeed1 * Time.deltaTime);
 				}
 			}
-			else if(cameraYPos >= 20.0f && cameraYPos < 65.0f)
+			else if(cameraYPos >= 20.0f && cameraYPos < 62.0f)
 			{
 				mScrollSpeed1Interpolation1 = 0.0f;
 				
@@ -577,10 +577,10 @@ public class player : MonoBehaviour
 	private float mHurtInvincibilityPeriod = 2.0f;
 
 	//The scrolling speed for the camera in the wall level at the bottom of the level.
-	public float mScrollSpeed1 = 0.5f;
+	public float mScrollSpeed1 = 0.3f;
 	
 	//The scrolling speed for the camera in the wall level at the middle of the level.
-	public float mScrollSpeed2 = 0.9f;
+	public float mScrollSpeed2 = 0.6f;
 	
 	//The interpolation for the scroll speed at the bottom of the level.
 	public float mScrollSpeed1Interpolation1 = 0.0f;
