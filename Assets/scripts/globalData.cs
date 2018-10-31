@@ -38,30 +38,30 @@ public class globalData : MonoBehaviour
 	{
 		if(mChangedGameMap) 
         {
-			mMainCamera = GameObject.Find ("MainCamera");
-            Debug.Log("Changed to main camera.");
+			if(mMainCamera == null)
+			{
+				mMainCamera = Instantiate(mMainCameraPrefab);
+				Debug.Log("Created the main camera");
+			}
 
-			if(mMainCamera != null) 
-            {
-				mCurGameMapBounds = mGameMapBounds [(int)mCurGameMapName];
+			mCurGameMapBounds = mGameMapBounds [(int)mCurGameMapName];
 
-				camera cameraSript = mMainCamera.GetComponent<camera> ();
+			camera cameraSript = mMainCamera.GetComponent<camera> ();
 
-				if (cameraSript != null) 
+			if (cameraSript != null) 
+			{
+				//Check if camera scrolling should be used.
+				if (mCurGameMapName == GameMapName.GAMEMAP_WALLS) 
 				{
-					//Check if camera scrolling should be used.
-					if (mCurGameMapName == GameMapName.GAMEMAP_WALLS) 
-					{
-						cameraSript.SetIsScrollingUp (true);
-					} 
-					else 
-					{
-						cameraSript.SetIsScrollingUp (false);
-					}
-
-					Debug.Log ("Changed camera bounds.");
-					cameraSript.UpdateCameraBounds (mCurGameMapBounds);
+					cameraSript.SetIsScrollingUp (true);
+				} 
+				else 
+				{
+					cameraSript.SetIsScrollingUp (false);
 				}
+
+				Debug.Log ("Changed camera bounds.");
+				cameraSript.UpdateCameraBounds (mCurGameMapBounds);
 			}
 
 			mChangedGameMap = false;
@@ -118,4 +118,9 @@ public class globalData : MonoBehaviour
 
 	//The list of all game map bounds for the camera.
 	private Bounds[] mGameMapBounds;
+	
+	//Public variables:
+	
+	//The main camera prefab.
+	public GameObject mMainCameraPrefab;
 }

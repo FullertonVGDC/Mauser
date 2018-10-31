@@ -13,11 +13,6 @@ public class player : MonoBehaviour
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
 
-		//Get the main camera.
-		mCameraObject = GameObject.Find("MainCamera");
-		mCameraScript = mCameraObject.GetComponent<camera>();
-		mCameraTransform = mCameraObject.transform;
-
 		mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         //Get the global data.
@@ -30,9 +25,28 @@ public class player : MonoBehaviour
 	void Update () 
 	{
 		Movement ();
-	        BulletCreation();
-	        UpdateCameraPosition();
-		CheckIfBelowCamera ();
+		BulletCreation();
+		
+		//Perform the camera controlling.
+		if(mCameraObject == null)
+		{
+			//Get the main camera.
+			mCameraObject = GameObject.Find("MainCamera(Clone)");
+			
+			//Get the other main camera components.
+			if(mCameraObject != null)
+			{
+				mCameraScript = mCameraObject.GetComponent<camera>();
+				mCameraTransform = mCameraObject.transform;
+			}
+		}
+		
+		//Only control the camera if it exists.
+		if(mCameraObject != null)
+		{
+			UpdateCameraPosition();
+			CheckIfBelowCamera ();
+		}
 
 		//Compute invincibility period.
 		if(mIsHurt == true)
@@ -135,7 +149,7 @@ public class player : MonoBehaviour
 	//Collision Callbacks on Enter(Trigger).
 	void OnTriggerEnter2D(Collider2D collider)
 	{
-		//Check if colliding with golden cheese.
+		//Check if colliding with bottle caps.
 		if (collider.gameObject.tag == "gold") 
 		{
             //The bottle cap object being collided with.
@@ -148,6 +162,7 @@ public class player : MonoBehaviour
 			Destroy(collider.gameObject);
 		}
 		
+		//Check if colliding with a cookie.
 		if (collider.gameObject.tag == "cookie") 
 		{
 			mCurHealth++;

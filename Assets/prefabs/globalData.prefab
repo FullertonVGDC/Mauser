@@ -51,3 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c4993c166844f06a7d9fa019b46714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mMainCameraPrefab: {fileID: 1061235340640308, guid: aba8fead8132f4f06bfd576963861601,
+    type: 2}

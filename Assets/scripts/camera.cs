@@ -7,6 +7,9 @@ public class camera : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		//Allow this object to always exist.
+		DontDestroyOnLoad (this.gameObject);
+		
 		mCamera = GetComponent<Camera> ();
 		mTransform = GetComponent<Transform> ();
 
