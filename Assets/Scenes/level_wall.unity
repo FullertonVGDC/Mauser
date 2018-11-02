@@ -21141,12 +21141,12 @@ Prefab:
     - target: {fileID: 61206666451635680, guid: ff771403cb7d74e32af8aba06ddabb6f,
         type: 2}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 30.000002
+      value: 23.34
       objectReference: {fileID: 0}
     - target: {fileID: 61206666451635680, guid: ff771403cb7d74e32af8aba06ddabb6f,
         type: 2}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 30.000002
+      value: 22.68
       objectReference: {fileID: 0}
     - target: {fileID: 61206666451635680, guid: ff771403cb7d74e32af8aba06ddabb6f,
         type: 2}
@@ -21168,6 +21168,11 @@ Prefab:
         type: 2}
       propertyPath: m_SpriteSortPoint
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61206666451635680, guid: ff771403cb7d74e32af8aba06ddabb6f,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff771403cb7d74e32af8aba06ddabb6f, type: 2}

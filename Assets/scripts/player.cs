@@ -197,7 +197,9 @@ public class player : MonoBehaviour
                     mWalkingLeft = false;
                     mWalkingRight = false;
                     mGrounded = false;
+                    mAnimator.SetBool("Grounded", false);
                     mIsHurt = true;
+                    mAnimator.Play("Hurt");
 
                     mSpriteRenderer.enabled = false;
 
@@ -206,6 +208,7 @@ public class player : MonoBehaviour
                     {
                         Debug.Log("Dead!");
                         mIsDead = true;
+                        mAnimator.Play("Death");
 
                         if (mRigidBody2D.velocity.x > 0)
                         {
