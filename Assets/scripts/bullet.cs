@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour 
+public class Bullet : MonoBehaviour 
 {
 	// Use this for initialization
-	void Start () 
+	void Start()
     {
-        mRigidBody = this.GetComponent<Rigidbody2D>();
-	    mTransform = this.GetComponent<Transform> ();
+        mRigidBody = GetComponent<Rigidbody2D>();
+	    mTransform = GetComponent<Transform> ();
 	    mCameraTransform = GameObject.Find ("MainCamera(Clone)").GetComponent<Transform> ();
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update()
     {
         Vector2 bulletVelocity = new Vector2(mBulletSpeed, 0.0f);
 
@@ -56,6 +56,10 @@ public class bullet : MonoBehaviour
     public void SetFacingRight(bool sFacingRight)
     {
         mFacingRight = sFacingRight;
+        if (mFacingRight)
+            GetComponent<SpriteRenderer>().flipX = false;
+        else
+            GetComponent<SpriteRenderer>().flipX = true;
     }
 
     //Getters:

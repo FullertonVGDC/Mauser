@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy : MonoBehaviour 
+public class DustBunny : MonoBehaviour 
 {
 	// Use this for initialization
 	void Start () 
@@ -10,31 +10,23 @@ public class enemy : MonoBehaviour
 		mTransform = GetComponent<Transform> ();
 		mRigidBody2D = GetComponent<Rigidbody2D> ();
         mCollider2D = GetComponent<Collider2D>();
+        mSpriteRenderer = GetComponent<SpriteRenderer>();
+        mAnimator = GetComponent<Animator>();
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
-
-	//Use this for anything involving collision or anything else that is discrete every 1 / 60th of a frame.
-	void FixedUpdate()
+	void Update ()
 	{
         if (!mDead)
         {
             PrimaryMovement();
             CheckForWalls();
         }
-        else
-        {
-            DyingAnimation();
-        }
 
         CheckIfBelowDeathLine();
-	}
+    }
 
     //Collision Callbacks (Trigger).
     void OnTriggerEnter2D(Collider2D collider)
@@ -42,24 +34,12 @@ public class enemy : MonoBehaviour
         if (collider.gameObject.tag == "bullet" && !mDead)
         {
             mCurHealth -= 1;
-
             if (mCurHealth == 0)
             {
                 mDead = true;
-                mJustDied = true;
-            }
-
-            //The other bullet being attacted by.
-            bullet bullet1 = collider.GetComponent<bullet>();
-
-            //Find out which direction the enemy is being attacked from.
-            if (bullet1.GetFacingRight())
-            {
-                mAttackedFromLeft = false;
-            }
-            else
-            {
-                mAttackedFromLeft = true;
+                mSpriteRenderer.flipX = false;
+                mRigidBody2D.velocity = Vector3.zero;
+                mAnimator.SetTrigger("Death Trigger");
             }
         }
     }
@@ -70,10 +50,12 @@ public class enemy : MonoBehaviour
         if(mFacingLeft == true)
         {
             mRigidBody2D.velocity = new Vector3(-mWalkingSpeed, mRigidBody2D.velocity.y, 0.0f);
+            mSpriteRenderer.flipX = false;
         }
         else
         {
             mRigidBody2D.velocity = new Vector3(mWalkingSpeed, mRigidBody2D.velocity.y, 0.0f);
+            mSpriteRenderer.flipX = true;
         }
 
         //Check if grounded.
@@ -123,13 +105,9 @@ public class enemy : MonoBehaviour
             if(mGrounded)
             {
                 if(groundRayL.collider == null)
-                {
                     mFacingLeft = false;
-                }
                 else if(groundRayR.collider == null)
-                {
                     mFacingLeft = true;
-                }
             }
         }
     }
@@ -145,38 +123,10 @@ public class enemy : MonoBehaviour
             new Vector3(1.0f, 0.0f, 0.0f), 0.5f, collidableLayerMask);
 
         if (wallRayL.collider != null)
-        {
             mFacingLeft = false;
-        }
 
         if (wallRayR.collider != null)
-        {
             mFacingLeft = true;
-        }
-    }
-
-    void DyingAnimation()
-    {
-        //If just died, fire the enemy into the air and have it fall off screen.
-        // Also prevent the enemy from colliding with walls.
-        if (mJustDied)
-        {
-            Vector2 prevVelocity = new Vector2(mRigidBody2D.velocity.x, mRigidBody2D.velocity.y);
-
-            if (mAttackedFromLeft)
-            {
-                mRigidBody2D.velocity = new Vector2(-4.0f, 10.0f);
-            }
-            else
-            {
-                mRigidBody2D.velocity = new Vector2(4.0f, 10.0f);
-            }
-
-            mRigidBody2D.gravityScale = 2.0f;
-            mCollider2D.isTrigger = true;
-
-            mJustDied = false;
-        }
     }
 
     void CheckIfBelowDeathLine()
@@ -184,8 +134,13 @@ public class enemy : MonoBehaviour
         //If below the death line, destroy the enemy.
         if (mTransform.position.y < -5.0f) 
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
+    }
+
+    void DeleteSelf()
+    {
+        Destroy(gameObject);
     }
 
     //Getters:
@@ -216,14 +171,8 @@ public class enemy : MonoBehaviour
 	//Checks if the enemy is facing left.
 	private bool mFacingLeft = true;
 
-    //Checks if the enemy has been attacked from the left.
-    private bool mAttackedFromLeft = false;
-
     //Checks if the enemy is dead.
     private bool mDead = false;
-
-    //Checks if the enemy has just died this frame.
-    private bool mJustDied = true;
 
 	//The layer mask of the collidable objects.
 	private LayerMask collidableLayerMask;
@@ -236,4 +185,10 @@ public class enemy : MonoBehaviour
 
     //The collider for the enemy object.
     private Collider2D mCollider2D;
+
+    //The sprite renderer for the dust bunny.
+    private SpriteRenderer mSpriteRenderer;
+
+    //The animator component for the dust bunny.
+    private Animator mAnimator;
 }
