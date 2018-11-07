@@ -28,7 +28,7 @@ public class level1Button : MonoBehaviour {
 		string sceneName = "level_garage";
 
 		Destroy(GameObject.Find("MainMenuCamera"));
-		mGlobalData.ChangeMap (sceneName, GameMapName.GAMEMAP_BASEMENT);
+		mGlobalData.ChangeMap (sceneName);
 
 	}
 

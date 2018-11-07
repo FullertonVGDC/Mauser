@@ -36,12 +36,46 @@ public class globalData : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		
+	}
+
+	//Scene loading event management.
+	
+	//Add the event listener for loading the next scene.
+	void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+	
+	//Remove the event listener for loading the next scene.
+	void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+	
+	//Update for when the scene changes.
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
 		if(mChangedGameMap) 
         {
+			//A reference to the canvas object.
+			GameObject canvasObj = GameObject.Find("Canvas");
+			
+			//Create the main camera if we haven't already.
 			if(mMainCamera == null)
 			{
 				mMainCamera = Instantiate(mMainCameraPrefab);
-				Debug.Log("Created the main camera");
+			}
+			
+			//Create the fader object.
+			if(canvasObj != null)
+			{
+				mGuiFader = Instantiate(mGuiFaderPrefab);
+				mGuiFader.transform.SetParent(canvasObj.transform, false);
+			}
+			else
+			{
+				Debug.Log("Error: Canvas object could not be found.");
 			}
 
 			mCurGameMapBounds = mGameMapBounds [(int)mCurGameMapName];
@@ -53,6 +87,7 @@ public class globalData : MonoBehaviour
 				//Check if camera scrolling should be used.
 				if (mCurGameMapName == GameMapName.GAMEMAP_WALLS) 
 				{
+					mMainCamera.transform.position = new Vector3(0.0f, 4.0f, -1.0f);
 					cameraSript.SetIsScrollingUp (true);
 				} 
 				else 
@@ -60,19 +95,26 @@ public class globalData : MonoBehaviour
 					cameraSript.SetIsScrollingUp (false);
 				}
 
-				Debug.Log ("Changed camera bounds.");
 				cameraSript.UpdateCameraBounds (mCurGameMapBounds);
 			}
 
 			mChangedGameMap = false;
 		}
 	}
-
-	public void ChangeMap(string sceneName, GameMapName gameMapName)
+	
+	public void ChangeMap(string sceneName)
 	{
 		SceneManager.LoadScene (sceneName);
 
-		mCurGameMapName = gameMapName;
+		//Choose the correct game map name for the camera boundaries.
+		if(sceneName == "level_wall_fade")
+		{
+			mCurGameMapName = GameMapName.GAMEMAP_WALLS;
+		}
+		else if(sceneName == "level_wall")
+		{
+			mCurGameMapName = GameMapName.GAMEMAP_WALLS;
+		}
 
 		mChangedGameMap = true;
 	}
@@ -115,6 +157,9 @@ public class globalData : MonoBehaviour
 
 	//A quick reference to the main camera.
 	private GameObject mMainCamera;
+	
+	//A quick reference to the fader object.
+	private GameObject mGuiFader;
 
 	//The list of all game map bounds for the camera.
 	private Bounds[] mGameMapBounds;
@@ -123,4 +168,7 @@ public class globalData : MonoBehaviour
 	
 	//The main camera prefab.
 	public GameObject mMainCameraPrefab;
+	
+	//The gui fader prefab.
+	public GameObject mGuiFaderPrefab;
 }

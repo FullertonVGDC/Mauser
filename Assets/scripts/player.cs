@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class player : MonoBehaviour 
 {
@@ -61,6 +62,30 @@ public class player : MonoBehaviour
 			if(mHurtInvincibilityPeriodAmount >= mHurtInvincibilityPeriod)
 			{
 				mIsHurt = false;
+			}
+		}
+		
+		//Code to run while dead.
+		if(mIsDead)
+		{
+			//Get the gui fader object and check if it exists. If not, it is destroyed.
+			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
+			
+			//The component of the gui fader object.
+			guiFader guiFaderComp = guiFaderObj.GetComponent<guiFader>();
+			
+			//If the gui fader object is destroyed, reload the current level. 
+			// Otherwise, make the fader fade in.
+			if(guiFaderComp.GetIsDoneFading() == true)
+			{
+				//The name of the current scene being reloaded.
+				string sceneName = SceneManager.GetActiveScene().name;
+				
+				mGlobalData.ChangeMap(sceneName);
+			}
+			else
+			{
+				guiFaderComp.SetIsFadingIn(true);
 			}
 		}
 	}
@@ -176,6 +201,26 @@ public class player : MonoBehaviour
 
 			Destroy(collider.gameObject);
 		}
+		
+		//Check if colliding with a scene exit.
+		if (collider.gameObject.name == "sceneExit") 
+		{
+            Debug.Log("Reached the exit!");
+			
+			//Get the gui fader object and check if it exists. If not, it is destroyed.
+			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
+			
+			//The component of the gui fader object.
+			guiFader guiFaderComp = guiFaderObj.GetComponent<guiFader>();
+			
+			//Set the fader to is fading in and make the player enter invincibility 
+			// mode and be stuck in place.
+			guiFaderComp.SetIsFadingIn(true);
+			
+			mFoundExit = true;
+			
+			//Todo: later, check if fading is finished and go to the next level.
+		}
 	}
 
 	//Collision Callbacks on Stay(Trigger).
@@ -191,7 +236,7 @@ public class player : MonoBehaviour
             if (!enemy1.GetIsDead())
             {
                 //If the player isn't currently hurt, hurt the player.
-                if (mIsHurt == false && mIsDead == false)
+                if (mIsHurt == false && mIsDead == false && mFoundExit == false)
                 {
                     mIsBeingKnockedBack = true;
                     mWalkingLeft = false;
@@ -251,7 +296,7 @@ public class player : MonoBehaviour
 	void Movement()
 	{
 		//Only allow the player to move if the player is not dead and not being knocked back.
-		if(mIsBeingKnockedBack == false && mIsDead == false)
+		if(mIsBeingKnockedBack == false && mIsDead == false && mFoundExit == false)
 		{
 			//The final walk speed.
 			float finalWalkSpeed = 0.0f;
@@ -611,6 +656,9 @@ public class player : MonoBehaviour
 
 	//Checks if the player is dead.
 	private bool mIsDead = false;
+	
+	//Checks if the player found the exit.
+	private bool mFoundExit = false;
 
 	//Checks if the player is being knocked back.
 	private bool mIsBeingKnockedBack = false;
