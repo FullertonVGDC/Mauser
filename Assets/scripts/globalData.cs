@@ -24,7 +24,7 @@ public class globalData : MonoBehaviour
 
 		mGameMapBounds = new Bounds[3];
 
-		boundBasement.SetMinMax (new Vector3 (8.0f, 5.0f, -10.0f), new Vector3 (30.0f, 8.0f, 10.0f));
+		boundBasement.SetMinMax (new Vector3 (-1.0f, 5.0f, -10.0f), new Vector3 (161.0f, 13.0f, 10.0f));
 		boundWalls.SetMinMax (new Vector3 (4.0f, 5.0f, -10.0f), new Vector3 (16.0f, 30.0f, 10.0f));
 		boundKitchen.SetMinMax (new Vector3 (8.0f, 5.0f, -10.0f), new Vector3 (30.0f, 8.0f, 10.0f));
 
@@ -87,10 +87,45 @@ public class globalData : MonoBehaviour
 				//Check if camera scrolling should be used.
 				if (mCurGameMapName == GameMapName.GAMEMAP_WALLS) 
 				{
-					mMainCamera.transform.position = new Vector3(0.0f, 4.0f, -1.0f);
+					//The camera component of the main camera.
+					Camera cameraComp = mMainCamera.GetComponent<Camera> ();
+
+					mMainCamera.transform.position = new Vector3 (0.0f, 4.0f, -1.0f);
 					cameraSript.SetIsScrollingUp (true);
+
+					float numberOfRows = 4;
+					float spacingBetweenRows = 0.35f;
+					float spacingBetweenBees = 1.0f;
+
+					Vector2 bottomLeftCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (0, 0));
+					Vector2 bottomRightCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (cameraComp.pixelWidth, 0));
+					Vector2 beeSpawnPos = bottomLeftCameraPoint;
+
+					float degCounter = 0;
+
+					for (int i = 0; i < numberOfRows; i++) 
+					{
+						while (beeSpawnPos.x < bottomRightCameraPoint.x) 
+						{
+							GameObject newBee = Instantiate (mBeePrefab, beeSpawnPos, Quaternion.identity);
+							newBee.transform.parent = mMainCamera.transform;
+							newBee.GetComponent<Bee> ().deg = degCounter;
+							newBee.GetComponent<Bee> ().anchorPos = beeSpawnPos;
+
+							beeSpawnPos.x += spacingBetweenBees;
+							degCounter += 10;
+						}
+
+						beeSpawnPos.x = bottomLeftCameraPoint.x;
+						beeSpawnPos.y += spacingBetweenRows;
+					}
 				} 
-				else 
+				else if (mCurGameMapName == GameMapName.GAMEMAP_BASEMENT) 
+				{
+					mMainCamera.transform.position = new Vector3(0.0f, 4.0f, -1.0f);
+					cameraSript.SetIsScrollingUp (false);
+				}
+				else
 				{
 					cameraSript.SetIsScrollingUp (false);
 				}
@@ -171,4 +206,7 @@ public class globalData : MonoBehaviour
 	
 	//The gui fader prefab.
 	public GameObject mGuiFaderPrefab;
+
+	//The bee prefab for generating the bees.
+	public GameObject mBeePrefab;
 }

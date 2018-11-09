@@ -88,6 +88,34 @@ public class player : MonoBehaviour
 				guiFaderComp.SetIsFadingIn(true);
 			}
 		}
+
+		//Code to run while won.
+		if(mFoundExit)
+		{
+			//Get the gui fader object and check if it exists. If not, it is destroyed.
+			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
+
+			//The component of the gui fader object.
+			guiFader guiFaderComp = guiFaderObj.GetComponent<guiFader>();
+
+			//If the gui fader object is destroyed, reload the current level. 
+			// Otherwise, make the fader fade in.
+			if(guiFaderComp.GetIsDoneFading() == true)
+			{
+				//The name of the current scene.
+				string sceneName = SceneManager.GetActiveScene().name;
+
+				//Decide which scene to switch to.
+				if (sceneName == "level_garage") 
+				{
+					mGlobalData.ChangeMap ("level_wall_fade");
+				}
+			}
+			else
+			{
+				guiFaderComp.SetIsFadingIn(true);
+			}
+		}
 	}
 
 	//Use this for anything involving collision or anything else that is discrete every 1 / 60th of a frame.
@@ -537,7 +565,7 @@ public class player : MonoBehaviour
 		} 
 		else 
 		{
-			transformY = cameraYPos;
+			transformY = mTransform.position.y;
 		}
     			
     	//The final camera position.

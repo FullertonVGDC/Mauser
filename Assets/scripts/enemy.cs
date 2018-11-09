@@ -214,7 +214,7 @@ public class enemy : MonoBehaviour
 	private bool mGrounded = false;
 
 	//Checks if the enemy is facing left.
-	private bool mFacingLeft = true;
+	public bool mFacingLeft = true;
 
     //Checks if the enemy has been attacked from the left.
     private bool mAttackedFromLeft = false;
