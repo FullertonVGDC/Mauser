@@ -90,7 +90,15 @@ public class globalData : MonoBehaviour
 					//The camera component of the main camera.
 					Camera cameraComp = mMainCamera.GetComponent<Camera> ();
 
-					mMainCamera.transform.position = new Vector3 (0.0f, 4.0f, -1.0f);
+					if (mCheckpointEnabled)
+					{
+						mMainCamera.transform.position = new Vector3(0.0f, 25.0f, -1.0f);
+					}
+					else
+					{
+						mMainCamera.transform.position = new Vector3(0.0f, 4.0f, -1.0f);
+					}
+
 					cameraSript.SetIsScrollingUp (true);
 
 					float numberOfRows = 4;
@@ -135,6 +143,17 @@ public class globalData : MonoBehaviour
 
 			mChangedGameMap = false;
 		}
+
+		//Check if a checkpoint needs to be applied to the player.
+		if (mCheckpointEnabled)
+		{
+			GameObject playerGameObject = GameObject.Find("player");
+
+			playerGameObject.transform.position = new Vector3(
+				mCheckpointPosition.x, mCheckpointPosition.y, mCheckpointPosition.z);
+
+			Destroy(GameObject.Find("checkpoint"));
+		}
 	}
 	
 	public void ChangeMap(string sceneName)
@@ -155,10 +174,20 @@ public class globalData : MonoBehaviour
 	}
 
     //Setters.
+	public void SetCheckpointEnabled(bool enabled)
+	{
+		mCheckpointEnabled = enabled;
+	}
+
     public void SetCurrency(int sCurrency)
     {
         mCurrency = sCurrency;
     }
+
+	public void SetCheckpointPosition(Vector3 position)
+	{
+		mCheckpointPosition = position;
+	}
 
 	//Getters.
     public int GetCurrency()
@@ -181,8 +210,14 @@ public class globalData : MonoBehaviour
 	//Checks if currently changing the game map.
 	private bool mChangedGameMap = false;
 
+	//Checks if a checkpoint is enabled for the current game map.
+	private bool mCheckpointEnabled = false;
+
     //The currency of the player. Stored here for persistency.
     private int mCurrency = 0;
+
+	//The current check point position.
+	private Vector3 mCheckpointPosition;
 
 	//The name of the current game map being played.
 	private GameMapName mCurGameMapName;

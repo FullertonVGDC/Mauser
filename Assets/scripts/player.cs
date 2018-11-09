@@ -105,6 +105,8 @@ public class player : MonoBehaviour
 				//The name of the current scene.
 				string sceneName = SceneManager.GetActiveScene().name;
 
+				mGlobalData.SetCheckpointEnabled(false);
+
 				//Decide which scene to switch to.
 				if (sceneName == "level_garage") 
 				{
@@ -246,8 +248,17 @@ public class player : MonoBehaviour
 			guiFaderComp.SetIsFadingIn(true);
 			
 			mFoundExit = true;
-			
-			//Todo: later, check if fading is finished and go to the next level.
+		}
+
+		//Check if colliding with a checkpoint object.
+		if (collider.gameObject.name == "checkpoint") 
+		{
+			Debug.Log("Reached a checkpoint!");
+
+			mGlobalData.SetCheckpointEnabled(true);
+			mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
+
+			Destroy(collider.gameObject);
 		}
 	}
 
