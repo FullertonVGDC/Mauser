@@ -25,7 +25,7 @@ public class globalData : MonoBehaviour
 		mGameMapBounds = new Bounds[3];
 
 		boundBasement.SetMinMax (new Vector3 (-1.0f, 5.0f, -10.0f), new Vector3 (161.0f, 13.0f, 10.0f));
-		boundWalls.SetMinMax (new Vector3 (4.0f, 5.0f, -10.0f), new Vector3 (16.0f, 30.0f, 10.0f));
+		boundWalls.SetMinMax (new Vector3 (2.0f, 5.0f, -10.0f), new Vector3 (20.0f, 30.0f, 10.0f));
 		boundKitchen.SetMinMax (new Vector3 (8.0f, 5.0f, -10.0f), new Vector3 (30.0f, 8.0f, 10.0f));
 
 		mGameMapBounds [(int)GameMapName.GAMEMAP_BASEMENT] = boundBasement;

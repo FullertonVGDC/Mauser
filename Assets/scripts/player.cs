@@ -274,59 +274,18 @@ public class player : MonoBehaviour
             //Only get affected by the enemy if it isn't already dead.
             if (!enemy1.GetIsDead())
             {
-                //If the player isn't currently hurt, hurt the player.
-                if (mIsHurt == false && mIsDead == false && mFoundExit == false)
-                {
-                    mIsBeingKnockedBack = true;
-                    mWalkingLeft = false;
-                    mWalkingRight = false;
-                    mGrounded = false;
-                    mIsHurt = true;
+                TakeDamage();
+            }
+		} 
+		else if (collider.gameObject.tag == "spider") 
+		{
+            //The other enemy that the player is colliding with.
+            spider spiderComp = collider.gameObject.GetComponent<spider>();
 
-                    mSpriteRenderer.enabled = false;
-
-                    //Kill the player if out of health. Otherwise take damage.
-                    if (mCurHealth == 1)
-                    {
-                        Debug.Log("Dead!");
-                        mIsDead = true;
-
-                        if (mRigidBody2D.velocity.x > 0)
-                        {
-                            mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
-                            mFacingRight = true;
-                        }
-                        else if (mRigidBody2D.velocity.x < 0)
-                        {
-                            mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
-                            mFacingRight = false;
-                        }
-                        else
-                        {
-                            mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
-                        }
-                    }
-                    else
-                    {
-                        mCurHealth--;
-                        mHurtInvincibilityPeriodAmount = 0.0f;
-
-                        if (mRigidBody2D.velocity.x > 0)
-                        {
-                            mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
-                            mFacingRight = true;
-                        }
-                        else if (mRigidBody2D.velocity.x < 0)
-                        {
-                            mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
-                            mFacingRight = false;
-                        }
-                        else
-                        {
-                            mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
-                        }
-                    }
-                }
+            //Only get affected by the enemy if it isn't already dead.
+            if (!spiderComp.GetIsDead())
+            {
+                TakeDamage();
             }
 		}
 	}
@@ -620,6 +579,63 @@ public class player : MonoBehaviour
 			mWalkingLeft = false;
 			mWalkingRight = false;
 			mRigidBody2D.velocity = new Vector3 (0.0f, 0.0f, 0.0f);
+		}
+	}
+	
+	void TakeDamage()
+	{
+		//If the player isn't currently hurt, hurt the player.
+		if (mIsHurt == false && mIsDead == false && mFoundExit == false)
+		{
+			mIsBeingKnockedBack = true;
+			mWalkingLeft = false;
+			mWalkingRight = false;
+			mGrounded = false;
+			mIsHurt = true;
+
+			mSpriteRenderer.enabled = false;
+
+			//Kill the player if out of health. Otherwise take damage.
+			if (mCurHealth == 1)
+			{
+				Debug.Log("Dead!");
+				mIsDead = true;
+
+				if (mRigidBody2D.velocity.x > 0)
+				{
+					mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
+					mFacingRight = true;
+				}
+				else if (mRigidBody2D.velocity.x < 0)
+				{
+					mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
+					mFacingRight = false;
+				}
+				else
+				{
+					mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
+				}
+			}
+			else
+			{
+				mCurHealth--;
+				mHurtInvincibilityPeriodAmount = 0.0f;
+
+				if (mRigidBody2D.velocity.x > 0)
+				{
+					mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
+					mFacingRight = true;
+				}
+				else if (mRigidBody2D.velocity.x < 0)
+				{
+					mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
+					mFacingRight = false;
+				}
+				else
+				{
+					mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
+				}
+			}
 		}
 	}
 

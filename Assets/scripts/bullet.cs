@@ -48,7 +48,18 @@ public class bullet : MonoBehaviour
 
     	if (collider.gameObject.tag == "enemy1")
     	{
-    		Destroy(this.gameObject);
+			if(!collider.gameObject.GetComponent<enemy>().GetIsDead())
+			{
+				Destroy(this.gameObject);
+			}
+    	}
+		
+		if (collider.gameObject.tag == "spider")
+    	{
+			if(!collider.gameObject.GetComponent<spider>().GetIsDead())
+			{
+				Destroy(this.gameObject);
+			}
     	}
     }
 
