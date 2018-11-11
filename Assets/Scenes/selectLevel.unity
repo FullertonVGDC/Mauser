@@ -315,7 +315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &565906081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -798,6 +798,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114660326354870770, guid: e94b6df91bfe9411984e3bcfe61d7bd3,
+        type: 2}
+      propertyPath: mGuiFader
+      value: 
+      objectReference: {fileID: 1161520881893266, guid: 525cfd63500da6e4b932fb39deff5abd,
+        type: 2}
+    - target: {fileID: 114660326354870770, guid: e94b6df91bfe9411984e3bcfe61d7bd3,
+        type: 2}
+      propertyPath: mBeePrefab
+      value: 
+      objectReference: {fileID: 1338238201573868, guid: 6a8f30fa5dc7ad54a896725b56db199e,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e94b6df91bfe9411984e3bcfe61d7bd3, type: 2}
   m_IsPrefabAsset: 0

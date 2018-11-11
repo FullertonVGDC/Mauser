@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class level1Button : MonoBehaviour {
 
-	// Use this for initialization
+	// Use this for initialization.
 	void Start () 
 	{
 		Button button1 = GetComponent<Button> ();
@@ -15,7 +15,7 @@ public class level1Button : MonoBehaviour {
 		mGlobalData = GameObject.Find ("globalData").GetComponent<globalData> ();
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frame.
 	void Update () 
 	{
 		
@@ -28,7 +28,7 @@ public class level1Button : MonoBehaviour {
 		string sceneName = "level_garage";
 
 		Destroy(GameObject.Find("MainMenuCamera"));
-		mGlobalData.ChangeMap (sceneName, GameMapName.GAMEMAP_BASEMENT);
+		mGlobalData.ChangeMap (sceneName);
 
 	}
 

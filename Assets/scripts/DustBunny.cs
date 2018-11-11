@@ -169,7 +169,7 @@ public class DustBunny : MonoBehaviour
 	private bool mGrounded = false;
 
 	//Checks if the enemy is facing left.
-	private bool mFacingLeft = true;
+	public bool mFacingLeft = true;
 
     //Checks if the enemy is dead.
     private bool mDead = false;

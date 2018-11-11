@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 20089058631139458}
   - component: {fileID: 81980782253142632}
   - component: {fileID: 114157275835048266}
-  - component: {fileID: 114623911562655620}
   - component: {fileID: 82224259086258320}
   m_Layer: 0
   m_Name: MainCamera
@@ -100,12 +99,12 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7f01c001be0607c4c8b51c4ccb0e3107, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -198,18 +197,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCameraOrthoHeight: 1080
---- !u!114 &114623911562655620
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1061235340640308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d23d4b2a286e4c54e85f83ae69b87037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beePrefab: {fileID: 1338238201573868, guid: 6a8f30fa5dc7ad54a896725b56db199e, type: 2}
-  numberOfRows: 4
-  spacingBetweenRows: 0.35
-  spacingBetweenBees: 1

@@ -25,10 +25,10 @@ public class level2Button : MonoBehaviour {
 	{
 		Debug.Log("Clicked!");
 
-		string sceneName = "level_wall";
+		string sceneName = "level_wall_fade";
 
 		Destroy(GameObject.Find("MainMenuCamera"));
-		mGlobalData.ChangeMap (sceneName, GameMapName.GAMEMAP_WALLS);
+		mGlobalData.ChangeMap (sceneName);
 
 	}
 
