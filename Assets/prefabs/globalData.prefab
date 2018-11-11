@@ -55,3 +55,4 @@ MonoBehaviour:
     type: 2}
   mGuiFaderPrefab: {fileID: 1161520881893266, guid: 525cfd63500da6e4b932fb39deff5abd,
     type: 2}
+  mBeePrefab: {fileID: 1338238201573868, guid: 6a8f30fa5dc7ad54a896725b56db199e, type: 2}

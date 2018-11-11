@@ -3,7 +3,12 @@ guid: 13c4993c166844f06a7d9fa019b46714
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mMainCameraPrefab: {fileID: 1061235340640308, guid: aba8fead8132f4f06bfd576963861601,
+      type: 2}
+  - mGuiFaderPrefab: {fileID: 1161520881893266, guid: 525cfd63500da6e4b932fb39deff5abd,
+      type: 2}
+  - mBeePrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

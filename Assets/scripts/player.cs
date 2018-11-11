@@ -530,7 +530,7 @@ public class player : MonoBehaviour
         }
         else
         {
-            transformY = cameraYPos;
+            transformY = mTransform.position.y;
         }
 
         //The final camera position.
