@@ -28,6 +28,8 @@ public class player : MonoBehaviour
 		Movement ();
 		BulletCreation();
 		
+		mSpriteRenderer.enabled = true;
+		
 		//Perform the camera controlling.
 		if(mCameraObject == null)
 		{
@@ -58,10 +60,17 @@ public class player : MonoBehaviour
 			}
 
 			mHurtInvincibilityPeriodAmount += Time.deltaTime;
+			mFlashPeriodAmount += Time.deltaTime;
 
 			if(mHurtInvincibilityPeriodAmount >= mHurtInvincibilityPeriod)
 			{
 				mIsHurt = false;
+			}
+			
+			if(mFlashPeriodAmount >= mFlashPeriod)
+			{
+				mSpriteRenderer.enabled = false;
+				mFlashPeriodAmount = 0.0f;
 			}
 		}
 		
@@ -111,6 +120,10 @@ public class player : MonoBehaviour
 				if (sceneName == "level_garage") 
 				{
 					mGlobalData.ChangeMap ("level_wall_fade");
+				}
+				else if (sceneName == "level_wall_fade") 
+				{
+					mGlobalData.ChangeMap ("level_kitchen");
 				}
 			}
 			else
@@ -220,14 +233,34 @@ public class player : MonoBehaviour
         //Check if colliding with a cookie.
         if (collider.gameObject.tag == "cookie")
         {
-            mCurHealth++;
+			if(mArmorCookies == 0)
+			{
+				mCurHealth++;
 
-            if (mCurHealth > mMaxHealth)
-            {
-                mCurHealth = mMaxHealth;
-            }
+				if (mCurHealth > mMaxHealth)
+				{
+					mCurHealth = mMaxHealth;
+				}
 
-            Debug.Log("Health: " + mCurHealth);
+				Debug.Log("Health: " + mCurHealth);
+			}
+
+			Destroy(collider.gameObject);
+		}
+		
+		 //Check if colliding with an armor cookie.
+        if (collider.gameObject.tag == "armor_cookie")
+        {
+			if(mCurHealth == mMaxHealth)
+			{
+				mArmorCookies += 1;
+			}
+			else
+			{
+				mCurHealth += 1;
+				
+				Debug.Log("Health: " + mCurHealth);
+			}
 
 			Destroy(collider.gameObject);
 		}
@@ -436,7 +469,22 @@ public class player : MonoBehaviour
         {
             while (mFiringPeriodAmount >= mFiringPeriod)
             {
-                GameObject bulletPrefab = Instantiate(mBulletPrefab, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity);
+				//The bullet offset amount on the x axis.
+				float xOffset = 0.0f;
+				
+				if(mFacingRight)
+				{
+					xOffset = 1.0f;
+				}
+				else
+				{
+					xOffset = -1.0f;
+				}
+				
+                GameObject bulletPrefab = Instantiate(mBulletPrefab, new Vector2(
+					transform.position.x + xOffset, transform.position.y + 0.5f), 
+					Quaternion.identity);
+					
                 bullet bulletComponent = bulletPrefab.GetComponent<bullet>();
                 bulletComponent.SetFacingRight(mFacingRight);
                 mFiringPeriodAmount -= mFiringPeriod;
@@ -592,31 +640,10 @@ public class player : MonoBehaviour
 
 			mSpriteRenderer.enabled = false;
 
-			//Kill the player if out of health. Otherwise take damage.
-			if (mCurHealth == 1)
+			if(mArmorCookies != 0)
 			{
-				Debug.Log("Dead!");
-				mIsDead = true;
-                mAnimator.Play("Death");
-
-				if (mRigidBody2D.velocity.x > 0)
-				{
-					mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
-					mFacingRight = true;
-				}
-				else if (mRigidBody2D.velocity.x < 0)
-				{
-					mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
-					mFacingRight = false;
-				}
-				else
-				{
-					mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
-				}
-			}
-			else
-			{
-				mCurHealth--;
+				mArmorCookies -= 1;
+				
 				mHurtInvincibilityPeriodAmount = 0.0f;
 
 				if (mRigidBody2D.velocity.x > 0)
@@ -634,9 +661,65 @@ public class player : MonoBehaviour
 					mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
 				}
 			}
+			else
+			{
+				//Kill the player if out of health. Otherwise take damage.
+				if (mCurHealth == 1)
+				{
+					Debug.Log("Dead!");
+					mIsDead = true;
+					mAnimator.Play("Death");
+
+					if (mRigidBody2D.velocity.x > 0)
+					{
+						mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
+						mFacingRight = true;
+					}
+					else if (mRigidBody2D.velocity.x < 0)
+					{
+						mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
+						mFacingRight = false;
+					}
+					else
+					{
+						mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
+					}
+				}
+				else
+				{
+					mCurHealth--;
+					mHurtInvincibilityPeriodAmount = 0.0f;
+
+					if (mRigidBody2D.velocity.x > 0)
+					{
+						mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
+						mFacingRight = true;
+					}
+					else if (mRigidBody2D.velocity.x < 0)
+					{
+						mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
+						mFacingRight = false;
+					}
+					else
+					{
+						mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
+					}
+				}
+			}
 		}
 	}
 
+	//Getters:
+	public uint GetHealth()
+	{
+		return mCurHealth;
+	}
+	
+	public uint GetArmorCookies()
+	{
+		return mArmorCookies;
+	}
+	
     //Variables:
 
     //The current health the player has.
@@ -644,6 +727,9 @@ public class player : MonoBehaviour
 
     //The maximum health the player can hold.
     private uint mMaxHealth = 3;
+	
+	//The number of armor cookies the player has collected.
+	private uint mArmorCookies = 0;
 
     //The base walking speed.
     private float mBaseWalkSpeed = 6.0f;
@@ -673,6 +759,13 @@ public class player : MonoBehaviour
 
     //The maximum hurt invincibility amount in seconds.
     private float mHurtInvincibilityPeriod = 2.0f;
+	
+	 //The current flashing amount after the player gets hurt. When equal to max, the player
+    // flashes once.
+    private float mFlashPeriodAmount = 0.0f;
+
+    //The maximum flash period amount in seconds.
+    private float mFlashPeriod = 0.1f;
 
     //The scrolling speed for the camera in the wall level at the bottom of the level.
     public float mScrollSpeed1 = 0.3f;

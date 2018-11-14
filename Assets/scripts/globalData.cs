@@ -26,11 +26,13 @@ public class globalData : MonoBehaviour
 
 		boundBasement.SetMinMax (new Vector3 (-1.0f, 5.0f, -10.0f), new Vector3 (161.0f, 13.0f, 10.0f));
 		boundWalls.SetMinMax (new Vector3 (2.0f, 5.0f, -10.0f), new Vector3 (20.0f, 30.0f, 10.0f));
-		boundKitchen.SetMinMax (new Vector3 (8.0f, 5.0f, -10.0f), new Vector3 (30.0f, 8.0f, 10.0f));
+		boundKitchen.SetMinMax (new Vector3 (8.0f, 4.5f, -10.0f), new Vector3 (30.0f, 8.0f, 10.0f));
 
 		mGameMapBounds [(int)GameMapName.GAMEMAP_BASEMENT] = boundBasement;
 		mGameMapBounds [(int)GameMapName.GAMEMAP_WALLS] = boundWalls;
 		mGameMapBounds [(int)GameMapName.GAMEMAP_KITCHEN] = boundKitchen;
+		
+		mMusicPlayer = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -59,7 +61,7 @@ public class globalData : MonoBehaviour
 		if(mChangedGameMap) 
         {
 			//A reference to the canvas object.
-			GameObject canvasObj = GameObject.Find("Canvas");
+			GameObject canvasObj = GameObject.Find("gameplayGUI");
 			
 			//Create the main camera if we haven't already.
 			if(mMainCamera == null)
@@ -82,6 +84,17 @@ public class globalData : MonoBehaviour
 
 			camera cameraSript = mMainCamera.GetComponent<camera> ();
 
+			//Destroy the bees if they exist.
+			if(mBeesGenerated == true)
+			{
+				foreach (Transform beeTransform in mMainCamera.transform)
+				{
+					Destroy(beeTransform.gameObject);
+				}
+				
+				mBeesGenerated = false;
+			}
+			
 			if (cameraSript != null) 
 			{
 				//Check if camera scrolling should be used.
@@ -101,31 +114,36 @@ public class globalData : MonoBehaviour
 
 					cameraSript.SetIsScrollingUp (true);
 
-					float numberOfRows = 4;
-					float spacingBetweenRows = 0.35f;
-					float spacingBetweenBees = 1.0f;
-
-					Vector2 bottomLeftCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (0, 0));
-					Vector2 bottomRightCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (cameraComp.pixelWidth, 0));
-					Vector2 beeSpawnPos = bottomLeftCameraPoint;
-
-					float degCounter = 0;
-
-					for (int i = 0; i < numberOfRows; i++) 
+					if(mBeesGenerated == false)
 					{
-						while (beeSpawnPos.x < bottomRightCameraPoint.x) 
+						float numberOfRows = 4;
+						float spacingBetweenRows = 0.35f;
+						float spacingBetweenBees = 1.0f;
+
+						Vector2 bottomLeftCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (0, 0));
+						Vector2 bottomRightCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (cameraComp.pixelWidth, 0));
+						Vector2 beeSpawnPos = bottomLeftCameraPoint;
+
+						float degCounter = 0;
+
+						for (int i = 0; i < numberOfRows; i++) 
 						{
-							GameObject newBee = Instantiate (mBeePrefab, beeSpawnPos, Quaternion.identity);
-							newBee.transform.parent = mMainCamera.transform;
-							newBee.GetComponent<Bee> ().deg = degCounter;
-							newBee.GetComponent<Bee> ().anchorPos = beeSpawnPos;
+							while (beeSpawnPos.x < bottomRightCameraPoint.x) 
+							{
+								GameObject newBee = Instantiate (mBeePrefab, beeSpawnPos, Quaternion.identity);
+								newBee.transform.parent = mMainCamera.transform;
+								newBee.GetComponent<Bee> ().deg = degCounter;
+								newBee.GetComponent<Bee> ().anchorPos = beeSpawnPos;
 
-							beeSpawnPos.x += spacingBetweenBees;
-							degCounter += 10;
+								beeSpawnPos.x += spacingBetweenBees;
+								degCounter += 10;
+							}
+
+							beeSpawnPos.x = bottomLeftCameraPoint.x;
+							beeSpawnPos.y += spacingBetweenRows;
 						}
-
-						beeSpawnPos.x = bottomLeftCameraPoint.x;
-						beeSpawnPos.y += spacingBetweenRows;
+						
+						mBeesGenerated = true;
 					}
 				} 
 				else if (mCurGameMapName == GameMapName.GAMEMAP_BASEMENT) 
@@ -133,7 +151,7 @@ public class globalData : MonoBehaviour
 					mMainCamera.transform.position = new Vector3(0.0f, 4.0f, -1.0f);
 					cameraSript.SetIsScrollingUp (false);
 				}
-				else
+				else if (mCurGameMapName == GameMapName.GAMEMAP_KITCHEN)
 				{
 					cameraSript.SetIsScrollingUp (false);
 				}
@@ -141,6 +159,10 @@ public class globalData : MonoBehaviour
 				cameraSript.UpdateCameraBounds (mCurGameMapBounds);
 			}
 
+			//Play the background music.
+			
+			mMusicPlayer.Play(0);
+			
 			mChangedGameMap = false;
 		}
 
@@ -168,6 +190,10 @@ public class globalData : MonoBehaviour
 		else if(sceneName == "level_wall")
 		{
 			mCurGameMapName = GameMapName.GAMEMAP_WALLS;
+		}
+		else if(sceneName == "level_kitchen")
+		{
+			mCurGameMapName = GameMapName.GAMEMAP_KITCHEN;
 		}
 
 		mChangedGameMap = true;
@@ -213,6 +239,9 @@ public class globalData : MonoBehaviour
 	//Checks if a checkpoint is enabled for the current game map.
 	private bool mCheckpointEnabled = false;
 
+	//Checks if the bees have already been generated.
+	private bool mBeesGenerated = false;
+	
     //The currency of the player. Stored here for persistency.
     private int mCurrency = 0;
 
@@ -230,6 +259,9 @@ public class globalData : MonoBehaviour
 	
 	//A quick reference to the fader object.
 	private GameObject mGuiFader;
+	
+	//The music player for playing the background music during gameplay.
+	private AudioSource mMusicPlayer;
 
 	//The list of all game map bounds for the camera.
 	private Bounds[] mGameMapBounds;
