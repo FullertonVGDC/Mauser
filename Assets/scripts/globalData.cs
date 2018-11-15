@@ -134,6 +134,7 @@ public class globalData : MonoBehaviour
 								newBee.transform.parent = mMainCamera.transform;
 								newBee.GetComponent<Bee> ().deg = degCounter;
 								newBee.GetComponent<Bee> ().anchorPos = beeSpawnPos;
+                                newBee.GetComponent<SpriteRenderer>().sortingOrder = i;
 
 								beeSpawnPos.x += spacingBetweenBees;
 								degCounter += 10;
