@@ -23,7 +23,7 @@ public class level1Button : MonoBehaviour {
 
 	private void clickEventListener()
 	{
-		Debug.Log("Clicked!");
+		//Debug.Log("Clicked!");
 
 		string sceneName = "level_garage";
 

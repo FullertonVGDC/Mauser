@@ -225,7 +225,7 @@ public class player : MonoBehaviour
 
             mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
 
-            Debug.Log("Currency: " + mGlobalData.GetCurrency());
+            //Debug.Log("Currency: " + mGlobalData.GetCurrency());
 
             Destroy(collider.gameObject);
         }
@@ -242,7 +242,7 @@ public class player : MonoBehaviour
 					mCurHealth = mMaxHealth;
 				}
 
-				Debug.Log("Health: " + mCurHealth);
+				//Debug.Log("Health: " + mCurHealth);
 			}
 
 			Destroy(collider.gameObject);
@@ -268,7 +268,7 @@ public class player : MonoBehaviour
 		//Check if colliding with a scene exit.
 		if (collider.gameObject.name == "sceneExit") 
 		{
-            Debug.Log("Reached the exit!");
+            //Debug.Log("Reached the exit!");
 			
 			//Get the gui fader object and check if it exists. If not, it is destroyed.
 			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
@@ -286,7 +286,7 @@ public class player : MonoBehaviour
 		//Check if colliding with a checkpoint object.
 		if (collider.gameObject.name == "checkpoint") 
 		{
-			Debug.Log("Reached a checkpoint!");
+			//Debug.Log("Reached a checkpoint!");
 
 			mGlobalData.SetCheckpointEnabled(true);
 			mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
@@ -618,7 +618,7 @@ public class player : MonoBehaviour
 		if (!mIsDead && mTransform.position.y < (mCameraTransform.position.y - 6.0f)) 
 		{
 			mIsDead = true;
-			Debug.Log ("Fell out of the level.");
+			//Debug.Log ("Fell out of the level.");
 			mWalkingLeft = false;
 			mWalkingRight = false;
 			mRigidBody2D.velocity = new Vector3 (0.0f, 0.0f, 0.0f);
@@ -666,7 +666,7 @@ public class player : MonoBehaviour
 				//Kill the player if out of health. Otherwise take damage.
 				if (mCurHealth == 1)
 				{
-					Debug.Log("Dead!");
+					//Debug.Log("Dead!");
 					mIsDead = true;
 					mAnimator.Play("Death");
 

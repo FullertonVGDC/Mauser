@@ -9,7 +9,7 @@ public class level2Button : MonoBehaviour {
 	void Start () 
 	{
 		Button button2 = GetComponent<Button> ();
-
+        
 		button2.onClick.AddListener(clickEventListener);
 
 		mGlobalData = GameObject.Find ("globalData").GetComponent<globalData> ();
@@ -23,7 +23,7 @@ public class level2Button : MonoBehaviour {
 
 	private void clickEventListener()
 	{
-		Debug.Log("Clicked!");
+		//Debug.Log("Clicked!");
 
 		string sceneName = "level_wall_fade";
 
