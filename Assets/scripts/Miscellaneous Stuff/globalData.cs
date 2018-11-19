@@ -7,7 +7,6 @@ public enum GameMapName {GAMEMAP_BASEMENT = 0, GAMEMAP_WALLS = 1, GAMEMAP_KITCHE
 
 public class globalData : MonoBehaviour 
 {
-
 	void Awake ()
 	{
 		//Allow this object to always exist.
@@ -17,6 +16,8 @@ public class globalData : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+        instance = this;
+
 		//The current bound being created.
 		Bounds boundBasement = new Bounds ();
 		Bounds boundWalls = new Bounds ();
@@ -38,8 +39,11 @@ public class globalData : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
-	}
+        screenTopEdge = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, -(Camera.main.transform.position.z))).y;
+        screenBottomEdge = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, -(Camera.main.transform.position.z))).y;
+        screenLeftEdge = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, -(Camera.main.transform.position.z))).x;
+        screenRightEdge = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, -(Camera.main.transform.position.z))).x;
+    }
 
 	//Scene loading event management.
 	
@@ -234,8 +238,21 @@ public class globalData : MonoBehaviour
 
     //Variables.
 
-	//Checks if currently changing the game map.
-	private bool mChangedGameMap = false;
+    //Singleton instance of globalData (this can be called from ANYWHERE)
+    public static globalData instance;
+
+    //Screen edge tracking
+    [HideInInspector]
+    public float screenTopEdge;
+    [HideInInspector]
+    public float screenBottomEdge;
+    [HideInInspector]
+    public float screenLeftEdge;
+    [HideInInspector]
+    public float screenRightEdge;
+
+    //Checks if currently changing the game map.
+    private bool mChangedGameMap = false;
 
 	//Checks if a checkpoint is enabled for the current game map.
 	private bool mCheckpointEnabled = false;
