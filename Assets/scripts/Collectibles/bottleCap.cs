@@ -10,8 +10,6 @@ public class bottleCap : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-        mSpriteRenderer = GetComponent<SpriteRenderer>();
-
         switch (bottleCapType)
         {
             case BottleCapType.BOTTLECAP_TYPE_RED: 
@@ -42,9 +40,6 @@ public class bottleCap : MonoBehaviour
 
     //The currency of the bottle cap.
     private int mCurrency = 1;
-
-    //The sprite of the bottle cap.
-    private SpriteRenderer mSpriteRenderer;
 
     //Public variables.
 

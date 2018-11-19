@@ -8,13 +8,9 @@ public class camera : MonoBehaviour
 	void Start () 
 	{
 		//Allow this object to always exist.
-		DontDestroyOnLoad (this.gameObject);
-		
+		DontDestroyOnLoad (gameObject);
 		mCamera = GetComponent<Camera> ();
-		mTransform = GetComponent<Transform> ();
-
 		mAspectRatio = 1.777777777777778f;
-
 		mCamera.rect = new Rect (0.0f, 0.0f, mCameraOrthoHeight * mAspectRatio, mCameraOrthoHeight);
 	}
 	
@@ -65,7 +61,4 @@ public class camera : MonoBehaviour
 
 	//The camera component of this camera object.
 	private Camera mCamera;
-
-	//The transform component of this camera object.
-	private Transform mTransform;
 }

@@ -239,7 +239,7 @@ public class spider : MonoBehaviour
         // Also prevent the spider from colliding with walls.
         if (mJustDied)
         {
-            Vector2 prevVelocity = new Vector2(mRigidBody2D.velocity.x, mRigidBody2D.velocity.y);
+            //Vector2 prevVelocity = new Vector2(mRigidBody2D.velocity.x, mRigidBody2D.velocity.y);
 
             if (mAttackedFromLeft)
             {
@@ -299,10 +299,10 @@ public class spider : MonoBehaviour
     }
 
 	//The previous distance from the ground for the left ray.
-	private float mPrevDistanceFromGroundL = 999.0f;
+	//private float mPrevDistanceFromGroundL = 999.0f;
 
 	//The previous distance from the ground for the right ray.
-	private float mPrevDistanceFromGroundR = 999.0f;
+	//private float mPrevDistanceFromGroundR = 999.0f;
 
     //The speed by which the player walks.
 	private float mWalkingSpeed = 5.0f;
@@ -311,7 +311,7 @@ public class spider : MonoBehaviour
     private int mCurHealth = 5;
 
     //The maximum health of the spider.
-    private int mMaxHealth = 5;
+    //private int mMaxHealth = 5;
 
 	//Checks if the player is grounded. If so, the player can jump.
 	private bool mGrounded = false;

@@ -9,7 +9,6 @@ public class DustBunny : MonoBehaviour
 	{
 		mTransform = GetComponent<Transform> ();
 		mRigidBody2D = GetComponent<Rigidbody2D> ();
-        mCollider2D = GetComponent<Collider2D>();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
         mAnimator = GetComponent<Animator>();
 
@@ -151,10 +150,10 @@ public class DustBunny : MonoBehaviour
     }
 
 	//The previous distance from the ground for the left ray.
-	private float mPrevDistanceFromGroundL = 999.0f;
+	//private float mPrevDistanceFromGroundL = 999.0f;
 
 	//The previous distance from the ground for the right ray.
-	private float mPrevDistanceFromGroundR = 999.0f;
+	//private float mPrevDistanceFromGroundR = 999.0f;
 
     //The speed by which the player walks.
 	private float mWalkingSpeed = 2.0f;
@@ -163,7 +162,7 @@ public class DustBunny : MonoBehaviour
     private int mCurHealth = 3;
 
     //The maximum health of the enemy.
-    private int mMaxHealth = 3;
+    //private int mMaxHealth = 3;
 
 	//Checks if the player is grounded. If so, the player can jump.
 	private bool mGrounded = false;
@@ -182,9 +181,6 @@ public class DustBunny : MonoBehaviour
 
 	//The local rigid body of the object.
 	private Rigidbody2D mRigidBody2D;
-
-    //The collider for the enemy object.
-    private Collider2D mCollider2D;
 
     //The sprite renderer for the dust bunny.
     private SpriteRenderer mSpriteRenderer;

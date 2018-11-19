@@ -215,6 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752964feeb91aa54594e7a777f7014eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftKnife: {fileID: 772993208}
+  rightKnife: {fileID: 1817929495}
 --- !u!4 &563638619
 Transform:
   m_ObjectHideFlags: 0
@@ -494,6 +496,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 772993209}
+  - component: {fileID: 772993211}
   - component: {fileID: 772993210}
   m_Layer: 0
   m_Name: 'Left Knife '
@@ -561,6 +564,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &772993211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 772993208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2cd5f81bc4710043a511420c5c9f93b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawser: {fileID: 0}
 --- !u!1 &861578203
 GameObject:
   m_ObjectHideFlags: 0
