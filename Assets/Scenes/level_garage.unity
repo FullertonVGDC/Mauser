@@ -347,7 +347,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (16)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -711,7 +711,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (5)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -943,7 +943,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (14)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1306,7 +1306,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (8)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1389,7 +1389,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (1)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 212953903271942318, guid: ce4e658125cd74c5189481b7e512286d,
         type: 2}
@@ -2011,7 +2011,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (3)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 212953903271942318, guid: ce4e658125cd74c5189481b7e512286d,
         type: 2}
@@ -2596,7 +2596,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (20)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2754,7 +2754,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (10)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -3007,7 +3007,7 @@ Transform:
   m_LocalScale: {x: 1.9071739, y: -1.9240099, z: 1}
   m_Children: []
   m_Father: {fileID: 1874624109}
-  m_RootOrder: 56
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180.00002}
 --- !u!212 &538839204
 SpriteRenderer:
@@ -3540,7 +3540,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (22)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -3637,7 +3637,7 @@ Transform:
   m_LocalScale: {x: 1.3904511, y: -1.0755216, z: 0.559}
   m_Children: []
   m_Father: {fileID: 1874624109}
-  m_RootOrder: 54
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 225}
 --- !u!212 &649257316
 SpriteRenderer:
@@ -4769,7 +4769,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (7)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5153,7 +5153,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (19)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5764,7 +5764,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (12)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -6024,7 +6024,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (9)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -6422,7 +6422,7 @@ Transform:
   m_LocalScale: {x: 1.3904514, y: -1.0755211, z: 0.559}
   m_Children: []
   m_Father: {fileID: 1874624109}
-  m_RootOrder: 57
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 135}
 --- !u!212 &1136043868
 SpriteRenderer:
@@ -6581,7 +6581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1143566482}
   m_Layer: 0
-  m_Name: Collision Boxes
+  m_Name: Invisible Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6680,7 +6680,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (23)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -7440,7 +7440,7 @@ Transform:
   m_LocalScale: {x: 2.5794182, y: -1.9240099, z: 1}
   m_Children: []
   m_Father: {fileID: 1874624109}
-  m_RootOrder: 53
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180.00002}
 --- !u!212 &1383043585
 SpriteRenderer:
@@ -7593,7 +7593,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (2)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 212953903271942318, guid: ce4e658125cd74c5189481b7e512286d,
         type: 2}
@@ -7668,7 +7668,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (18)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8075,7 +8075,7 @@ Transform:
   m_LocalScale: {x: 0.851375, y: 2.5, z: 2.2913}
   m_Children: []
   m_Father: {fileID: 1874624109}
-  m_RootOrder: 58
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
 --- !u!212 &1498986571
 SpriteRenderer:
@@ -8177,7 +8177,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (4)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 212953903271942318, guid: ce4e658125cd74c5189481b7e512286d,
         type: 2}
@@ -8303,7 +8303,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (24)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8447,7 +8447,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (15)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8601,7 +8601,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (13)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8759,7 +8759,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (17)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -9587,6 +9587,11 @@ Transform:
   - {fileID: 1244274791}
   - {fileID: 929684666}
   - {fileID: 1479661853}
+  - {fileID: 1383043584}
+  - {fileID: 649257315}
+  - {fileID: 538839203}
+  - {fileID: 1136043867}
+  - {fileID: 1498986570}
   - {fileID: 754374201}
   - {fileID: 1918231920}
   - {fileID: 201678634}
@@ -9606,12 +9611,7 @@ Transform:
   - {fileID: 2059894191}
   - {fileID: 1628393268}
   - {fileID: 409058878}
-  - {fileID: 1383043584}
-  - {fileID: 649257315}
   - {fileID: 1327426111}
-  - {fileID: 538839203}
-  - {fileID: 1136043867}
-  - {fileID: 1498986570}
   - {fileID: 1456084322}
   - {fileID: 1916233531}
   m_Father: {fileID: 1124797929}
@@ -10285,7 +10285,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (25)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 212953903271942318, guid: ce4e658125cd74c5189481b7e512286d,
         type: 2}
@@ -10523,7 +10523,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (21)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -10657,7 +10657,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (11)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -11177,7 +11177,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: platform (6)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 4598416449279090, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z

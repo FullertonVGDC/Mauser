@@ -19,12 +19,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598416449279090}
+  - component: {fileID: 114495940268413450}
   - component: {fileID: 212953903271942318}
   - component: {fileID: 61986301833188218}
   - component: {fileID: 50476962174302626}
-  - component: {fileID: 114006286443124712}
   m_Layer: 8
-  m_Name: platform
+  m_Name: Invisible Platform
   m_TagString: collidable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114006286443124712
+--- !u!114 &114495940268413450
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1041780007112734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63561d67cac2941a7b024763927dedbe, type: 3}
+  m_Script: {fileID: 11500000, guid: 8765e6ed1e03a3042b859b3f153f0338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212953903271942318

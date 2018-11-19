@@ -10739,7 +10739,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1041780007112734, guid: ce4e658125cd74c5189481b7e512286d, type: 2}
       propertyPath: m_Name
-      value: Invisible Platform (1)
+      value: Invisible Platform
       objectReference: {fileID: 0}
     - target: {fileID: 212953903271942318, guid: ce4e658125cd74c5189481b7e512286d,
         type: 2}
