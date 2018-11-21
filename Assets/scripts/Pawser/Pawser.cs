@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Pawser : MonoBehaviour
 {
-    enum State { Idle, KnifeAttack, FishAttack, HairballAttack };
-    State state;
+    public enum State { Idle, KnifeAttack, FishAttack, HairballAttack };
+    [HideInInspector]
+    public State state;
 
     public float idleTimerMinLength;
     public float idleTimerMaxLength;
     float idleTimer;
 
     Animator animator;
-    public GameObject knife;
+    public GameObject knifeHandlerPrefab;
 
 
 
@@ -34,7 +35,8 @@ public class Pawser : MonoBehaviour
                 {
                     idleTimer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
 
-                    state = (State)Random.Range(1, 4);
+                    //state = (State)Random.Range(1, 4);
+                    state = State.KnifeAttack;
                     if (state == State.KnifeAttack)
                     {
                         animator.Play("Knife Throw");
@@ -64,10 +66,7 @@ public class Pawser : MonoBehaviour
 
     public void SpawnKnives()
     {
-        GameObject knife1 = Instantiate(knife, new Vector2(7, 7), Quaternion.Euler(new Vector3(0, 0, 180)));
-        knife1.GetComponent<Knife>().pawser = this;
-
-        GameObject knife2 = Instantiate(knife, new Vector2(14, 7), Quaternion.Euler(new Vector3(0, 0, 180)));
-        knife2.GetComponent<Knife>().pawser = this;
+        GameObject knifeHandler = Instantiate(knifeHandlerPrefab);
+        knifeHandler.GetComponent<KnifeHandler>().pawser = this;
     }
 }

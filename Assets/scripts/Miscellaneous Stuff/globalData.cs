@@ -39,13 +39,7 @@ public class globalData : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        if (Camera.main != null)
-        {
-            screenTopEdge = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, -(Camera.main.transform.position.z))).y;
-            screenBottomEdge = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, -(Camera.main.transform.position.z))).y;
-            screenLeftEdge = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, -(Camera.main.transform.position.z))).x;
-            screenRightEdge = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, -(Camera.main.transform.position.z))).x;
-        }
+        
     }
 
 	//Scene loading event management.
@@ -89,7 +83,7 @@ public class globalData : MonoBehaviour
 
 			mCurGameMapBounds = mGameMapBounds [(int)mCurGameMapName];
 
-			camera cameraSript = mMainCamera.GetComponent<camera> ();
+			CameraHandler cameraSript = mMainCamera.GetComponent<CameraHandler> ();
 
 			//Destroy the bees if they exist.
 			if(mBeesGenerated == true)
@@ -243,16 +237,6 @@ public class globalData : MonoBehaviour
 
     //Singleton instance of globalData (this can be called from ANYWHERE)
     public static globalData instance;
-
-    //Screen edge tracking
-    [HideInInspector]
-    public float screenTopEdge;
-    [HideInInspector]
-    public float screenBottomEdge;
-    [HideInInspector]
-    public float screenLeftEdge;
-    [HideInInspector]
-    public float screenRightEdge;
 
     //Checks if currently changing the game map.
     private bool mChangedGameMap = false;

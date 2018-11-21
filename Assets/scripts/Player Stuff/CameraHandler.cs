@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class camera : MonoBehaviour 
+public class CameraHandler : MonoBehaviour 
 {
 	// Use this for initialization
 	void Start () 
@@ -17,8 +17,11 @@ public class camera : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
-	}
+        screenTopEdge = mCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, -(transform.position.z))).y;
+        screenBottomEdge = mCamera.ScreenToWorldPoint(new Vector3(0, 0, -(transform.position.z))).y;
+        screenLeftEdge = mCamera.ScreenToWorldPoint(new Vector3(0, 0, -(transform.position.z))).x;
+        screenRightEdge = mCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, -(transform.position.z))).x;
+    }
 
 	public void UpdateCameraBounds(Bounds bounds)
 	{
@@ -42,10 +45,20 @@ public class camera : MonoBehaviour
 		return mCameraBounds;
 	}
 
-	//Variables:
+    //Variables:
 
-	//Checks if the camera is scrolling up.
-	private bool mIsScrollingUp = false;
+    //Screen edge tracking
+    [HideInInspector]
+    public float screenTopEdge;
+    [HideInInspector]
+    public float screenBottomEdge;
+    [HideInInspector]
+    public float screenLeftEdge;
+    [HideInInspector]
+    public float screenRightEdge;
+
+    //Checks if the camera is scrolling up.
+    private bool mIsScrollingUp = false;
 
 	//The srict aspect ratio for the camera.
 	private float mAspectRatio;

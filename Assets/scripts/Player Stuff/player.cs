@@ -39,7 +39,7 @@ public class player : MonoBehaviour
 			//Get the other main camera components.
 			if(mCameraObject != null)
 			{
-				mCameraScript = mCameraObject.GetComponent<camera>();
+				mCameraScript = mCameraObject.GetComponent<CameraHandler>();
 				mCameraTransform = mCameraObject.transform;
 			}
 		}
@@ -625,7 +625,7 @@ public class player : MonoBehaviour
 		}
 	}
 	
-	void TakeDamage()
+	public void TakeDamage()
 	{
 		//If the player isn't currently hurt, hurt the player.
 		if (mIsHurt == false && mIsDead == false && mFoundExit == false)
@@ -816,7 +816,7 @@ public class player : MonoBehaviour
     private GameObject mCameraObject;
 
     //The camera script for the main camera.
-    private camera mCameraScript;
+    private CameraHandler mCameraScript;
 
     //The camera transform component for the main camera.
     private Transform mCameraTransform;
