@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spider : MonoBehaviour 
+public class Spider : MonoBehaviour 
 {
 	// Use this for initialization
 	void Start () 
@@ -61,7 +61,7 @@ public class spider : MonoBehaviour
             }
 
             //The other bullet being attacted by.
-            bullet bullet1 = collider.GetComponent<bullet>();
+            Bullet bullet1 = collider.GetComponent<Bullet>();
 
             //Find out which direction the spider is being attacked from.
             if (bullet1.GetFacingRight())

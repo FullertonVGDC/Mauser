@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour 
+public class Bullet : MonoBehaviour 
 {
 	// Use this for initialization
 	void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
-	    mTransform = GetComponent<Transform> ();
-	    mCameraTransform = GameObject.Find ("MainCamera(Clone)").GetComponent<Transform> ();
+	    mTransform = GetComponent<Transform>();
+	    mCameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
@@ -56,7 +56,7 @@ public class bullet : MonoBehaviour
 		
 		if (collider.gameObject.tag == "spider")
     	{
-			if(!collider.gameObject.GetComponent<spider>().GetIsDead())
+			if(!collider.gameObject.GetComponent<Spider>().GetIsDead())
 			{
 				Destroy(this.gameObject);
 			}

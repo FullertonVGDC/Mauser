@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kh: {fileID: 114419341628813598}
+  tileDebris: {fileID: 1585386163173546, guid: da8c1cb2e2154944ebbefe73ed7a4042, type: 2}
 --- !u!114 &114419341628813598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kh: {fileID: 114419341628813598}
+  tileDebris: {fileID: 1585386163173546, guid: da8c1cb2e2154944ebbefe73ed7a4042, type: 2}
 --- !u!212 &212672619355974356
 SpriteRenderer:
   m_ObjectHideFlags: 1

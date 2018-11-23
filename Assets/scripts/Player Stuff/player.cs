@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
         if (collider.gameObject.tag == "gold")
         {
             //The bottle cap object being collided with.
-            bottleCap bottleCap1 = collider.gameObject.GetComponent<bottleCap>();
+            BottleCap bottleCap1 = collider.gameObject.GetComponent<BottleCap>();
 
             mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
 
@@ -313,7 +313,7 @@ public class Player : MonoBehaviour
 		else if (collider.gameObject.tag == "spider") 
 		{
             //The other enemy that the player is colliding with.
-            spider spiderComp = collider.gameObject.GetComponent<spider>();
+            Spider spiderComp = collider.gameObject.GetComponent<Spider>();
 
             //Only get affected by the enemy if it isn't already dead.
             if (!spiderComp.GetIsDead())
@@ -485,7 +485,7 @@ public class Player : MonoBehaviour
 					transform.position.x + xOffset, transform.position.y + 0.5f), 
 					Quaternion.identity);
 					
-                bullet bulletComponent = bulletPrefab.GetComponent<bullet>();
+                Bullet bulletComponent = bulletPrefab.GetComponent<Bullet>();
                 bulletComponent.SetFacingRight(mFacingRight);
                 mFiringPeriodAmount -= mFiringPeriod;
             }
