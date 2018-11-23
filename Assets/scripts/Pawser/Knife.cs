@@ -23,7 +23,7 @@ public class Knife : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.GetComponent<player>().TakeDamage();
+            other.GetComponent<Player>().TakeDamage();
         }
     }
 }

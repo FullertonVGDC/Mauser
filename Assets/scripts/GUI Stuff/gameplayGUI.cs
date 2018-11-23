@@ -9,7 +9,7 @@ public class gameplayGUI : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		mPlayerComp = GameObject.Find("player").GetComponent<player>();
+		mPlayerComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		mGlobalDataComp = GameObject.Find("globalData").GetComponent<globalData>();
 	}
 	
@@ -101,7 +101,7 @@ public class gameplayGUI : MonoBehaviour
 	private int mCurPlayerBottleCaps;
 	
 	//The player component.
-	private player mPlayerComp;
+	private Player mPlayerComp;
 	
 	//The global data component.
 	private globalData mGlobalDataComp;

@@ -261,7 +261,7 @@ public class spider : MonoBehaviour
 	{
 		//Check if the player is within the box function. If so, set resting
 		// to false, and set climbing down to true.
-		GameObject playerObj = GameObject.Find("player");
+		GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 		
 		if(playerObj.transform.position.y < (transform.position.y - 2.0f) &&
 			playerObj.transform.position.x < (transform.position.x + 2.5f) &&

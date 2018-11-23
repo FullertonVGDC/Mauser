@@ -171,7 +171,7 @@ public class globalData : MonoBehaviour
 		//Check if a checkpoint needs to be applied to the player.
 		if (mCheckpointEnabled)
 		{
-			GameObject playerGameObject = GameObject.Find("player");
+			GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
 
 			playerGameObject.transform.position = new Vector3(
 				mCheckpointPosition.x, mCheckpointPosition.y, mCheckpointPosition.z);
