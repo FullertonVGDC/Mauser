@@ -80,4 +80,16 @@ public class KnifeHandler : MonoBehaviour
                 break;
         }
     }
+	
+	public void Pause()
+	{
+		enabled = false;
+		LeanTween.pauseAll();
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+		LeanTween.resumeAll();
+	}
 }

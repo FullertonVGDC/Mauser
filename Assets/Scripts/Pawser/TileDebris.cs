@@ -23,4 +23,14 @@ public class TileDebris : MonoBehaviour
             transform.position = new Vector2(transform.position.x, 0);
         }
     }
+	
+	public void Pause()
+	{
+		enabled = false;
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+	}
 }

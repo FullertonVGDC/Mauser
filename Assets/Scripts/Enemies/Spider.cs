@@ -291,6 +291,27 @@ public class Spider : MonoBehaviour
         }
     }
 
+	public void Pause()
+	{
+		enabled = false;
+		mRigidBody2D.gravityScale = 0.0f;
+		mPausedVelocity = mRigidBody2D.velocity;
+		mRigidBody2D.velocity = new Vector2(0.0f, 0.0f);
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+		
+		//Only set the gravity if the spider is dead.
+		if(mDead)
+		{
+			mRigidBody2D.gravityScale = 2.0f;
+		}
+		
+		mRigidBody2D.velocity = mPausedVelocity;
+	}
+	
     //Getters:
 
     public bool GetIsDead()
@@ -333,6 +354,9 @@ public class Spider : MonoBehaviour
 
     //Checks if the spider has just died this frame.
     private bool mJustDied = true;
+	
+	//The paused velocity of the game object.
+	private Vector2 mPausedVelocity;
 
 	//The layer mask of the collidable objects.
 	private LayerMask collidableLayerMask;

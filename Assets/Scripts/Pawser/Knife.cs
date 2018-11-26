@@ -32,4 +32,16 @@ public class Knife : MonoBehaviour
             other.GetComponent<Player>().TakeDamage();
         }
     }
+	
+	public void Pause()
+	{
+		enabled = false;
+		LeanTween.pauseAll();
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+		LeanTween.resumeAll();
+	}
 }

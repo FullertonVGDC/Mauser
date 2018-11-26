@@ -201,6 +201,16 @@ public class GlobalData : MonoBehaviour
 		mChangedGameMap = true;
 	}
 
+	public void Pause()
+	{
+		enabled = false;
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+	}
+	
     //Setters.
 	public void SetCheckpointEnabled(bool enabled)
 	{

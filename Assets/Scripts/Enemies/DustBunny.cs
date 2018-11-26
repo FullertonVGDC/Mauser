@@ -142,6 +142,23 @@ public class DustBunny : MonoBehaviour
         Destroy(gameObject);
     }
 
+	public void Pause()
+	{
+		enabled = false;
+		mRigidBody2D.gravityScale = 0.0f;
+		mPausedVelocity = mRigidBody2D.velocity;
+		mRigidBody2D.velocity = new Vector2(0.0f, 0.0f);
+		mAnimator.enabled = false;
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+		mRigidBody2D.gravityScale = 4.0f;
+		mRigidBody2D.velocity = mPausedVelocity;
+		mAnimator.enabled = true;
+	}
+	
     //Getters:
 
     public bool GetIsDead()
@@ -172,6 +189,9 @@ public class DustBunny : MonoBehaviour
 
     //Checks if the enemy is dead.
     private bool mDead = false;
+	
+	//The paused velocity of the game object.
+	private Vector2 mPausedVelocity;
 
 	//The layer mask of the collidable objects.
 	private LayerMask collidableLayerMask;

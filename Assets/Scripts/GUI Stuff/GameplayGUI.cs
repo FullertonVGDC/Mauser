@@ -16,6 +16,13 @@ public class GameplayGUI : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		UpdateHealthAndCurrencyDisplay();
+		CheckIfPausing();
+	}
+	
+	//Updates the health and currency display.
+	private void UpdateHealthAndCurrencyDisplay()
+	{
 		//The player's health.
 		uint playerHealth = mPlayerComp.GetHealth();
 		
@@ -92,6 +99,140 @@ public class GameplayGUI : MonoBehaviour
 			textComp.text = mCurPlayerBottleCaps.ToString();
 		}
 	}
+	
+	//Used to check if the game is being paused.
+	private void CheckIfPausing()
+	{
+		//Check if the Pause key is pressed. If so, pause the game.
+		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+		{
+			Debug.Log("Got here.");
+			
+			if(mIsPaused)
+			{
+				mIsPaused = false;
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
+				{
+					Player playerScript = gameObject.GetComponent<Player>();
+					
+					playerScript.UnPause();
+				}
+				
+				GameObject.Find("GlobalData").GetComponent<GlobalData>().UnPause();
+				
+				if(GameObject.Find("Pawser") != null)
+				{
+					GameObject.Find("Pawser").GetComponent<Pawser>().UnPause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("enemy1"))
+				{
+					DustBunny dustBunnyScript = gameObject.GetComponent<DustBunny>();
+					
+					dustBunnyScript.UnPause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("spider"))
+				{
+					Spider spiderScriptComp = gameObject.GetComponent<Spider>();
+					
+					spiderScriptComp.UnPause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bullet"))
+				{
+					Bullet bulletComp = gameObject.GetComponent<Bullet>();
+					
+					bulletComp.UnPause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knifeHandler"))
+				{
+					KnifeHandler knifeHandlerComp = gameObject.GetComponent<KnifeHandler>();
+					
+					knifeHandlerComp.UnPause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knife"))
+				{
+					Knife knifeComp = gameObject.GetComponent<Knife>();
+					
+					knifeComp.UnPause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))
+				{
+					TileDebris tileDebrisComp = gameObject.GetComponent<TileDebris>();
+					
+					tileDebrisComp.UnPause();
+				}
+			}
+			else
+			{
+				mIsPaused = true;
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
+				{
+					Player playerScript = gameObject.GetComponent<Player>();
+					
+					playerScript.Pause();
+				}
+				
+				GameObject.Find("GlobalData").GetComponent<GlobalData>().Pause();
+				
+				if(GameObject.Find("Pawser") != null)
+				{
+					GameObject.Find("Pawser").GetComponent<Pawser>().Pause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("enemy1"))
+				{
+					DustBunny dustBunnyScript = gameObject.GetComponent<DustBunny>();
+					
+					dustBunnyScript.Pause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("spider"))
+				{
+					Spider spiderScriptComp = gameObject.GetComponent<Spider>();
+					
+					spiderScriptComp.Pause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bullet"))
+				{
+					Bullet bulletComp = gameObject.GetComponent<Bullet>();
+					
+					bulletComp.Pause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knifeHandler"))
+				{
+					KnifeHandler knifeHandlerComp = gameObject.GetComponent<KnifeHandler>();
+					
+					knifeHandlerComp.Pause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knife"))
+				{
+					Knife knifeComp = gameObject.GetComponent<Knife>();
+					
+					knifeComp.Pause();
+				}
+				
+				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))
+				{
+					TileDebris tileDebrisComp = gameObject.GetComponent<TileDebris>();
+					
+					tileDebrisComp.Pause();
+				}
+			}
+		}
+	}
+	
+	//Checks if the game is paused.
+	private bool mIsPaused = false;
 	
 	//The current player health cached by the player.
 	private uint mCurPlayerHealth;

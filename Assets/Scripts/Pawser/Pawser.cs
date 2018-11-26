@@ -69,4 +69,16 @@ public class Pawser : MonoBehaviour
         GameObject knifeHandler = Instantiate(knifeHandlerPrefab);
         knifeHandler.GetComponent<KnifeHandler>().pawser = this;
     }
+	
+	public void Pause()
+	{
+		enabled = false;
+		animator.enabled = false;
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+		animator.enabled = true;
+	}
 }

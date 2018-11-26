@@ -62,6 +62,21 @@ public class Bullet : MonoBehaviour
 			}
     	}
     }
+	
+	public void Pause()
+	{
+		enabled = false;
+		mRigidBody.gravityScale = 0.0f;
+		mPausedVelocity = mRigidBody.velocity;
+		mRigidBody.velocity = new Vector2(0.0f, 0.0f);
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+		mRigidBody.gravityScale = 1.0f;
+		mRigidBody.velocity = mPausedVelocity;
+	}
 
     //Setters:
     public void SetFacingRight(bool sFacingRight)
@@ -84,6 +99,9 @@ public class Bullet : MonoBehaviour
 
     //Bullet speeds.
     private float mBulletSpeed = 16.0f;
+	
+	//The paused velocity of the game object.
+	private Vector2 mPausedVelocity;
 
     //The rigid body of the bullet object.
     private Rigidbody2D mRigidBody;

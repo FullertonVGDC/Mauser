@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114419341628813598}
   m_Layer: 0
   m_Name: Knife Handler
-  m_TagString: Untagged
+  m_TagString: knifeHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 61842736054510188}
   m_Layer: 0
   m_Name: Right Knife
-  m_TagString: Untagged
+  m_TagString: knife
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 61882693299160964}
   m_Layer: 0
   m_Name: 'Left Knife '
-  m_TagString: Untagged
+  m_TagString: knife
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

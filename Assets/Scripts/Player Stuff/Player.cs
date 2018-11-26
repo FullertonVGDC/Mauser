@@ -208,7 +208,6 @@ public class Player : MonoBehaviour
 				//Set the jump grace frame period amount to zero if the player is currently grounded.
 				if(mGrounded)
 				{
-					Debug.Log("Got this.");
 					mJumpGraceFramePeriodAmount = 0.0f;
 				}
 				
@@ -223,7 +222,6 @@ public class Player : MonoBehaviour
 		{
 			mJumpGraceFramePeriodAmount += Time.fixedDeltaTime;
 			
-			Debug.Log(mJumpGraceFramePeriodAmount);
 			if(mJumpGraceFramePeriodAmount >= mJumpGraceFramePeriod)
 			{
 				mJumpGraceFramePeriodAmount = mJumpGraceFramePeriod;
@@ -249,8 +247,6 @@ public class Player : MonoBehaviour
 
             mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
 
-            //Debug.Log("Currency: " + mGlobalData.GetCurrency());
-
             Destroy(collider.gameObject);
         }
 
@@ -265,8 +261,6 @@ public class Player : MonoBehaviour
 				{
 					mCurHealth = mMaxHealth;
 				}
-
-				//Debug.Log("Health: " + mCurHealth);
 			}
 
 			Destroy(collider.gameObject);
@@ -282,8 +276,6 @@ public class Player : MonoBehaviour
 			else
 			{
 				mCurHealth += 1;
-				
-				Debug.Log("Health: " + mCurHealth);
 			}
 
 			Destroy(collider.gameObject);
@@ -292,8 +284,6 @@ public class Player : MonoBehaviour
 		//Check if colliding with a scene exit.
 		if (collider.gameObject.name == "SceneExit") 
 		{
-            //Debug.Log("Reached the exit!");
-			
 			//Get the gui fader object and check if it exists. If not, it is destroyed.
 			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
 			
@@ -310,8 +300,6 @@ public class Player : MonoBehaviour
 		//Check if colliding with a checkpoint object.
 		if (collider.gameObject.name == "checkpoint") 
 		{
-			//Debug.Log("Reached a checkpoint!");
-
 			mGlobalData.SetCheckpointEnabled(true);
 			mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
 
@@ -645,7 +633,6 @@ public class Player : MonoBehaviour
 		if (!mIsDead && mTransform.position.y < (mCameraTransform.position.y - 6.0f)) 
 		{
 			mIsDead = true;
-			//Debug.Log ("Fell out of the level.");
 			mWalkingLeft = false;
 			mWalkingRight = false;
 			mRigidBody2D.velocity = new Vector3 (0.0f, 0.0f, 0.0f);
@@ -694,7 +681,6 @@ public class Player : MonoBehaviour
 				//Kill the player if out of health. Otherwise take damage.
 				if (mCurHealth == 1)
 				{
-					//Debug.Log("Dead!");
 					mIsDead = true;
 					mAnimator.Play("Death");
 
@@ -737,6 +723,26 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	public void Pause()
+	{
+		enabled = false;
+		mRigidBody2D.gravityScale = 0.0f;
+		mPausedVelocity = mRigidBody2D.velocity;
+		mRigidBody2D.velocity = new Vector2(0.0f, 0.0f);
+		mWalkingLeft = false;
+		mWalkingRight = false;
+		mIsFiringBullets = false;
+		mAnimator.enabled = false;
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+		mRigidBody2D.gravityScale = 4.0f;
+		mRigidBody2D.velocity = mPausedVelocity;
+		mAnimator.enabled = true;
+	}
+	
 	//Getters:
 	public uint GetHealth()
 	{
@@ -845,6 +851,9 @@ public class Player : MonoBehaviour
 	
 	//Checks if the player is currently able to jump.
 	private bool mIsAbleToJump = false;
+	
+	//The paused velocity of the object.
+	private Vector2 mPausedVelocity;
 
     //The firing key.
     private KeyCode mFiringKey;
