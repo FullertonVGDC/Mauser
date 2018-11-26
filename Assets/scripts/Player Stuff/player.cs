@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         //Get the global data.
-        mGlobalData = GameObject.Find("globalData").GetComponent<globalData>();
+        mGlobalData = GameObject.Find("globalData").GetComponent<GlobalData>();
 
 	    mFiringKey = KeyCode.F;
 	}
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
 			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
 			
 			//The component of the gui fader object.
-			guiFader guiFaderComp = guiFaderObj.GetComponent<guiFader>();
+			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
 			
 			//If the gui fader object is destroyed, reload the current level. 
 			// Otherwise, make the fader fade in.
@@ -102,10 +102,10 @@ public class Player : MonoBehaviour
 		if(mFoundExit)
 		{
 			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
+			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
 
 			//The component of the gui fader object.
-			guiFader guiFaderComp = guiFaderObj.GetComponent<guiFader>();
+			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
 
 			//If the gui fader object is destroyed, reload the current level. 
 			// Otherwise, make the fader fade in.
@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
         if (collider.gameObject.tag == "gold")
         {
             //The bottle cap object being collided with.
-            bottleCap bottleCap1 = collider.gameObject.GetComponent<bottleCap>();
+            BottleCap bottleCap1 = collider.gameObject.GetComponent<BottleCap>();
 
             mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
 
@@ -271,10 +271,10 @@ public class Player : MonoBehaviour
             //Debug.Log("Reached the exit!");
 			
 			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
+			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
 			
 			//The component of the gui fader object.
-			guiFader guiFaderComp = guiFaderObj.GetComponent<guiFader>();
+			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
 			
 			//Set the fader to is fading in and make the player enter invincibility 
 			// mode and be stuck in place.
@@ -313,7 +313,7 @@ public class Player : MonoBehaviour
 		else if (collider.gameObject.tag == "spider") 
 		{
             //The other enemy that the player is colliding with.
-            spider spiderComp = collider.gameObject.GetComponent<spider>();
+            Spider spiderComp = collider.gameObject.GetComponent<Spider>();
 
             //Only get affected by the enemy if it isn't already dead.
             if (!spiderComp.GetIsDead())
@@ -485,7 +485,7 @@ public class Player : MonoBehaviour
 					transform.position.x + xOffset, transform.position.y + 0.5f), 
 					Quaternion.identity);
 					
-                bullet bulletComponent = bulletPrefab.GetComponent<bullet>();
+                Bullet bulletComponent = bulletPrefab.GetComponent<Bullet>();
                 bulletComponent.SetFacingRight(mFacingRight);
                 mFiringPeriodAmount -= mFiringPeriod;
             }
@@ -822,7 +822,7 @@ public class Player : MonoBehaviour
     private Transform mCameraTransform;
 
     //The global game data.
-    private globalData mGlobalData;
+    private GlobalData mGlobalData;
 
     //The layer mask of the collidable objects.
     private LayerMask collidableLayerMask;

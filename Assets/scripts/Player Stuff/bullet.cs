@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour 
+public class Bullet : MonoBehaviour 
 {
 	// Use this for initialization
 	void Start()
@@ -56,7 +56,7 @@ public class bullet : MonoBehaviour
 		
 		if (collider.gameObject.tag == "spider")
     	{
-			if(!collider.gameObject.GetComponent<spider>().GetIsDead())
+			if(!collider.gameObject.GetComponent<Spider>().GetIsDead())
 			{
 				Destroy(this.gameObject);
 			}

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class gameplayGUI : MonoBehaviour 
+public class GameplayGUI : MonoBehaviour 
 {
 
 	// Use this for initialization
 	void Start () 
 	{
 		mPlayerComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		mGlobalDataComp = GameObject.Find("globalData").GetComponent<globalData>();
+		mGlobalDataComp = GameObject.Find("globalData").GetComponent<GlobalData>();
 	}
 	
 	// Update is called once per frame
@@ -104,7 +104,7 @@ public class gameplayGUI : MonoBehaviour
 	private Player mPlayerComp;
 	
 	//The global data component.
-	private globalData mGlobalDataComp;
+	private GlobalData mGlobalDataComp;
 	
 	//Prefabs.
 	

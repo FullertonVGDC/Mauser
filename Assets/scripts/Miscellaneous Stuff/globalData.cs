@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public enum GameMapName {GAMEMAP_BASEMENT = 0, GAMEMAP_WALLS = 1, GAMEMAP_KITCHEN = 2};
 
-public class globalData : MonoBehaviour 
+public class GlobalData : MonoBehaviour 
 {
 	void Awake ()
 	{
@@ -235,8 +235,8 @@ public class globalData : MonoBehaviour
 
     //Variables.
 
-    //Singleton instance of globalData (this can be called from ANYWHERE)
-    public static globalData instance;
+    //Singleton instance of GlobalData (this can be called from ANYWHERE)
+    public static GlobalData instance;
 
     //Checks if currently changing the game map.
     private bool mChangedGameMap = false;

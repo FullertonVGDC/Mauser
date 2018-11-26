@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class guiFader : MonoBehaviour 
+public class GuiFader : MonoBehaviour 
 {
 
 	// Use this for initialization

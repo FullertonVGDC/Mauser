@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum BottleCapType {BOTTLECAP_TYPE_RED = 0, BOTTLECAP_TYPE_GOLD = 1, BOTTLECAP_TYPE_DEBUG = 2};
 
-public class bottleCap : MonoBehaviour 
+public class BottleCap : MonoBehaviour 
 {
 
 	// Use this for initialization

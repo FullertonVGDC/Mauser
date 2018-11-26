@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class level2Button : MonoBehaviour {
+public class Level2Button : MonoBehaviour 
+{
 
 	// Use this for initialization
 	void Start () 
@@ -12,7 +13,7 @@ public class level2Button : MonoBehaviour {
         
 		button2.onClick.AddListener(clickEventListener);
 
-		mGlobalData = GameObject.Find ("globalData").GetComponent<globalData> ();
+		mGlobalData = GameObject.Find ("globalData").GetComponent<GlobalData> ();
 	}
 	
 	// Update is called once per frame
@@ -32,5 +33,5 @@ public class level2Button : MonoBehaviour {
 
 	}
 
-	private globalData mGlobalData;
+	private GlobalData mGlobalData;
 }
