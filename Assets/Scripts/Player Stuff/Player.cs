@@ -290,7 +290,7 @@ public class Player : MonoBehaviour
 		}
 		
 		//Check if colliding with a scene exit.
-		if (collider.gameObject.name == "sceneExit") 
+		if (collider.gameObject.name == "SceneExit") 
 		{
             //Debug.Log("Reached the exit!");
 			
