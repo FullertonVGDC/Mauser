@@ -142,6 +142,8 @@ MonoBehaviour:
     type: 2}
   mArmorCookieUIPrefab: {fileID: 1039827655918442, guid: 3a3c2e4877a6400449165b248eb0997c,
     type: 2}
+  mPauseMenuPrefab: {fileID: 1735187309650910, guid: e56fac216673a9b4f95aca6edfa33d5a,
+    type: 2}
 --- !u!114 &114309984316553504
 MonoBehaviour:
   m_ObjectHideFlags: 1

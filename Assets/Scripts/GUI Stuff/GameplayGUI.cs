@@ -104,129 +104,163 @@ public class GameplayGUI : MonoBehaviour
 	private void CheckIfPausing()
 	{
 		//Check if the Pause key is pressed. If so, pause the game.
-		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+		if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) && 
+				!GameObject.Find("Player").GetComponent<Player>().GetIsDead())
 		{
-			Debug.Log("Got here.");
-			
 			if(mIsPaused)
 			{
-				mIsPaused = false;
-				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
-				{
-					Player playerScript = gameObject.GetComponent<Player>();
-					
-					playerScript.UnPause();
-				}
-				
-				GameObject.Find("GlobalData").GetComponent<GlobalData>().UnPause();
-				
-				if(GameObject.Find("Pawser") != null)
-				{
-					GameObject.Find("Pawser").GetComponent<Pawser>().UnPause();
-				}
-				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("enemy1"))
-				{
-					DustBunny dustBunnyScript = gameObject.GetComponent<DustBunny>();
-					
-					dustBunnyScript.UnPause();
-				}
-				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("spider"))
-				{
-					Spider spiderScriptComp = gameObject.GetComponent<Spider>();
-					
-					spiderScriptComp.UnPause();
-				}
-				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bullet"))
-				{
-					Bullet bulletComp = gameObject.GetComponent<Bullet>();
-					
-					bulletComp.UnPause();
-				}
-				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knifeHandler"))
-				{
-					KnifeHandler knifeHandlerComp = gameObject.GetComponent<KnifeHandler>();
-					
-					knifeHandlerComp.UnPause();
-				}
-				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knife"))
-				{
-					Knife knifeComp = gameObject.GetComponent<Knife>();
-					
-					knifeComp.UnPause();
-				}
-				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))
-				{
-					TileDebris tileDebrisComp = gameObject.GetComponent<TileDebris>();
-					
-					tileDebrisComp.UnPause();
-				}
+				SetPaused(false);
 			}
 			else
 			{
-				mIsPaused = true;
+				SetPaused(true);
+			}
+		}
+	}
+	
+	//Setters:
+	public void SetPaused(bool paused)
+	{
+		if(!paused)
+		{
+			mIsPaused = false;
+			
+			Destroy(transform.GetChild(3).gameObject);
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
+			{
+				Player playerScript = gameObject.GetComponent<Player>();
 				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
-				{
-					Player playerScript = gameObject.GetComponent<Player>();
+				playerScript.UnPause();
+			}
+			
+			GameObject.Find("GlobalData").GetComponent<GlobalData>().UnPause();
+			
+			if(GameObject.Find("Pawser") != null)
+			{
+				GameObject.Find("Pawser").GetComponent<Pawser>().UnPause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("enemy1"))
+			{
+				DustBunny dustBunnyScript = gameObject.GetComponent<DustBunny>();
+				
+				dustBunnyScript.UnPause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("spider"))
+			{
+				Spider spiderScriptComp = gameObject.GetComponent<Spider>();
+				
+				spiderScriptComp.UnPause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bullet"))
+			{
+				Bullet bulletComp = gameObject.GetComponent<Bullet>();
+				
+				bulletComp.UnPause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knifeHandler"))
+			{
+				KnifeHandler knifeHandlerComp = gameObject.GetComponent<KnifeHandler>();
+				
+				knifeHandlerComp.UnPause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knife"))
+			{
+				Knife knifeComp = gameObject.GetComponent<Knife>();
+				
+				knifeComp.UnPause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))
+			{
+				TileDebris tileDebrisComp = gameObject.GetComponent<TileDebris>();
+				
+				tileDebrisComp.UnPause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bee"))
+			{
+				Bee beeComp = gameObject.GetComponent<Bee>();
+				
+				beeComp.UnPause();
+			}
+		}
+		else
+		{
+			mIsPaused = true;
+			
+			GameObject pauseMenuObj = GameObject.Instantiate(mPauseMenuPrefab, new Vector3(
+					0.0f, 0.0f, -10.0f), 
+					Quaternion.identity);
 					
-					playerScript.Pause();
-				}
+			pauseMenuObj.transform.SetParent(transform);
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
+			{
+				Player playerScript = gameObject.GetComponent<Player>();
 				
-				GameObject.Find("GlobalData").GetComponent<GlobalData>().Pause();
+				playerScript.Pause();
+			}
+			
+			GameObject.Find("GlobalData").GetComponent<GlobalData>().Pause();
+			
+			if(GameObject.Find("Pawser") != null)
+			{
+				GameObject.Find("Pawser").GetComponent<Pawser>().Pause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("enemy1"))
+			{
+				DustBunny dustBunnyScript = gameObject.GetComponent<DustBunny>();
 				
-				if(GameObject.Find("Pawser") != null)
-				{
-					GameObject.Find("Pawser").GetComponent<Pawser>().Pause();
-				}
+				dustBunnyScript.Pause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("spider"))
+			{
+				Spider spiderScriptComp = gameObject.GetComponent<Spider>();
 				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("enemy1"))
-				{
-					DustBunny dustBunnyScript = gameObject.GetComponent<DustBunny>();
-					
-					dustBunnyScript.Pause();
-				}
+				spiderScriptComp.Pause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bullet"))
+			{
+				Bullet bulletComp = gameObject.GetComponent<Bullet>();
 				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("spider"))
-				{
-					Spider spiderScriptComp = gameObject.GetComponent<Spider>();
-					
-					spiderScriptComp.Pause();
-				}
+				bulletComp.Pause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knifeHandler"))
+			{
+				KnifeHandler knifeHandlerComp = gameObject.GetComponent<KnifeHandler>();
 				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bullet"))
-				{
-					Bullet bulletComp = gameObject.GetComponent<Bullet>();
-					
-					bulletComp.Pause();
-				}
+				knifeHandlerComp.Pause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knife"))
+			{
+				Knife knifeComp = gameObject.GetComponent<Knife>();
 				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knifeHandler"))
-				{
-					KnifeHandler knifeHandlerComp = gameObject.GetComponent<KnifeHandler>();
-					
-					knifeHandlerComp.Pause();
-				}
+				knifeComp.Pause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))
+			{
+				TileDebris tileDebrisComp = gameObject.GetComponent<TileDebris>();
 				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("knife"))
-				{
-					Knife knifeComp = gameObject.GetComponent<Knife>();
-					
-					knifeComp.Pause();
-				}
+				tileDebrisComp.Pause();
+			}
+			
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("bee"))
+			{
+				Bee beeComp = gameObject.GetComponent<Bee>();
 				
-				foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))
-				{
-					TileDebris tileDebrisComp = gameObject.GetComponent<TileDebris>();
-					
-					tileDebrisComp.Pause();
-				}
+				beeComp.Pause();
 			}
 		}
 	}
@@ -256,4 +290,7 @@ public class GameplayGUI : MonoBehaviour
 	
 	//The prefab for the armor cookie UI.
 	public GameObject mArmorCookieUIPrefab;
+	
+	//The prefab for the pause menu.
+	public GameObject mPauseMenuPrefab;
 }

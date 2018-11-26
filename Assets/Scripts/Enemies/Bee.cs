@@ -24,4 +24,14 @@ public class Bee : MonoBehaviour
         float finalSinY = 0.35f * Mathf.Sin(deg * Mathf.Deg2Rad);
         transform.localPosition = new Vector3(anchorPos.x + finalSinX, anchorPos.y + finalSinY, transform.localPosition.z);
     }
+	
+	public void Pause()
+	{
+		enabled = false;
+	}
+	
+	public void UnPause()
+	{
+		enabled = true;
+	}
 }

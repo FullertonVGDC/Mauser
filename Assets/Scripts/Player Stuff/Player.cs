@@ -754,6 +754,11 @@ public class Player : MonoBehaviour
 		return mArmorCookies;
 	}
 	
+	public bool GetIsDead()
+	{
+		return mIsDead;
+	}
+	
     //Variables:
 
     //The current health the player has.
