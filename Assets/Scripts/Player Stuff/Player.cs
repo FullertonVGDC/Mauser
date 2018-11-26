@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         //Get the global data.
-        mGlobalData = GameObject.Find("globalData").GetComponent<GlobalData>();
+        mGlobalData = GameObject.Find("GlobalData").GetComponent<GlobalData>();
 
 	    mFiringKey = KeyCode.F;
 	}
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 		if(mIsDead)
 		{
 			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find("guiFader(Clone)");
+			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
 			
 			//The component of the gui fader object.
 			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();

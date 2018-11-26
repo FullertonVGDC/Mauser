@@ -62,7 +62,7 @@ public class GlobalData : MonoBehaviour
 		if(mChangedGameMap) 
         {
 			//A reference to the canvas object.
-			GameObject canvasObj = GameObject.Find("gameplayGUI");
+			GameObject canvasObj = GameObject.Find("GameplayGUI");
 			
 			//Create the main camera if we haven't already.
 			if(mMainCamera == null)

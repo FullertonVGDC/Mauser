@@ -10,7 +10,7 @@ public class GameplayGUI : MonoBehaviour
 	void Start () 
 	{
 		mPlayerComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		mGlobalDataComp = GameObject.Find("globalData").GetComponent<GlobalData>();
+		mGlobalDataComp = GameObject.Find("GlobalData").GetComponent<GlobalData>();
 	}
 	
 	// Update is called once per frame
@@ -33,7 +33,7 @@ public class GameplayGUI : MonoBehaviour
 			//Destroy the old cookies.
 			foreach (Transform childTransform in transform)
 			{
-				if(childTransform.gameObject.tag == "cookieUI")
+				if(childTransform.gameObject.tag == "CookieUI")
 				{
 					Destroy(childTransform.gameObject);
 				}
@@ -60,7 +60,7 @@ public class GameplayGUI : MonoBehaviour
 			//Destroy the old armor cookies.
 			foreach (Transform childTransform in transform)
 			{
-				if(childTransform.gameObject.tag == "armorCookieUI")
+				if(childTransform.gameObject.tag == "ArmorCookieUI")
 				{
 					Destroy(childTransform.gameObject);
 				}

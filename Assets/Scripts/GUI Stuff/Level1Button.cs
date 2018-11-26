@@ -13,7 +13,7 @@ public class Level1Button : MonoBehaviour
 
 		button1.onClick.AddListener(clickEventListener);
 
-		mGlobalData = GameObject.Find ("globalData").GetComponent<GlobalData> ();
+		mGlobalData = GameObject.Find ("GlobalData").GetComponent<GlobalData> ();
 	}
 	
 	// Update is called once per frame.
