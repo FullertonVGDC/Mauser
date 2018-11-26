@@ -60,7 +60,7 @@ public class KnifeHandler : MonoBehaviour
                 LeanTween.moveY(leftKnife, startStabPosY, 1).setEase(LeanTweenType.easeOutCubic);
                 LeanTween.moveY(rightKnife, startStabPosY, 1).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
                 {
-                    LeanTween.delayedCall(0.5f, () => { SwitchToState(State.Stabbing); });
+                    SwitchToState(State.Stabbing);
                 });
                 break;
 

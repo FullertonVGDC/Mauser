@@ -8,8 +8,8 @@ public class Bullet : MonoBehaviour
 	void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
-	    mTransform = GetComponent<Transform> ();
-	    mCameraTransform = GameObject.Find ("MainCamera(Clone)").GetComponent<Transform> ();
+	    mTransform = GetComponent<Transform>();
+	    mCameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
