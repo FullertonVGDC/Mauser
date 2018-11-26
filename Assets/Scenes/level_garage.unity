@@ -8885,6 +8885,14 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1929631546566460, guid: e8515c8c067324f4b920fa0de64bacd9, type: 2}
+      propertyPath: m_Name
+      value: TextLayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953319745927472, guid: e8515c8c067324f4b920fa0de64bacd9, type: 2}
+      propertyPath: m_Name
+      value: ImageLayer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8515c8c067324f4b920fa0de64bacd9, type: 2}
   m_IsPrefabAsset: 0
