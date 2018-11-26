@@ -31,9 +31,9 @@ public class GameplayGUI : MonoBehaviour
 			mCurPlayerHealth = playerHealth;
 			
 			//Destroy the old cookies.
-			foreach (Transform childTransform in transform)
+			foreach (Transform childTransform in transform.GetChild(1))
 			{
-				if(childTransform.gameObject.tag == "CookieUI")
+				if(childTransform.gameObject.tag == "cookieUI")
 				{
 					Destroy(childTransform.gameObject);
 				}
@@ -45,10 +45,12 @@ public class GameplayGUI : MonoBehaviour
 				GameObject curCookieUI;
 				
 				curCookieUI = Instantiate(mCookieUIPrefab, new Vector3(
-					200.0f + (i * 70.0f), 560.0f, -10.0f), 
+					0.0f, 0.0f, -10.0f), 
 					Quaternion.identity);
 					
 				curCookieUI.transform.SetParent(transform.GetChild(1).transform);
+				curCookieUI.transform.localPosition = new Vector3(
+					200.0f + (i * 70.0f), -35.0f, -10.0f);
 			}
 		}
 		
