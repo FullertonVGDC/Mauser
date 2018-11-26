@@ -167,6 +167,7 @@ public class Player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundL = 999.0f;
                     mGrounded = true;
+					mIsAbleToJump = true;
                     mAnimator.SetBool("Grounded", true);
                 }
             }
@@ -182,6 +183,7 @@ public class Player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundR = 999.0f;
                     mGrounded = true;
+					mIsAbleToJump = true;
                     mAnimator.SetBool("Grounded", true);
                 }
             }
@@ -197,15 +199,37 @@ public class Player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundM = 999.0f;
                     mGrounded = true;
+					mIsAbleToJump = true;
                     mAnimator.SetBool("Grounded", true);
                 }
             }
             else
             {
+				//Set the jump grace frame period amount to zero if the player is currently grounded.
+				if(mGrounded)
+				{
+					Debug.Log("Got this.");
+					mJumpGraceFramePeriodAmount = 0.0f;
+				}
+				
                 mGrounded = false;
                 mAnimator.SetBool("Grounded", false);
             }
         }
+		
+		//If just falling off a surface, check if a certain amount of time has passed 
+		// before making it so that the player cannot jump.
+		if(mIsAbleToJump && !mGrounded)
+		{
+			mJumpGraceFramePeriodAmount += Time.fixedDeltaTime;
+			
+			Debug.Log(mJumpGraceFramePeriodAmount);
+			if(mJumpGraceFramePeriodAmount >= mJumpGraceFramePeriod)
+			{
+				mJumpGraceFramePeriodAmount = mJumpGraceFramePeriod;
+				mIsAbleToJump = false;
+			}
+		}
     }
 
     //Collision Callbacks (Non-Trigger).
@@ -336,7 +360,7 @@ public class Player : MonoBehaviour
 			float finalVerticalSpeed = mRigidBody2D.velocity.y;
 
 			//Checks if the jump key is pressed.
-			bool jumpingAllowed = false;
+			bool jumpingKeyPressed = false;
 
 			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			//Process movement for left and right walking.
@@ -373,11 +397,12 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
             {
                 //Only jump if the player is grounded.
-                if (mGrounded)
+                if (mIsAbleToJump)
                 {
                     mGrounded = false;
+					mIsAbleToJump = false;
                     mAnimator.SetBool("Grounded", false);
-                    jumpingAllowed = true;
+                    jumpingKeyPressed = true;
                 }
             }
 
@@ -423,7 +448,7 @@ public class Player : MonoBehaviour
             }
 
             //If the jumping key is pressed and was validated, then set the base jump speed.
-            if (jumpingAllowed)
+            if (jumpingKeyPressed)
             {
                 finalVerticalSpeed = mBaseJumpSpeed;
             }
@@ -433,11 +458,13 @@ public class Player : MonoBehaviour
         }
         else
         {
+			//If grounded, set the proper velocity.
             if (mGrounded)
             {
                 mRigidBody2D.velocity = new Vector2(0.0f, mRigidBody2D.velocity.y);
             }
 
+			//If invincible, check if the invincibility runs out after the knockback period.
             if (mHurtInvincibilityPeriodAmount >= mKnockbackPeriod)
             {
                 mIsBeingKnockedBack = false;
@@ -634,6 +661,7 @@ public class Player : MonoBehaviour
 			mWalkingLeft = false;
 			mWalkingRight = false;
 			mGrounded = false;
+			mIsAbleToJump = false;
             mAnimator.SetBool("Grounded", false);
             mIsHurt = true;
             mAnimator.Play("Hurt");
@@ -781,6 +809,12 @@ public class Player : MonoBehaviour
 
     //The maximum knockback amount in seconds.
     private float mKnockbackPeriod = 0.5f;
+	
+	//The maximum jump grace frame amount in seconds.
+	private float mJumpGraceFramePeriod = 0.2f;
+	
+	//The current jump grace frame amount in seconds.
+	private float mJumpGraceFramePeriodAmount = 0.0f;
 
     //Used to check if the player is walking left.
     private bool mWalkingLeft = false;
@@ -789,7 +823,7 @@ public class Player : MonoBehaviour
     private bool mWalkingRight = false;
 
     //Checks if the player is grounded. If so, the player can jump.
-    private bool mGrounded = true;
+    private bool mGrounded = false;
 
     //The direction the player is initially facing.
     private bool mFacingRight = true;
@@ -808,6 +842,9 @@ public class Player : MonoBehaviour
 
     //Checks if the player is being knocked back.
     private bool mIsBeingKnockedBack = false;
+	
+	//Checks if the player is currently able to jump.
+	private bool mIsAbleToJump = false;
 
     //The firing key.
     private KeyCode mFiringKey;
