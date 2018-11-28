@@ -298,7 +298,7 @@ public class Player : MonoBehaviour
 		}
 
 		//Check if colliding with a checkpoint object.
-		if (collider.gameObject.name == "checkpoint") 
+		if (collider.gameObject.name == "Checkpoint") 
 		{
 			mGlobalData.SetCheckpointEnabled(true);
 			mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
