@@ -8,9 +8,10 @@ public class Spider : MonoBehaviour
 	void Start () 
 	{
 		mTransform = GetComponent<Transform> ();
-		mRigidBody2D = GetComponent<Rigidbody2D> ();
+		mRigidBody2D = GetComponent<Rigidbody2D>();
         mCollider2D = GetComponent<Collider2D>();
 		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        mAnimator = GetComponent<Animator>();
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
 	}
@@ -150,7 +151,7 @@ public class Spider : MonoBehaviour
 	
 	void ClimbingDownMovement()
 	{
-		mRigidBody2D.velocity = new Vector2(0.0f, -12.0f);
+		mRigidBody2D.velocity = new Vector2(0.0f, -4.0f);
 		
 		//Stretch the web object as the spider moves downwards.
 		
@@ -171,7 +172,7 @@ public class Spider : MonoBehaviour
 		{
 			webObject.transform.localScale = new Vector3(
 				webObject.transform.localScale.x, 
-				webObject.transform.localScale.y + (12.0f * Time.deltaTime), 
+				webObject.transform.localScale.y + (4.0f * Time.deltaTime), 
 				webObject.transform.localScale.z);
 		}
 			
@@ -238,6 +239,7 @@ public class Spider : MonoBehaviour
 
     void DyingAnimation()
     {
+        transform.Rotate(new Vector3(0, 0, mDeathRotateAngle));
         //If just died, fire the spider into the air and have it fall off screen.
         // Also prevent the spider from colliding with walls.
         if (mJustDied)
@@ -255,6 +257,16 @@ public class Spider : MonoBehaviour
 
             mRigidBody2D.gravityScale = 2.0f;
             mCollider2D.isTrigger = true;
+            mAnimator.SetTrigger("Death Trigger");
+
+            if (GameObject.FindGameObjectWithTag("Player").transform.position.x < transform.position.x)
+                mDeathRotateAngle = Random.Range(-15f, -5f);
+            else
+                mDeathRotateAngle = Random.Range(5f, 15f);
+
+            //lol
+            if (Random.Range(1, 101) == 100)
+                mDeathRotateAngle = 50f;
 
             mJustDied = false;
         }
@@ -272,9 +284,10 @@ public class Spider : MonoBehaviour
 		{
 			mResting = false;
 			mClimbingDown = true;
-			
-			//Check which direction the spider should face.
-			if(playerObj.transform.position.x < transform.position.x)
+            mAnimator.SetTrigger("Descent Trigger");
+
+            //Check which direction the spider should face.
+            if (playerObj.transform.position.x < transform.position.x)
 			{
 				mFacingLeft = true;
 			}
@@ -300,6 +313,7 @@ public class Spider : MonoBehaviour
 		mRigidBody2D.gravityScale = 0.0f;
 		mPausedVelocity = mRigidBody2D.velocity;
 		mRigidBody2D.velocity = new Vector2(0.0f, 0.0f);
+        mAnimator.enabled = false;
 	}
 	
 	public void UnPause()
@@ -313,6 +327,7 @@ public class Spider : MonoBehaviour
 		}
 		
 		mRigidBody2D.velocity = mPausedVelocity;
+        mAnimator.enabled = true;
 	}
 	
     //Getters:
@@ -333,6 +348,8 @@ public class Spider : MonoBehaviour
 
     //The current health of the spider.
     private int mCurHealth = 5;
+
+    float mDeathRotateAngle;
 
     //The maximum health of the spider.
     //private int mMaxHealth = 5;
@@ -375,6 +392,9 @@ public class Spider : MonoBehaviour
 	
 	//The audio source of the camera component object.
 	private AudioSource mAudioSourceOfCamera;
+
+    //The animator
+    Animator mAnimator;
 	
 	//Public variables.
 	
