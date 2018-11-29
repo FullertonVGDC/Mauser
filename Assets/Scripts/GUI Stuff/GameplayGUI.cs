@@ -60,7 +60,6 @@ public class GameplayGUI : MonoBehaviour
 			{
 				if(childTransform.gameObject.tag == "cookieUI")
 				{
-					Debug.Log("Got here.");
 					Destroy(childTransform.gameObject);
 				}
 			}
