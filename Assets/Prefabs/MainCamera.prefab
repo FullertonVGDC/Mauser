@@ -103,7 +103,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -196,4 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd3c8796da8f4d2f9f1f75462bda07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenTopEdge: 0
+  screenBottomEdge: 0
+  screenLeftEdge: 0
+  screenRightEdge: 0
   mCameraOrthoHeight: 1080
