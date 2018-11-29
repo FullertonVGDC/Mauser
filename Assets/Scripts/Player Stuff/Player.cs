@@ -519,51 +519,54 @@ public class Player : MonoBehaviour
 
     void BulletCreation()
     {
-        //Check if the left walking keys are down.
-        if (Input.GetKeyDown(mFiringKey))
-        {
-            if (mIsFiringBullets == false)
-            {
-                mIsFiringBullets = true;
-                mFiringPeriodAmount = mFiringPeriod;
-            }
-        }
-
-        else if (Input.GetKeyUp(mFiringKey))
-        {
-            mIsFiringBullets = false;
-        }
-
-        mFiringPeriodAmount += Time.deltaTime;
-
-        //If firing bullets, create them after the correct amount of time has elapsed.
-        if (mIsFiringBullets == true)
-        {
-            while (mFiringPeriodAmount >= mFiringPeriod)
-            {
-				//The bullet offset amount on the x axis.
-				float xOffset = 0.0f;
-				
-				if(mFacingRight)
+		if(!mIsDead)
+		{
+			//Check if the left walking keys are down.
+			if (Input.GetKeyDown(mFiringKey))
+			{
+				if (mIsFiringBullets == false)
 				{
-					xOffset = 1.0f;
+					mIsFiringBullets = true;
+					mFiringPeriodAmount = mFiringPeriod;
 				}
-				else
+			}
+
+			else if (Input.GetKeyUp(mFiringKey))
+			{
+				mIsFiringBullets = false;
+			}
+
+			mFiringPeriodAmount += Time.deltaTime;
+
+			//If firing bullets, create them after the correct amount of time has elapsed.
+			if (mIsFiringBullets == true)
+			{
+				while (mFiringPeriodAmount >= mFiringPeriod)
 				{
-					xOffset = -1.0f;
-				}
-				
-                GameObject bulletPrefab = Instantiate(mBulletPrefab, new Vector2(
-					transform.position.x + xOffset, transform.position.y + 0.5f), 
-					Quaternion.identity);
+					//The bullet offset amount on the x axis.
+					float xOffset = 0.0f;
 					
-                Bullet bulletComponent = bulletPrefab.GetComponent<Bullet>();
-                bulletComponent.SetFacingRight(mFacingRight);
-                mFiringPeriodAmount -= mFiringPeriod;
-				
-				mAudioSource.PlayOneShot(mMauserFireAudioClip, 0.7f);
-            }
-        }
+					if(mFacingRight)
+					{
+						xOffset = 1.0f;
+					}
+					else
+					{
+						xOffset = -1.0f;
+					}
+					
+					GameObject bulletPrefab = Instantiate(mBulletPrefab, new Vector2(
+						transform.position.x + xOffset, transform.position.y + 0.5f), 
+						Quaternion.identity);
+						
+					Bullet bulletComponent = bulletPrefab.GetComponent<Bullet>();
+					bulletComponent.SetFacingRight(mFacingRight);
+					mFiringPeriodAmount -= mFiringPeriod;
+					
+					mAudioSource.PlayOneShot(mMauserFireAudioClip, 0.7f);
+				}
+			}
+		}
     }
 
     void UpdateCameraPosition()
