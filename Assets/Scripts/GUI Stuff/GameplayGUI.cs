@@ -12,6 +12,23 @@ public class GameplayGUI : MonoBehaviour
 		mPlayerComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		mGlobalDataComp = GameObject.Find("GlobalData").GetComponent<GlobalData>();
 		mMusicPlayer = GameObject.Find("GlobalData").GetComponent<AudioSource>();
+		
+		//Create the default hollow cookies.
+		for (uint i = 0; i < 3; i++)
+		{
+			GameObject curCookieUI;
+			
+			curCookieUI = Instantiate(mCookieDarkUIPrefab, new Vector3(
+				0.0f, 0.0f, -10.0f), 
+				Quaternion.identity);
+				
+			curCookieUI.transform.SetParent(transform.GetChild(1).transform);
+			curCookieUI.transform.localPosition = new Vector3(
+				200.0f + (i * 70.0f), -35.0f, -10.0f);
+				
+			Image curCookieSprite = curCookieUI.GetComponent<Image>();
+			curCookieSprite.color = Color.black;
+		}
 	}
 	
 	// Update is called once per frame
@@ -28,7 +45,7 @@ public class GameplayGUI : MonoBehaviour
 		uint playerHealth = mPlayerComp.GetHealth();
 		
 		//The player's armor cookies.
-		uint playerArmorCookies = mPlayerComp.GetArmorCookies();
+		uint playerArmor = mPlayerComp.GetArmor();
 		
 		//The number of bottle caps collected.
 		int playerBottleCaps = mGlobalDataComp.GetCurrency();
@@ -43,6 +60,7 @@ public class GameplayGUI : MonoBehaviour
 			{
 				if(childTransform.gameObject.tag == "cookieUI")
 				{
+					Debug.Log("Got here.");
 					Destroy(childTransform.gameObject);
 				}
 			}
@@ -63,29 +81,31 @@ public class GameplayGUI : MonoBehaviour
 		}
 		
 		//Create the armor cookies.
-		if(playerArmorCookies != mCurPlayerArmorCookies)
+		if(playerArmor != mCurPlayerArmor)
 		{
-			mCurPlayerArmorCookies = playerArmorCookies;
+			mCurPlayerArmor = playerArmor;
 			
 			//Destroy the old armor cookies.
-			foreach (Transform childTransform in transform)
+			foreach (Transform childTransform in transform.GetChild(1))
 			{
-				if(childTransform.gameObject.tag == "ArmorCookieUI")
+				if(childTransform.gameObject.tag == "armorCookieUI")
 				{
 					Destroy(childTransform.gameObject);
 				}
 			}
 			
 			//Create the new armor cookies.
-			for (uint i = 0; i < mCurPlayerArmorCookies; i++)
+			for (uint i = 0; i < mCurPlayerArmor; i++)
 			{
-				GameObject curArmorCookieUI;
+				GameObject curArmorUI;
 				
-				curArmorCookieUI = Instantiate(mArmorCookieUIPrefab, new Vector2(
-					200.0f + ((i+3) * 70.0f), 560.0f), 
+				curArmorUI = Instantiate(mArmorCookieUIPrefab, new Vector3(
+					0.0f, 0.0f, -10.0f),
 					Quaternion.identity);
 					
-				curArmorCookieUI.transform.SetParent(transform.GetChild(1).transform);
+				curArmorUI.transform.SetParent(transform.GetChild(1).transform);
+				curArmorUI.transform.localPosition = new Vector3(
+					200.0f + ((i+3) * 70.0f), -35.0f, -10.0f);
 			}
 		}
 		
@@ -275,7 +295,7 @@ public class GameplayGUI : MonoBehaviour
 	private uint mCurPlayerHealth;
 	
 	//The current player armor cookies cached by the player.
-	private uint mCurPlayerArmorCookies;
+	private uint mCurPlayerArmor;
 	
 	//The current player bottle caps cached by the player.
 	private int mCurPlayerBottleCaps;
@@ -296,6 +316,9 @@ public class GameplayGUI : MonoBehaviour
 	
 	//The prefab for the armor cookie UI.
 	public GameObject mArmorCookieUIPrefab;
+	
+	//The prefab for the dark cookie UI.
+	public GameObject mCookieDarkUIPrefab;
 	
 	//The prefab for the pause menu.
 	public GameObject mPauseMenuPrefab;

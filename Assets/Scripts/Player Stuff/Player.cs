@@ -27,8 +27,15 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		Movement ();
-		BulletCreation();
+		if(mMovementGracePeriodAmount < mMovementGracePeriod)
+		{
+			mMovementGracePeriodAmount += Time.deltaTime;
+		}
+		else
+		{
+			Movement ();
+			BulletCreation();
+		}
 		
 		mSpriteRenderer.enabled = true;
 		
@@ -273,7 +280,7 @@ public class Player : MonoBehaviour
         {
 			if(!mIsDead)
 			{
-				if(mArmorCookies == 0)
+				if(mCurArmor == 0)
 				{
 					mCurHealth++;
 
@@ -294,14 +301,7 @@ public class Player : MonoBehaviour
         {
 			if(!mIsDead)
 			{
-				if(mCurHealth == mMaxHealth)
-				{
-					mArmorCookies += 1;
-				}
-				else
-				{
-					mCurHealth += 1;
-				}
+				mCurArmor += 1;
 
 				Destroy(collider.gameObject);
 				
@@ -340,7 +340,10 @@ public class Player : MonoBehaviour
 
 				Destroy(collider.gameObject);
 				
-				mAudioSource.PlayOneShot(mMauserCollectCheckpointAudioClip, 1.0f);
+				if(mMovementGracePeriodAmount >= mMovementGracePeriod)
+				{
+					mAudioSource.PlayOneShot(mMauserCollectCheckpointAudioClip, 1.0f);
+				}
 			}
 		}
 	}
@@ -705,9 +708,9 @@ public class Player : MonoBehaviour
 			
 			mAudioSource.PlayOneShot(mMauserHurtAudioClip, 1.0f);
 
-			if(mArmorCookies != 0)
+			if(mCurArmor != 0)
 			{
-				mArmorCookies -= 1;
+				mCurArmor -= 1;
 				
 				mHurtInvincibilityPeriodAmount = 0.0f;
 
@@ -751,7 +754,6 @@ public class Player : MonoBehaviour
 				}
 				else
 				{
-					mCurHealth--;
 					mHurtInvincibilityPeriodAmount = 0.0f;
 
 					if (mRigidBody2D.velocity.x > 0)
@@ -769,6 +771,8 @@ public class Player : MonoBehaviour
 						mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
 					}
 				}
+				
+				mCurHealth--;
 			}
 		}
 	}
@@ -799,9 +803,9 @@ public class Player : MonoBehaviour
 		return mCurHealth;
 	}
 	
-	public uint GetArmorCookies()
+	public uint GetArmor()
 	{
-		return mArmorCookies;
+		return mCurArmor;
 	}
 	
 	public bool GetIsDead()
@@ -813,12 +817,12 @@ public class Player : MonoBehaviour
 
     //The current health the player has.
     private uint mCurHealth = 3;
+	
+	//The current armor the player has.
+	private uint mCurArmor = 0;
 
     //The maximum health the player can hold.
     private uint mMaxHealth = 3;
-	
-	//The number of armor cookies the player has collected.
-	private uint mArmorCookies = 0;
 
     //The base walking speed.
     private float mBaseWalkSpeed = 6.0f;
@@ -876,6 +880,12 @@ public class Player : MonoBehaviour
 	
 	//The current jump grace frame amount in seconds.
 	private float mJumpGraceFramePeriodAmount = 0.0f;
+	
+	//The maximum movement grace frame amount in seconds.
+	private float mMovementGracePeriod = 1.0f;
+	
+	//The current movement grace frame amount in seconds.
+	private float mMovementGracePeriodAmount = 0.0f;
 
     //Used to check if the player is walking left.
     private bool mWalkingLeft = false;

@@ -160,7 +160,7 @@ public class Spider : MonoBehaviour
 		//Find the web object and assign it to the webObject.
 		foreach (Transform child in transform.parent)
 		{
-			if(child.gameObject.name == "web")
+			if(child.gameObject.name == "Web")
 			{
 				webObject = child.gameObject;
 			}
