@@ -48,21 +48,19 @@ public class Bullet : MonoBehaviour
         }
 
     	if (collider.gameObject.tag == "enemy1")
-    	{
-			mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
-			
+    	{	
 			if(!collider.gameObject.GetComponent<DustBunny>().GetIsDead())
 			{
+				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
 				Destroy(this.gameObject);
 			}
     	}
 		
 		if (collider.gameObject.tag == "spider")
     	{
-			mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
-			
 			if(!collider.gameObject.GetComponent<Spider>().GetIsDead())
 			{
+				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
 				Destroy(this.gameObject);
 			}
     	}

@@ -147,22 +147,25 @@ public class GlobalData : MonoBehaviour
 						
 						mBeesGenerated = true;
 					}
+					
+					mMusicPlayer.clip = mWallSong;
 				} 
 				else if (mCurGameMapName == GameMapName.GAMEMAP_BASEMENT) 
 				{
 					mMainCamera.transform.position = new Vector3(0.0f, 4.0f, -1.0f);
 					cameraSript.SetIsScrollingUp (false);
+					mMusicPlayer.clip = mBasementSong;
 				}
 				else if (mCurGameMapName == GameMapName.GAMEMAP_KITCHEN)
 				{
 					cameraSript.SetIsScrollingUp (false);
+					mMusicPlayer.clip = mKitchenSong;
 				}
 
 				cameraSript.UpdateCameraBounds (mCurGameMapBounds);
 			}
 
-			//Play the background music.
-			
+			//Play the currently selected background music.
 			mMusicPlayer.Play(0);
 			
 			mChangedGameMap = false;
@@ -282,6 +285,15 @@ public class GlobalData : MonoBehaviour
 	private Bounds[] mGameMapBounds;
 	
 	//Public variables:
+	
+	//The basement song.
+	public AudioClip mBasementSong;
+	
+	//The wall song.
+	public AudioClip mWallSong;
+	
+	//The kitchen song.
+	public AudioClip mKitchenSong;
 	
 	//The main camera prefab.
 	public GameObject mMainCameraPrefab;
