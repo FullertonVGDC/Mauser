@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224178152449587058}
   - component: {fileID: 222081924513221938}
   - component: {fileID: 114712618737251530}
+  - component: {fileID: 114750332162752608}
   m_Layer: 5
   m_Name: bottleCapsUI
   m_TagString: Untagged
@@ -38,6 +39,7 @@ GameObject:
   - component: {fileID: 224727839081613494}
   - component: {fileID: 222941100804395812}
   - component: {fileID: 114895523268107790}
+  - component: {fileID: 114486873669579626}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -55,6 +57,7 @@ GameObject:
   - component: {fileID: 224268025970376066}
   - component: {fileID: 222650674297484098}
   - component: {fileID: 114309984316553504}
+  - component: {fileID: 114177402053281816}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -146,6 +149,20 @@ MonoBehaviour:
     type: 2}
   mPauseMenuPrefab: {fileID: 1735187309650910, guid: e56fac216673a9b4f95aca6edfa33d5a,
     type: 2}
+--- !u!114 &114177402053281816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1879581258748960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.6603774, g: 0.4388981, b: 0.021804927, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114309984316553504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,6 +196,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Bottle Caps:'
+--- !u!114 &114486873669579626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550958364051902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.509434, g: 0.08891065, b: 0.08891065, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 0
 --- !u!114 &114699797962212162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,6 +264,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
+--- !u!114 &114750332162752608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231706381808674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114895523268107790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -418,5 +463,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 160, y: 88.47}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0, y: 1}
