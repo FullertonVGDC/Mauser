@@ -23,6 +23,12 @@ public class KnifeHandler : MonoBehaviour
     CameraHandler cameraHandler;
     [HideInInspector]
     public Pawser pawser;
+	
+	//The id of the first active LeanTween animation. Needed for pause functionality.
+	private int leanTweenActiveAnimID1 = -1;
+	
+	//The id of the second active LeanTween animation. Needed for pause functionality.
+	private int leanTweenActiveAnimID2 = -1;
 
 
 
@@ -40,15 +46,32 @@ public class KnifeHandler : MonoBehaviour
 
     void SwitchToState(State nextState)
     {
+		//The current LeanTween animation being created.
+		LTDescr curLeanTweenAnim;
+		
         state = nextState;
+		
+		//Enable different animations based on the current state of the knife handler.
         switch (state)
         {
             case State.FlyingUp:
-                LeanTween.moveY(leftKnife, cameraHandler.screenTopEdge + knifeHeight, 0.75f).setEase(LeanTweenType.easeOutCubic);
-                LeanTween.moveY(rightKnife, cameraHandler.screenTopEdge + knifeHeight, 0.75f).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
+				//The animation for the left knife flying up off the screen.
+				curLeanTweenAnim = LeanTween.moveY(leftKnife, cameraHandler.screenTopEdge + knifeHeight, 0.75f);
+				curLeanTweenAnim.setEase(LeanTweenType.easeOutCubic);
+                leanTweenActiveAnimID1 = curLeanTweenAnim.id;
+				
+				//The animation for the right knife flying up off the screen.
+				curLeanTweenAnim = LeanTween.moveY(rightKnife, cameraHandler.screenTopEdge + knifeHeight, 0.75f);
+				curLeanTweenAnim.setEase(LeanTweenType.easeOutCubic);
+                curLeanTweenAnim.setOnComplete(() =>
                 {
-                    LeanTween.delayedCall(0.25f, () => { SwitchToState(State.FlyingDown); });
+                    LeanTween.delayedCall(0.25f, () => 
+					{ 
+						SwitchToState(State.FlyingDown); 
+					});
                 });
+				leanTweenActiveAnimID2 = curLeanTweenAnim.id;
+				
                 break;
 
             case State.FlyingDown:
@@ -57,39 +80,94 @@ public class KnifeHandler : MonoBehaviour
                 leftKnife.transform.eulerAngles = new Vector3(0, 0, 0);
                 rightKnife.transform.eulerAngles = new Vector3(0, 0, 0);
 
-                LeanTween.moveY(leftKnife, startStabPosY, 1).setEase(LeanTweenType.easeOutCubic);
-                LeanTween.moveY(rightKnife, startStabPosY, 1).setEase(LeanTweenType.easeOutCubic).setOnComplete(() =>
+				//The animation for the left knife getting into stabbing position.
+				curLeanTweenAnim = LeanTween.moveY(leftKnife, startStabPosY, 1);
+				curLeanTweenAnim.setEase(LeanTweenType.easeOutCubic);
+                leanTweenActiveAnimID1 = curLeanTweenAnim.id;
+				
+				//The animation for the right knife getting into stabbing position.
+                curLeanTweenAnim = LeanTween.moveY(rightKnife, startStabPosY, 1);
+				curLeanTweenAnim.setEase(LeanTweenType.easeOutCubic);
+				curLeanTweenAnim.setOnComplete(() =>
                 {
                     SwitchToState(State.Stabbing);
                 });
+				leanTweenActiveAnimID2 = curLeanTweenAnim.id;
+				
                 break;
 
             case State.Stabbing:
+				//Tell the left knife to start stabbing down.
                 leftKnife.GetComponent<Knife>().StabDown();
-                LeanTween.delayedCall(0.5f, () => { rightKnife.GetComponent<Knife>().StabDown(); });
-                LeanTween.moveX(gameObject, 17.5f, 6).setEase(LeanTweenType.easeInOutQuad).setOnComplete(() => { SwitchToState(State.Leaving); });
+				
+				//Tell the right knife to start stabbing down after a set amount of time.
+                curLeanTweenAnim = LeanTween.delayedCall(0.5f, () => 
+				{
+					rightKnife.GetComponent<Knife>().StabDown(); 
+				});
+				leanTweenActiveAnimID1 = curLeanTweenAnim.id;
+				
+				//Move both knives to the right until they are offscreen. When they are offscreen, switch to the leaving state.
+                curLeanTweenAnim = LeanTween.moveX(gameObject, 17.5f, 6);
+				curLeanTweenAnim.setEase(LeanTweenType.easeInOutQuad);
+				curLeanTweenAnim.setOnComplete(() => 
+				{ 
+					SwitchToState(State.Leaving); 
+				});
+				leanTweenActiveAnimID2 = curLeanTweenAnim.id;
+				
                 break;
 
             case State.Leaving:
                 finishedPanning = true;
-                LeanTween.moveY(gameObject, cameraHandler.screenTopEdge + knifeHeight, 1).setEase(LeanTweenType.easeInCubic).setOnComplete(() =>
+				
+				//Create the animation for making the knives disappear offscreen. Once they disappear, then delete the knife objects.
+                curLeanTweenAnim = LeanTween.moveY(gameObject, cameraHandler.screenTopEdge + knifeHeight, 1);
+				curLeanTweenAnim.setEase(LeanTweenType.easeInCubic);
+				curLeanTweenAnim.setOnComplete(() =>
                 {
                     pawser.state = Pawser.State.Idle;
                     Destroy(gameObject);
+					leanTweenActiveAnimID1 = -1;
+					leanTweenActiveAnimID2 = -1;
                 });
+				
+				leanTweenActiveAnimID1 = curLeanTweenAnim.id;
+				leanTweenActiveAnimID2 = -1;
+				
                 break;
+			default:
+				break;
         }
     }
 	
 	public void Pause()
 	{
 		enabled = false;
-		LeanTween.pauseAll();
+		
+		if(leanTweenActiveAnimID1 != -1)
+		{
+			LeanTween.pause(leanTweenActiveAnimID1);
+		}
+		
+		if(leanTweenActiveAnimID2 != -1)
+		{
+			LeanTween.pause(leanTweenActiveAnimID2);
+		}
 	}
 	
 	public void UnPause()
 	{
 		enabled = true;
-		LeanTween.resumeAll();
+		
+		if(leanTweenActiveAnimID1 != -1)
+		{
+			LeanTween.resume(leanTweenActiveAnimID1);
+		}
+		
+		if(leanTweenActiveAnimID2 != -1)
+		{
+			LeanTween.resume(leanTweenActiveAnimID2);
+		}
 	}
 }
