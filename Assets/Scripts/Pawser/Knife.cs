@@ -98,13 +98,10 @@ public class Knife : MonoBehaviour
 		switch(curEnabledAnimInSequence)
 		{
 			case 0 : LeanTween.pause(id1);
-					Debug.Log("paused 1");
 				break;
 			case 1 : LeanTween.pause(id2);
-					Debug.Log("paused 2");
 				break;
 			case 2 : LeanTween.pause(id3);
-					Debug.Log("paused 3");
 				break;
 			default : 
 				break;
