@@ -816,7 +816,7 @@ public class Player : MonoBehaviour
             else
             {
                 Vector2 spawnPos = transform.position;
-                spawnPos.x -= (GetComponent<BoxCollider2D>().bounds.size.x / 2);
+                spawnPos.x += (GetComponent<BoxCollider2D>().bounds.size.x / 2);
                 spawnPos.y -= (GetComponent<BoxCollider2D>().bounds.size.y / 2);
                 spawnPos.y += 0.35f;
 
@@ -829,19 +829,21 @@ public class Player : MonoBehaviour
     void KickUpJumpDust()
     {
         float spawnX = transform.position.x - (GetComponent<BoxCollider2D>().bounds.size.x / 2);
+        float spawnY = transform.position.y - (GetComponent<BoxCollider2D>().bounds.size.y / 2) + 0.35f;    //+0.35f because lol
         float endX = transform.position.x + (GetComponent<BoxCollider2D>().bounds.size.x / 2);
         float shiftAmount = GetComponent<BoxCollider2D>().bounds.size.x * 0.15f; //Generate X amount of particles
 
         while (spawnX < endX)
         {
-            Vector2 spawnPos = new Vector2(spawnX, transform.position.y);
-            spawnPos.y -= (GetComponent<BoxCollider2D>().bounds.size.y / 2);
-            spawnPos.y += 0.35f;    //+0.35f because the particles don't go to the exact bottom of the box collider for some reason
-            spawnX += shiftAmount;
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(spawnX, spawnY), Vector2.down, 0.25f, collidableLayerMask);
+            if (hit)
+            {
+                GameObject newDustParticle = Instantiate(mDustParticlePrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                float dustVelocityX = Random.Range((mRigidBody2D.velocity.x * 0.15f) - 0.25f, (mRigidBody2D.velocity.x * 0.15f) + 0.25f);
+                newDustParticle.GetComponent<PlayerDustParticle>().velocity = new Vector2(dustVelocityX, Random.Range(1f, 2f));
+            }
 
-            GameObject newDustParticle = Instantiate(mDustParticlePrefab, spawnPos, Quaternion.identity);
-            float dustVelocityX = Random.Range((mRigidBody2D.velocity.x * 0.15f) - 0.25f, (mRigidBody2D.velocity.x * 0.15f) + 0.25f);
-            newDustParticle.GetComponent<PlayerDustParticle>().velocity = new Vector2(dustVelocityX, Random.Range(1f, 2f));
+            spawnX += shiftAmount;
         }
     }
 

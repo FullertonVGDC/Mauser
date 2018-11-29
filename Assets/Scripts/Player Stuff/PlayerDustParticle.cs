@@ -11,7 +11,7 @@ public class PlayerDustParticle : MonoBehaviour
     void Start()
     {
         gravity = Random.Range(5f, 10f);
-        LeanTween.alpha(gameObject, 0, 1).setOnComplete(() => { Destroy(gameObject); });
+        LeanTween.alpha(gameObject, 0, 0.5f).setOnComplete(() => { Destroy(gameObject); });
     }
 
     void Update()
