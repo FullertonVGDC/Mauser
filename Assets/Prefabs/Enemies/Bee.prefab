@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4020431126678236}
   - component: {fileID: 212269815287953282}
   - component: {fileID: 114820594036300996}
+  - component: {fileID: 95836904962501806}
   m_Layer: 0
   m_Name: Bee
   m_TagString: bee
@@ -41,6 +42,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95836904962501806
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338238201573868}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0c9f1b11ce36f74684813b270bdf627, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114820594036300996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: -646887937
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 631e9df481a3da84caa16b5b797fe275, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0e80b3a2064ddf45994afa862ed3a0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

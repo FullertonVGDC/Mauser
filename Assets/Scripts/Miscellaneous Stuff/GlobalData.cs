@@ -117,9 +117,9 @@ public class GlobalData : MonoBehaviour
 
 					if(mBeesGenerated == false)
 					{
-						float numberOfRows = 4;
-						float spacingBetweenRows = 0.35f;
-						float spacingBetweenBees = 1.0f;
+						float numberOfRows = 3;
+						float spacingBetweenRows = 0.75f;
+						float spacingBetweenBees = 1.25f;
 
 						Vector2 bottomLeftCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (0, 0));
 						Vector2 bottomRightCameraPoint = cameraComp.ScreenToWorldPoint (new Vector2 (cameraComp.pixelWidth, 0));
