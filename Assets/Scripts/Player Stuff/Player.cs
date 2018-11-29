@@ -445,6 +445,7 @@ public class Player : MonoBehaviour
 					mIsAbleToJump = false;
                     mAnimator.SetBool("Grounded", false);
                     jumpingKeyPressed = true;
+                    KickUpJumpDust();
 					
 					mAudioSource.PlayOneShot(mMauserJumpAudioClip, 1.0f);
                 }
@@ -803,6 +804,57 @@ public class Player : MonoBehaviour
 		mRigidBody2D.velocity = mPausedVelocity;
 		mAnimator.enabled = true;
 	}
+
+    public void KickUpRunDust()
+    {
+        int numberOfParticles = Random.Range(2, 4);
+        for (int i = 0; i < numberOfParticles; i++)
+        {
+            if (mFacingRight)
+            {
+                Vector2 spawnPos = transform.position;
+                spawnPos.x -= (GetComponent<BoxCollider2D>().bounds.size.x / 2);
+                spawnPos.y -= (GetComponent<BoxCollider2D>().bounds.size.y / 2);
+                spawnPos.y += 0.35f;
+
+                GameObject newDustParticle = Instantiate(mDustParticlePrefab, spawnPos, Quaternion.identity);
+                newDustParticle.GetComponent<PlayerDustParticle>().velocity = new Vector2(Random.Range(-2f, -0.5f), Random.Range(1f, 2f));
+            }
+            else
+            {
+                Vector2 spawnPos = transform.position;
+                spawnPos.x += (GetComponent<BoxCollider2D>().bounds.size.x / 2);
+                spawnPos.y -= (GetComponent<BoxCollider2D>().bounds.size.y / 2);
+                spawnPos.y += 0.35f;
+
+                GameObject newDustParticle = Instantiate(mDustParticlePrefab, spawnPos, Quaternion.identity);
+                newDustParticle.GetComponent<PlayerDustParticle>().velocity = new Vector2(Random.Range(0.5f, 2f), Random.Range(1f, 2f));
+            }
+        }
+    }
+
+    void KickUpJumpDust()
+    {
+        float spawnX = transform.position.x - (GetComponent<BoxCollider2D>().bounds.size.x / 2);
+        float spawnY = transform.position.y - (GetComponent<BoxCollider2D>().bounds.size.y / 2) + 0.35f;    //+0.35f because lol
+        float endX = transform.position.x + (GetComponent<BoxCollider2D>().bounds.size.x / 2);
+        float shiftAmount = GetComponent<BoxCollider2D>().bounds.size.x * 0.15f; //Generate X amount of particles
+
+        while (spawnX < endX)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(spawnX, spawnY), Vector2.down, 0.25f, collidableLayerMask);
+            if (hit)
+            {
+                GameObject newDustParticle = Instantiate(mDustParticlePrefab, new Vector2(spawnX, spawnY), Quaternion.identity);
+                float dustVelocityX = Random.Range((mRigidBody2D.velocity.x * 0.15f) - 0.25f, (mRigidBody2D.velocity.x * 0.15f) + 0.25f);
+                newDustParticle.GetComponent<PlayerDustParticle>().velocity = new Vector2(dustVelocityX, Random.Range(1f, 2f));
+            }
+
+            spawnX += shiftAmount;
+        }
+    }
+
+
 	
 	//Getters:
 	public uint GetHealth()
@@ -964,6 +1016,9 @@ public class Player : MonoBehaviour
 
     //The prefab for the bullet object.
     public GameObject mBulletPrefab;
+
+    //Dust particle prefab.
+    public GameObject mDustParticlePrefab;
 	
 	//The audio clip for when mauser jumps.
 	public AudioClip mMauserJumpAudioClip;
