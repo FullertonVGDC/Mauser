@@ -11,6 +11,7 @@ public class GameplayGUI : MonoBehaviour
 	{
 		mPlayerComp = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		mGlobalDataComp = GameObject.Find("GlobalData").GetComponent<GlobalData>();
+		mMusicPlayer = GameObject.Find("GlobalData").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -110,10 +111,12 @@ public class GameplayGUI : MonoBehaviour
 			if(mIsPaused)
 			{
 				SetPaused(false);
+				mMusicPlayer.volume = 0.8f;
 			}
 			else
 			{
 				SetPaused(true);
+				mMusicPlayer.volume = 0.2f;
 			}
 		}
 	}
@@ -282,6 +285,9 @@ public class GameplayGUI : MonoBehaviour
 	
 	//The global data component.
 	private GlobalData mGlobalDataComp;
+	
+	//The music player for the background music.
+	private AudioSource mMusicPlayer;
 	
 	//Prefabs.
 	

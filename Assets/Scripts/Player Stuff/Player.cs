@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
+		mAudioSource = GetComponent<AudioSource>();
+		
         //Get the global data.
         mGlobalData = GameObject.Find("GlobalData").GetComponent<GlobalData>();
 
@@ -242,68 +244,104 @@ public class Player : MonoBehaviour
         //Check if colliding with bottle caps.
         if (collider.gameObject.tag == "gold")
         {
-            //The bottle cap object being collided with.
-            BottleCap bottleCap1 = collider.gameObject.GetComponent<BottleCap>();
+			if(!mIsDead)
+			{
+				//The bottle cap object being collided with.
+				BottleCap bottleCap1 = collider.gameObject.GetComponent<BottleCap>();
 
-            mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
+				mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
 
-            Destroy(collider.gameObject);
+				Destroy(collider.gameObject);
+				
+				if(bottleCap1.GetCurrency() == 1)
+				{
+					mAudioSource.PlayOneShot(mMauserCollectRedCapAudioClip, 1.0f);
+				}
+				else if(bottleCap1.GetCurrency() == 5)
+				{
+					mAudioSource.PlayOneShot(mMauserCollectGoldCapAudioClip, 1.0f);
+				}
+				else
+				{
+					mAudioSource.PlayOneShot(mMauserCollectDebugCapAudioClip, 1.0f);
+				}
+			}
         }
 
         //Check if colliding with a cookie.
         if (collider.gameObject.tag == "cookie")
         {
-			if(mArmorCookies == 0)
+			if(!mIsDead)
 			{
-				mCurHealth++;
-
-				if (mCurHealth > mMaxHealth)
+				if(mArmorCookies == 0)
 				{
-					mCurHealth = mMaxHealth;
-				}
-			}
+					mCurHealth++;
 
-			Destroy(collider.gameObject);
+					if (mCurHealth > mMaxHealth)
+					{
+						mCurHealth = mMaxHealth;
+					}
+				}
+
+				Destroy(collider.gameObject);
+				
+				mAudioSource.PlayOneShot(mMauserCollectHealthCookieAudioClip, 1.0f);
+			}
 		}
 		
 		 //Check if colliding with an armor cookie.
         if (collider.gameObject.tag == "armor_cookie")
         {
-			if(mCurHealth == mMaxHealth)
+			if(!mIsDead)
 			{
-				mArmorCookies += 1;
-			}
-			else
-			{
-				mCurHealth += 1;
-			}
+				if(mCurHealth == mMaxHealth)
+				{
+					mArmorCookies += 1;
+				}
+				else
+				{
+					mCurHealth += 1;
+				}
 
-			Destroy(collider.gameObject);
+				Destroy(collider.gameObject);
+				
+				mAudioSource.PlayOneShot(mMauserCollectArmorCookieAudioClip, 1.0f);
+			}
 		}
 		
 		//Check if colliding with a scene exit.
 		if (collider.gameObject.name == "SceneExit") 
 		{
-			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
-			
-			//The component of the gui fader object.
-			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
-			
-			//Set the fader to is fading in and make the player enter invincibility 
-			// mode and be stuck in place.
-			guiFaderComp.SetIsFadingIn(true);
-			
-			mFoundExit = true;
+			if(!mIsDead)
+			{
+				//Get the gui fader object and check if it exists. If not, it is destroyed.
+				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+				
+				//The component of the gui fader object.
+				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+				
+				//Set the fader to is fading in and make the player enter invincibility 
+				// mode and be stuck in place.
+				guiFaderComp.SetIsFadingIn(true);
+				
+				mFoundExit = true;
+				
+				mAudioSource.PlayOneShot(mMauserFinishLevelAudioClip, 1.0f);
+			}
 		}
 
 		//Check if colliding with a checkpoint object.
 		if (collider.gameObject.name == "Checkpoint") 
 		{
-			mGlobalData.SetCheckpointEnabled(true);
-			mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
+			if(!mIsDead)
+			{
+				mGlobalData.SetCheckpointEnabled(true);
+				mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
 
-			Destroy(collider.gameObject);
+				Destroy(collider.gameObject);
+				
+				mAudioSource.PlayOneShot(mMauserCollectCheckpointAudioClip, 1.0f);
+			}
 		}
 	}
 
@@ -313,25 +351,31 @@ public class Player : MonoBehaviour
         //Check if colliding with an enemy.
         if (collider.gameObject.tag == "enemy1")
         {
-            //The other enemy that the player is colliding with.
-            DustBunny enemy1 = collider.gameObject.GetComponent<DustBunny>();
+			if(!mIsDead)
+			{
+				//The other enemy that the player is colliding with.
+				DustBunny enemy1 = collider.gameObject.GetComponent<DustBunny>();
 
-            //Only get affected by the enemy if it isn't already dead.
-            if (!enemy1.GetIsDead())
-            {
-                TakeDamage();
-            }
+				//Only get affected by the enemy if it isn't already dead.
+				if (!enemy1.GetIsDead())
+				{
+					TakeDamage();
+				}
+			}
 		} 
 		else if (collider.gameObject.tag == "spider") 
 		{
-            //The other enemy that the player is colliding with.
-            Spider spiderComp = collider.gameObject.GetComponent<Spider>();
+			if(!mIsDead)
+			{
+				//The other enemy that the player is colliding with.
+				Spider spiderComp = collider.gameObject.GetComponent<Spider>();
 
-            //Only get affected by the enemy if it isn't already dead.
-            if (!spiderComp.GetIsDead())
-            {
-                TakeDamage();
-            }
+				//Only get affected by the enemy if it isn't already dead.
+				if (!spiderComp.GetIsDead())
+				{
+					TakeDamage();
+				}
+			}
 		}
 	}
 
@@ -391,6 +435,8 @@ public class Player : MonoBehaviour
 					mIsAbleToJump = false;
                     mAnimator.SetBool("Grounded", false);
                     jumpingKeyPressed = true;
+					
+					mAudioSource.PlayOneShot(mMauserJumpAudioClip, 1.0f);
                 }
             }
 
@@ -503,6 +549,8 @@ public class Player : MonoBehaviour
                 Bullet bulletComponent = bulletPrefab.GetComponent<Bullet>();
                 bulletComponent.SetFacingRight(mFacingRight);
                 mFiringPeriodAmount -= mFiringPeriod;
+				
+				mAudioSource.PlayOneShot(mMauserFireAudioClip, 0.7f);
             }
         }
     }
@@ -654,6 +702,8 @@ public class Player : MonoBehaviour
             mAnimator.Play("Hurt");
 
 			mSpriteRenderer.enabled = false;
+			
+			mAudioSource.PlayOneShot(mMauserHurtAudioClip, 1.0f);
 
 			if(mArmorCookies != 0)
 			{
@@ -889,9 +939,42 @@ public class Player : MonoBehaviour
 
     //The animator.
     private Animator mAnimator;
+	
+	//The audio source.
+	private AudioSource mAudioSource;
 
     //Public variables:
 
     //The prefab for the bullet object.
     public GameObject mBulletPrefab;
+	
+	//The audio clip for when mauser jumps.
+	public AudioClip mMauserJumpAudioClip;
+	
+	//The audio clip for when mauser is hurt.
+	public AudioClip mMauserHurtAudioClip;
+	
+	//The audio clip for when mauser fires a rubber band.
+	public AudioClip mMauserFireAudioClip;
+	
+	//The audio clip for when mauser collects a red cap.
+	public AudioClip mMauserCollectRedCapAudioClip;
+	
+	//The audio clip for when mauser collects a gold cap.
+	public AudioClip mMauserCollectGoldCapAudioClip;
+	
+	//The audio clip for when mauser collects a debug cap.
+	public AudioClip mMauserCollectDebugCapAudioClip;
+	
+	//The audio clip for when mauser collects a health cookie.
+	public AudioClip mMauserCollectHealthCookieAudioClip;
+	
+	//The audio clip for when mauser collects an armor cookie.
+	public AudioClip mMauserCollectArmorCookieAudioClip;
+	
+	//The audio clip for when mauser collects a checkpoint object.
+	public AudioClip mMauserCollectCheckpointAudioClip;
+	
+	//The audio clip for when mauser finishes a level.
+	public AudioClip mMauserFinishLevelAudioClip;
 }

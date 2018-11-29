@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
         mRigidBody = GetComponent<Rigidbody2D>();
 	    mTransform = GetComponent<Transform>();
 	    mCameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +49,8 @@ public class Bullet : MonoBehaviour
 
     	if (collider.gameObject.tag == "enemy1")
     	{
+			mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
+			
 			if(!collider.gameObject.GetComponent<DustBunny>().GetIsDead())
 			{
 				Destroy(this.gameObject);
@@ -56,6 +59,8 @@ public class Bullet : MonoBehaviour
 		
 		if (collider.gameObject.tag == "spider")
     	{
+			mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
+			
 			if(!collider.gameObject.GetComponent<Spider>().GetIsDead())
 			{
 				Destroy(this.gameObject);
@@ -111,4 +116,12 @@ public class Bullet : MonoBehaviour
 
 	//The transform component of the camera.
 	private Transform mCameraTransform;
+	
+	//The audio source of the camera component object.
+	private AudioSource mAudioSourceOfCamera;
+	
+	//Public variables.
+	
+	//The sound clip that is played when the rubber band hits the enemy.
+	public AudioClip mRubberBandHitEnemyAudioClip;
 }

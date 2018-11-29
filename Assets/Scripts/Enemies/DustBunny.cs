@@ -11,6 +11,7 @@ public class DustBunny : MonoBehaviour
 		mRigidBody2D = GetComponent<Rigidbody2D> ();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
         mAnimator = GetComponent<Animator>();
+		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
 	}
@@ -39,6 +40,8 @@ public class DustBunny : MonoBehaviour
                 mSpriteRenderer.flipX = false;
                 mRigidBody2D.velocity = Vector3.zero;
                 mAnimator.SetTrigger("Death Trigger");
+				
+				mAudioSourceOfCamera.PlayOneShot(mDeathAudioClip, 1.0f);
             }
         }
     }
@@ -207,4 +210,12 @@ public class DustBunny : MonoBehaviour
 
     //The animator component for the dust bunny.
     private Animator mAnimator;
+	
+	//The audio source of the camera component object.
+	private AudioSource mAudioSourceOfCamera;
+	
+	//Public variables.
+	
+	//The sound clip that is played when the dust bunny dies.
+	public AudioClip mDeathAudioClip;
 }

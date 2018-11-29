@@ -10,6 +10,7 @@ public class Spider : MonoBehaviour
 		mTransform = GetComponent<Transform> ();
 		mRigidBody2D = GetComponent<Rigidbody2D> ();
         mCollider2D = GetComponent<Collider2D>();
+		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
 	}
@@ -58,6 +59,8 @@ public class Spider : MonoBehaviour
             {
                 mDead = true;
                 mJustDied = true;
+				
+				mAudioSourceOfCamera.PlayOneShot(mDeathAudioClip, 1.0f);
             }
 
             //The other bullet being attacted by.
@@ -369,4 +372,12 @@ public class Spider : MonoBehaviour
 
     //The collider for the spider object.
     private Collider2D mCollider2D;
+	
+	//The audio source of the camera component object.
+	private AudioSource mAudioSourceOfCamera;
+	
+	//Public variables.
+	
+	//The sound clip that is played when the spider enemy dies.
+	public AudioClip mDeathAudioClip;
 }
