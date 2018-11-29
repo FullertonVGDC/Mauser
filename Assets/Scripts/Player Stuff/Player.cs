@@ -616,7 +616,7 @@ public class Player : MonoBehaviour
 
                 if (mScrollSpeed1Interpolation2 < 1.0f)
                 {
-                    mScrollSpeed1Interpolation2 += 0.2f * Time.deltaTime;
+                    mScrollSpeed1Interpolation2 += 0.075f * Time.deltaTime;
 
                     if (mScrollSpeed1Interpolation2 > 1.0f)
                     {
