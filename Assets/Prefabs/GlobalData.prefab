@@ -147,6 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c4993c166844f06a7d9fa019b46714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mBasementSong: {fileID: 8300000, guid: 340344be483864f408a539b8f249acff, type: 3}
+  mWallSong: {fileID: 8300000, guid: caa7240f62acb7b42923b70bb4b60f50, type: 3}
+  mKitchenSong: {fileID: 8300000, guid: 6ded4351c4672ac489d0d563ae03918f, type: 3}
   mMainCameraPrefab: {fileID: 1061235340640308, guid: aba8fead8132f4f06bfd576963861601,
     type: 2}
   mGuiFaderPrefab: {fileID: 1161520881893266, guid: 525cfd63500da6e4b932fb39deff5abd,

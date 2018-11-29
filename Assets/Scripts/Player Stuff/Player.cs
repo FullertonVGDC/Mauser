@@ -99,11 +99,14 @@ public class Player : MonoBehaviour
 				//The name of the current scene being reloaded.
 				string sceneName = SceneManager.GetActiveScene().name;
 				
+				mGlobalData.SetCurrency(mGlobalData.GetSavedCurrency());
 				mGlobalData.ChangeMap(sceneName);
 			}
 			else
 			{
 				guiFaderComp.SetIsFadingIn(true);
+				mCurHealth = 0;
+				mCurArmor = 0;
 			}
 		}
 
@@ -151,11 +154,11 @@ public class Player : MonoBehaviour
 			//Perform a raycast below the player to check if the player is grounded.
 
 			//The Left ray.
-			RaycastHit2D groundRayL = Physics2D.Raycast(mTransform.position - new Vector3(0.5f, 0.5f, 0.0f), 
+			RaycastHit2D groundRayL = Physics2D.Raycast(mTransform.position - new Vector3(0.4f, 0.5f, 0.0f), 
 				new Vector3(0.0f, -1.0f, 0.0f), 0.2f, collidableLayerMask);
 
 			//The right ray.
-			RaycastHit2D groundRayR = Physics2D.Raycast(mTransform.position - new Vector3(-0.5f, 0.5f, 0.0f), 
+			RaycastHit2D groundRayR = Physics2D.Raycast(mTransform.position - new Vector3(-0.4f, 0.5f, 0.0f), 
 				new Vector3(0.0f, -1.0f, 0.0f), 0.2f, collidableLayerMask);
 
             //The middle ray.
@@ -326,6 +329,8 @@ public class Player : MonoBehaviour
 				
 				mFoundExit = true;
 				
+				mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
+				
 				mAudioSource.PlayOneShot(mMauserFinishLevelAudioClip, 1.0f);
 			}
 		}
@@ -339,6 +344,8 @@ public class Player : MonoBehaviour
 				mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
 
 				Destroy(collider.gameObject);
+				
+				mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
 				
 				if(mMovementGracePeriodAmount >= mMovementGracePeriod)
 				{

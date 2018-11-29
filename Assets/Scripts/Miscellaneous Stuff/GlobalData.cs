@@ -220,10 +220,15 @@ public class GlobalData : MonoBehaviour
 		mCheckpointEnabled = enabled;
 	}
 
-    public void SetCurrency(int sCurrency)
+    public void SetCurrency(uint sCurrency)
     {
         mCurrency = sCurrency;
     }
+	
+	public void SetSavedCurrency(uint sSavedCurrency)
+	{
+		mSavedCurrency = sSavedCurrency;
+	}
 
 	public void SetCheckpointPosition(Vector3 position)
 	{
@@ -231,10 +236,15 @@ public class GlobalData : MonoBehaviour
 	}
 
 	//Getters.
-    public int GetCurrency()
+    public uint GetCurrency()
     {
         return mCurrency;
     }
+	
+	public uint GetSavedCurrency()
+	{
+		return mSavedCurrency;
+	}
 
 	public GameMapName GetCurrentGameMapName()
 	{
@@ -261,7 +271,10 @@ public class GlobalData : MonoBehaviour
 	private bool mBeesGenerated = false;
 	
     //The currency of the player. Stored here for persistency.
-    private int mCurrency = 0;
+    private uint mCurrency = 0;
+	
+	//The saved currency from the previous checkpoint.
+	private uint mSavedCurrency = 0;
 
 	//The current check point position.
 	private Vector3 mCheckpointPosition;

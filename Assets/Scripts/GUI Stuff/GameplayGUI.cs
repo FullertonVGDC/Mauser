@@ -48,7 +48,7 @@ public class GameplayGUI : MonoBehaviour
 		uint playerArmor = mPlayerComp.GetArmor();
 		
 		//The number of bottle caps collected.
-		int playerBottleCaps = mGlobalDataComp.GetCurrency();
+		uint playerBottleCaps = mGlobalDataComp.GetCurrency();
 		
 		//Create the cookies.
 		if(playerHealth != mCurPlayerHealth)
@@ -297,7 +297,7 @@ public class GameplayGUI : MonoBehaviour
 	private uint mCurPlayerArmor;
 	
 	//The current player bottle caps cached by the player.
-	private int mCurPlayerBottleCaps;
+	private uint mCurPlayerBottleCaps;
 	
 	//The player component.
 	private Player mPlayerComp;

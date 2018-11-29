@@ -36,18 +36,26 @@ public class GuiFader : MonoBehaviour
 		
 		if(mIsFadingIn)
 		{
-			if(curColor.a > 1.0f)
+			if(mGraceFadeOutPeriodAmount < mGraceFadeOutPeriod)
 			{
-				curColor.a = 1.0f;
-				mIsDoneFading = true;
+				mGraceFadeOutPeriodAmount += Time.deltaTime;
 			}
 			else
 			{
-				mGuiFaderImage.color = new Color(
-					curColor.r, 
-					curColor.g, 
-					curColor.b, 
-					curColor.a += 1.0f * Time.deltaTime);
+				if(curColor.a > 1.0f)
+				{
+					curColor.a = 1.0f;
+					mIsDoneFading = true;
+					mGraceFadeOutPeriodAmount = 0.0f;
+				}
+				else
+				{
+					mGuiFaderImage.color = new Color(
+						curColor.r, 
+						curColor.g, 
+						curColor.b, 
+						curColor.a += 1.0f * Time.deltaTime);
+				}
 			}
 		}
 	}
@@ -74,6 +82,12 @@ public class GuiFader : MonoBehaviour
 	
 	//Checks if the fader is done with its fading purposes.
 	private bool mIsDoneFading = false;
+	
+	//The period at which to begin fading out.
+	private float mGraceFadeOutPeriod = 3.0f;
+	
+	//The amount at which to begin fading out.
+	private float mGraceFadeOutPeriodAmount = 0.0f;
 	
 	//A quick reference to the gui fader image.
 	private Image mGuiFaderImage;

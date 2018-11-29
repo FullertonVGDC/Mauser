@@ -31,7 +31,7 @@ public class BottleCap : MonoBehaviour
 	}
 
     //Getters:
-    public int GetCurrency()
+    public uint GetCurrency()
     {
         return mCurrency;
     }
@@ -39,7 +39,7 @@ public class BottleCap : MonoBehaviour
     //Variables:
 
     //The currency of the bottle cap.
-    private int mCurrency = 1;
+    private uint mCurrency = 1;
 
     //Public variables.
 
