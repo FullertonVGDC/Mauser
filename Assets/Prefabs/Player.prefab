@@ -885,6 +885,8 @@ MonoBehaviour:
   mScrollSpeed1Interpolation2: 0
   mBulletPrefab: {fileID: 1080932654147884, guid: 854774592c7cb4188bfb8854efab4b36,
     type: 2}
+  mDustParticlePrefab: {fileID: 1463373857365510, guid: c5d606ff33082fa4d8b5437a365a3bec,
+    type: 2}
   mMauserJumpAudioClip: {fileID: 8300000, guid: 51e0069a9805e8549b2a2abac868cafc,
     type: 3}
   mMauserHurtAudioClip: {fileID: 8300000, guid: aa7337a5d6984394db4d202655123830,
