@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(mMovementGracePeriodAmount < mMovementGracePeriod)
+		if((mMovementGracePeriodAmount < mMovementGracePeriod))
 		{
 			mMovementGracePeriodAmount += Time.deltaTime;
 		}
@@ -141,6 +141,33 @@ public class Player : MonoBehaviour
 			else
 			{
 				guiFaderComp.SetIsFadingIn(true);
+			}
+		}
+
+		//Code to run while found the minigame.
+		if(mFoundMinigame)
+		{
+			//Get the gui fader object and check if it exists. If not, it is destroyed.
+			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+
+			//The component of the gui fader object.
+			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+
+			mRigidBody2D.velocity = new Vector2 (0.0f, 0.0f);
+
+			//If the gui fader object is destroyed, reload the current level. 
+			// Otherwise, make the fader fade in.
+			if(guiFaderComp.GetIsDoneFading() == true)
+			{
+				//The name of the current scene.
+				string sceneName = SceneManager.GetActiveScene().name;
+
+				mGlobalData.ChangeMap ("minigame");
+			}
+			else
+			{
+				guiFaderComp.SetIsFadingIn(true);
+				guiFaderComp.SetGraceFadeOutPeriodAmount (3.0f);
 			}
 		}
 	}
@@ -341,9 +368,7 @@ public class Player : MonoBehaviour
 			if(!mIsDead)
 			{
 				mGlobalData.SetCheckpointEnabled(true);
-				mGlobalData.SetCheckpointPosition(collider.gameObject.transform.position);
-
-				Destroy(collider.gameObject);
+				mGlobalData.SetCheckpointPosition (collider.gameObject.transform.position);
 				
 				mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
 				
@@ -351,6 +376,42 @@ public class Player : MonoBehaviour
 				{
 					mAudioSource.PlayOneShot(mMauserCollectCheckpointAudioClip, 1.0f);
 				}
+
+				if (mGlobalData.GetCurrency () >= 100) 
+				{
+					//The transform of the checkpoint component.
+					Transform otherTransform = collider.gameObject.transform;
+
+					Instantiate (mMinigamePortalPrefab, new Vector2(
+						otherTransform.position.x, 
+						otherTransform.position.y + 2.0f),
+						Quaternion.identity);
+				}
+
+				Destroy(collider.gameObject);
+			}
+		}
+
+		//Check if colliding with a portal for minigame object.
+		if (collider.gameObject.name == "MinigamePortal(Clone)") 
+		{
+			if(!mIsDead)
+			{
+				//Get the gui fader object and check if it exists. If not, it is destroyed.
+				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+
+				//The component of the gui fader object.
+				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+
+				//Set the fader to is fading in and make the player enter invincibility 
+				// mode and be stuck in place.
+				guiFaderComp.SetIsFadingIn(true);
+
+				mAudioSource.PlayOneShot(mMauserFinishLevelAudioClip, 1.0f);
+
+				mFoundMinigame = true;
+				mSpriteRenderer.enabled = false;
+				mRigidBody2D.gravityScale = 0.0f;
 			}
 		}
 	}
@@ -393,7 +454,7 @@ public class Player : MonoBehaviour
 	void Movement()
 	{
 		//Only allow the player to move if the player is not dead and not being knocked back.
-		if(mIsBeingKnockedBack == false && mIsDead == false && mFoundExit == false)
+		if(mIsBeingKnockedBack == false && mIsDead == false && mFoundExit == false && mFoundMinigame == false)
 		{
 			//The final walk speed.
 			float finalWalkSpeed = 0.0f;
@@ -519,7 +580,7 @@ public class Player : MonoBehaviour
 
     void BulletCreation()
     {
-		if(!mIsDead)
+		if(!mIsDead && mFoundExit == false && mFoundMinigame == false)
 		{
 			//Check if the left walking keys are down.
 			if (Input.GetKeyDown(mFiringKey))
@@ -704,7 +765,7 @@ public class Player : MonoBehaviour
 	public void TakeDamage()
 	{
 		//If the player isn't currently hurt, hurt the player.
-		if (mIsHurt == false && mIsDead == false && mFoundExit == false)
+		if (mIsHurt == false && mIsDead == false && mFoundExit == false && mFoundMinigame == false)
 		{
 			mIsBeingKnockedBack = true;
 			mWalkingLeft = false;
@@ -976,6 +1037,9 @@ public class Player : MonoBehaviour
 	//Checks if the player found the exit.
 	private bool mFoundExit = false;
 
+	//Checks if the player found the minigame.
+	private bool mFoundMinigame = false;
+
     //Checks if the player is being knocked back.
     private bool mIsBeingKnockedBack = false;
 	
@@ -1025,6 +1089,9 @@ public class Player : MonoBehaviour
 
     //Dust particle prefab.
     public GameObject mDustParticlePrefab;
+
+	// The prefab for the minigame portal object.
+	public GameObject mMinigamePortalPrefab;
 	
 	//The audio clip for when mauser jumps.
 	public AudioClip mMauserJumpAudioClip;

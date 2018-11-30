@@ -65,6 +65,11 @@ public class GuiFader : MonoBehaviour
 	{
 		mIsFadingIn = sIsFadingIn;
 	}
+
+	public void SetGraceFadeOutPeriodAmount(float amount)
+	{
+		mGraceFadeOutPeriodAmount = amount;
+	}
 	
 	//Getters:
 	public bool GetIsDoneFading()

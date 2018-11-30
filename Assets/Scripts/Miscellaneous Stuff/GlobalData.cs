@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum GameMapName {GAMEMAP_BASEMENT = 0, GAMEMAP_WALLS = 1, GAMEMAP_KITCHEN = 2};
+public enum GameMapName {GAMEMAP_BASEMENT = 0, GAMEMAP_WALLS = 1, GAMEMAP_KITCHEN = 2, GAMEMAP_MINIGAME = 3};
 
 public class GlobalData : MonoBehaviour 
 {
@@ -22,16 +22,19 @@ public class GlobalData : MonoBehaviour
 		Bounds boundBasement = new Bounds ();
 		Bounds boundWalls = new Bounds ();
 		Bounds boundKitchen = new Bounds ();
+		Bounds boundMinigame = new Bounds ();
 
-		mGameMapBounds = new Bounds[3];
+		mGameMapBounds = new Bounds[4];
 
 		boundBasement.SetMinMax (new Vector3 (-1.0f, 5.0f, -10.0f), new Vector3 (161.0f, 13.0f, 10.0f));
 		boundWalls.SetMinMax (new Vector3 (2.0f, 5.0f, -10.0f), new Vector3 (20.0f, 30.0f, 10.0f));
 		boundKitchen.SetMinMax (new Vector3 (7.5f, 3f, -10.0f), new Vector3 (14.0f, 3f, 0.0f));
+		boundMinigame.SetMinMax (new Vector3 (7.5f, 3f, -10.0f), new Vector3 (14.0f, 3f, 0.0f));
 
 		mGameMapBounds [(int)GameMapName.GAMEMAP_BASEMENT] = boundBasement;
 		mGameMapBounds [(int)GameMapName.GAMEMAP_WALLS] = boundWalls;
 		mGameMapBounds [(int)GameMapName.GAMEMAP_KITCHEN] = boundKitchen;
+		mGameMapBounds [(int)GameMapName.GAMEMAP_MINIGAME] = boundMinigame;
 		
 		mMusicPlayer = GetComponent<AudioSource>();
 	}
@@ -172,7 +175,7 @@ public class GlobalData : MonoBehaviour
 		}
 
 		//Check if a checkpoint needs to be applied to the player.
-		if (mCheckpointEnabled)
+		if (mCheckpointEnabled && mCurGameMapName != GameMapName.GAMEMAP_MINIGAME)
 		{
 			GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
 
@@ -199,6 +202,11 @@ public class GlobalData : MonoBehaviour
 		else if(sceneName == "level_kitchen")
 		{
 			mCurGameMapName = GameMapName.GAMEMAP_KITCHEN;
+		}
+		else if(sceneName == "minigame")
+		{
+			//todo: for now, use the main menu as the mini game.
+			mCurGameMapName = GameMapName.GAMEMAP_MINIGAME;
 		}
 
 		mChangedGameMap = true;
