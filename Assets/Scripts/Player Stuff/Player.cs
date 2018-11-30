@@ -785,6 +785,9 @@ public class Player : MonoBehaviour
 				
 				mCurHealth--;
 			}
+			
+			//Make the camera shake.
+			mCameraScript.StartShake(0.1f, 0.20f);
 		}
 	}
 
