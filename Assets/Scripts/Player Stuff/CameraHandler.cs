@@ -44,6 +44,9 @@ public class CameraHandler : MonoBehaviour
 		//The duration of the current shake mod.
 		float duration;
 		
+		//The total power being accumulated.
+		float totalPower = 0.0f;
+		
 		for(int i = 0; i < mShakeModList.Count;)
 		{
 			ShakeMod curShakeMod = mShakeModList[i];
@@ -54,11 +57,7 @@ public class CameraHandler : MonoBehaviour
 			if(curShakeMod.mTimeElapsed < duration)
 			{	
 				curShakeMod.mTimeElapsed += Time.deltaTime;
-				
-				transform.position = new Vector3(
-					transform.position.x + Random.Range(-power, power),
-					transform.position.y + Random.Range(-power, power),
-					transform.position.z + Random.Range(-power, power));
+				totalPower += power;
 				
 				i++;
 			}
@@ -72,6 +71,11 @@ public class CameraHandler : MonoBehaviour
 		{
 			mIsShaking = false;
 		}
+		
+		transform.position = new Vector3(
+			transform.position.x + Random.Range(-totalPower, totalPower),
+			transform.position.y + Random.Range(-totalPower, totalPower),
+			transform.position.z + Random.Range(-totalPower, totalPower));
 	}
 
 	public void UpdateCameraBounds(Bounds bounds)
