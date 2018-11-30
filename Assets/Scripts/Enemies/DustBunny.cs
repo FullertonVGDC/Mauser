@@ -11,7 +11,7 @@ public class DustBunny : MonoBehaviour
 		mRigidBody2D = GetComponent<Rigidbody2D> ();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
         mAnimator = GetComponent<Animator>();
-		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+		//mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
 	}
@@ -41,7 +41,7 @@ public class DustBunny : MonoBehaviour
                 mRigidBody2D.velocity = Vector3.zero;
                 mAnimator.SetTrigger("Death Trigger");
 				
-				mAudioSourceOfCamera.PlayOneShot(mDeathAudioClip, 1.0f);
+				//mAudioSourceOfCamera.PlayOneShot(mDeathAudioClip, 1.0f);
             }
         }
     }

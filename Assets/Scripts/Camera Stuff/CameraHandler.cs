@@ -12,17 +12,11 @@ public class ShakeMod
 
 public class CameraHandler : MonoBehaviour 
 {
-	// Use this for initialization
 	void Start () 
 	{
-		//Allow this object to always exist.
-		DontDestroyOnLoad (gameObject);
 		mCamera = GetComponent<Camera> ();
-		mAspectRatio = 1.777777777777778f;
-		mCamera.rect = new Rect (0.0f, 0.0f, mCameraOrthoHeight * mAspectRatio, mCameraOrthoHeight);
 	}
 	
-	// Update is called once per frame
 	void Update () 
 	{
 		if(mIsShaking)
@@ -96,18 +90,6 @@ public class CameraHandler : MonoBehaviour
 		mShakeModList.Add(shakeMod);
 	}
 
-	//Setters:
-	public void SetIsScrollingUp(bool sIsScrollingUp)
-	{
-		mIsScrollingUp = sIsScrollingUp;
-	}
-
-	//Getters:
-	public bool GetIsScrollingUp()
-	{
-		return mIsScrollingUp;
-	}
-
 	public Bounds GetBounds()
 	{
 		return mCameraBounds;
@@ -124,9 +106,6 @@ public class CameraHandler : MonoBehaviour
     public float screenLeftEdge;
     [HideInInspector]
     public float screenRightEdge;
-
-    //Checks if the camera is scrolling up.
-    private bool mIsScrollingUp = false;
 	
 	//Checks if the camera is shaking.
 	private bool mIsShaking = false;

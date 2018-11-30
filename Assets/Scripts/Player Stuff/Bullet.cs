@@ -8,9 +8,7 @@ public class Bullet : MonoBehaviour
 	void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
-	    mTransform = GetComponent<Transform>();
-	    mCameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+		//mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -25,18 +23,18 @@ public class Bullet : MonoBehaviour
 
         mRigidBody.velocity = bulletVelocity;
 
-		CheckIfOutsideCamera ();
+		CheckIfOutsideCamera();
 	}
 
 	void CheckIfOutsideCamera()
 	{
-		if (mTransform.position.x < mCameraTransform.position.x - 10.0f ||
+		/*if (mTransform.position.x < mCameraTransform.position.x - 10.0f ||
 			mTransform.position.x > mCameraTransform.position.x + 10.0f ||
 			mTransform.position.y > mCameraTransform.position.y + 10.0f ||
 			mTransform.position.y < mCameraTransform.position.y - 10.0f) 
 		{
-			Destroy (this.gameObject);
-		}
+			Destroy (gameObject);
+		}*/
 	}
         
     //Collision Callbacks (Trigger).
@@ -44,15 +42,15 @@ public class Bullet : MonoBehaviour
     {
         if (collider.gameObject.tag == "collidable")
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
     	if (collider.gameObject.tag == "enemy1")
     	{	
 			if(!collider.gameObject.GetComponent<DustBunny>().GetIsDead())
 			{
-				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
-				Destroy(this.gameObject);
+				//mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
+				Destroy(gameObject);
 			}
     	}
 		
@@ -60,8 +58,8 @@ public class Bullet : MonoBehaviour
     	{
 			if(!collider.gameObject.GetComponent<Spider>().GetIsDead())
 			{
-				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
-				Destroy(this.gameObject);
+				//mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
+				Destroy(gameObject);
 			}
     	}
     }
@@ -108,12 +106,6 @@ public class Bullet : MonoBehaviour
 
     //The rigid body of the bullet object.
     private Rigidbody2D mRigidBody;
-
-	//The transform component of the shot.
-	private Transform mTransform;
-
-	//The transform component of the camera.
-	private Transform mCameraTransform;
 	
 	//The audio source of the camera component object.
 	private AudioSource mAudioSourceOfCamera;
