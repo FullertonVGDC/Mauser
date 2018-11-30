@@ -14,6 +14,8 @@ public class PauseMenuResumeButton : MonoBehaviour
 		button.onClick.AddListener(clickEventListener);
 
 		mGameplayGUI = GameObject.Find ("GameplayGUI").GetComponent<GameplayGUI> ();
+
+		mMusicPlayer = GameObject.Find ("GlobalData").GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -25,7 +27,12 @@ public class PauseMenuResumeButton : MonoBehaviour
 	private void clickEventListener()
 	{
 		mGameplayGUI.SetPaused(false);
+		mMusicPlayer.volume = 0.8f;
 	}
 
+	//The gui for the gameplay GUI.
 	private GameplayGUI mGameplayGUI;
+
+	//The music player for the game.
+	private AudioSource mMusicPlayer;
 }
