@@ -8,7 +8,8 @@ public class Bullet : MonoBehaviour
 	void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
-		//mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        mCameraHandler = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraHandler>();
+        mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -28,13 +29,13 @@ public class Bullet : MonoBehaviour
 
 	void CheckIfOutsideCamera()
 	{
-		/*if (mTransform.position.x < mCameraTransform.position.x - 10.0f ||
-			mTransform.position.x > mCameraTransform.position.x + 10.0f ||
-			mTransform.position.y > mCameraTransform.position.y + 10.0f ||
-			mTransform.position.y < mCameraTransform.position.y - 10.0f) 
+		if (transform.position.x < mCameraHandler.screenLeftEdge ||
+            transform.position.x > mCameraHandler.screenRightEdge ||
+            transform.position.y > mCameraHandler.screenTopEdge ||
+            transform.position.y < mCameraHandler.screenBottomEdge) 
 		{
 			Destroy (gameObject);
-		}*/
+		}
 	}
         
     //Collision Callbacks (Trigger).
@@ -49,7 +50,7 @@ public class Bullet : MonoBehaviour
     	{	
 			if(!collider.gameObject.GetComponent<DustBunny>().GetIsDead())
 			{
-				//mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
+				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
 				Destroy(gameObject);
 			}
     	}
@@ -58,7 +59,7 @@ public class Bullet : MonoBehaviour
     	{
 			if(!collider.gameObject.GetComponent<Spider>().GetIsDead())
 			{
-				//mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
+				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
 				Destroy(gameObject);
 			}
     	}
@@ -106,6 +107,9 @@ public class Bullet : MonoBehaviour
 
     //The rigid body of the bullet object.
     private Rigidbody2D mRigidBody;
+
+    //The CameraHandler component
+    private CameraHandler mCameraHandler;
 	
 	//The audio source of the camera component object.
 	private AudioSource mAudioSourceOfCamera;

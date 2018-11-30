@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update () 
+	void Update() 
 	{
 		if(mMovementGracePeriodAmount < mMovementGracePeriod)
 		{
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
-			Movement ();
+			Movement();
 			BulletCreation();
 		}
 		
@@ -702,6 +702,14 @@ public class Player : MonoBehaviour
 
             spawnX += shiftAmount;
         }
+    }
+
+    public void FallOutOfLevel()
+    {
+        mIsDead = true;
+        mWalkingLeft = false;
+        mWalkingRight = false;
+        mRigidBody2D.velocity = new Vector3(0, mRigidBody2D.velocity.y, 0);
     }
 
 

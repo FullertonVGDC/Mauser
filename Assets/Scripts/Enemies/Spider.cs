@@ -10,7 +10,7 @@ public class Spider : MonoBehaviour
 		mTransform = GetComponent<Transform> ();
 		mRigidBody2D = GetComponent<Rigidbody2D>();
         mCollider2D = GetComponent<Collider2D>();
-		//mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         mAnimator = GetComponent<Animator>();
 
 		collidableLayerMask = LayerMask.GetMask ("collidable");
@@ -61,7 +61,7 @@ public class Spider : MonoBehaviour
                 mDead = true;
                 mJustDied = true;
 				
-				//mAudioSourceOfCamera.PlayOneShot(mDeathAudioClip, 1.0f);
+				mAudioSourceOfCamera.PlayOneShot(mDeathAudioClip, 1.0f);
             }
 
             //The other bullet being attacted by.
