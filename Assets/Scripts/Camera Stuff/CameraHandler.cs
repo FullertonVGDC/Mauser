@@ -15,17 +15,22 @@ public class CameraHandler : MonoBehaviour
     void Start()
     {
         mCamera = GetComponent<Camera>();
+        playerHeight = player.GetComponent<BoxCollider2D>().bounds.size.y;
     }
 
     void Update()
+    {
+        UpdateScreenEdges();
+        if (mIsShaking) ShakeAnimation();
+        CheckIfPlayerFellOutOfLevel();
+    }
+
+    void UpdateScreenEdges()
     {
         screenTopEdge = mCamera.ScreenToWorldPoint(new Vector3(0, Screen.height, -(transform.position.z))).y;
         screenBottomEdge = mCamera.ScreenToWorldPoint(new Vector3(0, 0, -(transform.position.z))).y;
         screenLeftEdge = mCamera.ScreenToWorldPoint(new Vector3(0, 0, -(transform.position.z))).x;
         screenRightEdge = mCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0, -(transform.position.z))).x;
-
-        if (mIsShaking) ShakeAnimation();
-        CheckIfPlayerFellOutOfLevel();
     }
 
     private void ShakeAnimation()
@@ -85,7 +90,7 @@ public class CameraHandler : MonoBehaviour
 
     void CheckIfPlayerFellOutOfLevel()
     {
-        if (player.transform.position.y < screenBottomEdge)
+        if (player.transform.position.y < (screenBottomEdge - playerHeight))
         {
             player.FallOutOfLevel();
         }
@@ -116,4 +121,7 @@ public class CameraHandler : MonoBehaviour
 
     //Player reference
     public Player player;
+
+    //Player height
+    float playerHeight;
 }

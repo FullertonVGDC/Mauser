@@ -10,7 +10,6 @@ public class KitchenCamera : MonoBehaviour
     void Start()
     {
         camBounds.SetMinMax(new Vector3(7.5f, 3f, transform.position.z), new Vector3(14.0f, 3f, transform.position.z));
-        transform.position = new Vector3(0, 4, transform.position.z);
     }
 
     void Update()

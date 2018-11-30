@@ -10,7 +10,6 @@ public class GarageCamera : MonoBehaviour
     void Start()
     {
         camBounds.SetMinMax(new Vector3(-1.0f, 5.0f, transform.position.z), new Vector3(161.0f, 13.0f, transform.position.z));
-        transform.position = new Vector3(0, 4, transform.position.z);
     }
 
     void Update()
