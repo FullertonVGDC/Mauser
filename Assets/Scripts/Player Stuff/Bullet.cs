@@ -8,9 +8,8 @@ public class Bullet : MonoBehaviour
 	void Start()
     {
         mRigidBody = GetComponent<Rigidbody2D>();
-	    mTransform = GetComponent<Transform>();
-	    mCameraTransform = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-		mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        mCameraHandler = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraHandler>();
+        mAudioSourceOfCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -25,17 +24,17 @@ public class Bullet : MonoBehaviour
 
         mRigidBody.velocity = bulletVelocity;
 
-		CheckIfOutsideCamera ();
+		CheckIfOutsideCamera();
 	}
 
 	void CheckIfOutsideCamera()
 	{
-		if (mTransform.position.x < mCameraTransform.position.x - 10.0f ||
-			mTransform.position.x > mCameraTransform.position.x + 10.0f ||
-			mTransform.position.y > mCameraTransform.position.y + 10.0f ||
-			mTransform.position.y < mCameraTransform.position.y - 10.0f) 
+		if (transform.position.x < mCameraHandler.screenLeftEdge ||
+            transform.position.x > mCameraHandler.screenRightEdge ||
+            transform.position.y > mCameraHandler.screenTopEdge ||
+            transform.position.y < mCameraHandler.screenBottomEdge) 
 		{
-			Destroy (this.gameObject);
+			Destroy (gameObject);
 		}
 	}
         
@@ -44,7 +43,7 @@ public class Bullet : MonoBehaviour
     {
         if (collider.gameObject.tag == "collidable")
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
     	if (collider.gameObject.tag == "enemy1")
@@ -52,7 +51,7 @@ public class Bullet : MonoBehaviour
 			if(!collider.gameObject.GetComponent<DustBunny>().GetIsDead())
 			{
 				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
-				Destroy(this.gameObject);
+				Destroy(gameObject);
 			}
     	}
 		
@@ -61,7 +60,7 @@ public class Bullet : MonoBehaviour
 			if(!collider.gameObject.GetComponent<Spider>().GetIsDead())
 			{
 				mAudioSourceOfCamera.PlayOneShot(mRubberBandHitEnemyAudioClip, 1.0f);
-				Destroy(this.gameObject);
+				Destroy(gameObject);
 			}
     	}
     }
@@ -109,11 +108,8 @@ public class Bullet : MonoBehaviour
     //The rigid body of the bullet object.
     private Rigidbody2D mRigidBody;
 
-	//The transform component of the shot.
-	private Transform mTransform;
-
-	//The transform component of the camera.
-	private Transform mCameraTransform;
+    //The CameraHandler component
+    private CameraHandler mCameraHandler;
 	
 	//The audio source of the camera component object.
 	private AudioSource mAudioSourceOfCamera;

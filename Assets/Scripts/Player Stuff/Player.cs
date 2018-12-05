@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update () 
+	void Update() 
 	{
 		if((mMovementGracePeriodAmount < mMovementGracePeriod))
 		{
@@ -33,32 +33,11 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
-			Movement ();
+			Movement();
 			BulletCreation();
 		}
 		
 		mSpriteRenderer.enabled = true;
-		
-		//Perform the camera controlling.
-		if(mCameraObject == null)
-		{
-			//Get the main camera.
-			mCameraObject = GameObject.Find("MainCamera(Clone)");
-			
-			//Get the other main camera components.
-			if(mCameraObject != null)
-			{
-				mCameraScript = mCameraObject.GetComponent<CameraHandler>();
-				mCameraTransform = mCameraObject.transform;
-			}
-		}
-		
-		//Only control the camera if it exists.
-		if(mCameraObject != null)
-		{
-			UpdateCameraPosition();
-			CheckIfBelowCamera ();
-		}
 
 		//Compute invincibility period.
 		if(mIsHurt == true)
@@ -629,138 +608,6 @@ public class Player : MonoBehaviour
 			}
 		}
     }
-
-    void UpdateCameraPosition()
-    {
-        //A quick reference to the player's position.
-        Vector3 curPosition = mTransform.position;
-
-        //The current bounds of the camera.
-        Bounds curBounds = mCameraScript.GetBounds();
-
-        //Camera offset for forcing the camera away from the player.
-        Vector3 cameraOffset = new Vector3(0.0f, 0.0f, 0.0f);
-
-        float transformY = 0.0f;
-
-        float cameraYPos = mCameraTransform.position.y;
-
-        float ySpeedInterpolation;
-
-        bool cameraIsScrollingUp = mCameraScript.GetIsScrollingUp();
-
-        if (cameraIsScrollingUp)
-        {
-            if (cameraYPos < 20.0f)
-            {
-                if (mScrollSpeed1Interpolation1 < 1.0f)
-                {
-                    mScrollSpeed1Interpolation1 += 0.1f * Time.deltaTime;
-
-                    if (mScrollSpeed1Interpolation1 > 1.0f)
-                    {
-                        mScrollSpeed1Interpolation1 = 1.0f;
-                    }
-
-                    ySpeedInterpolation = Mathf.Lerp(0.0f, mScrollSpeed1, mScrollSpeed1Interpolation1);
-
-                    transformY = cameraYPos + (ySpeedInterpolation * Time.deltaTime);
-                }
-                else
-                {
-                    transformY = cameraYPos + (mScrollSpeed1 * Time.deltaTime);
-                }
-            }
-            else if (cameraYPos >= 20.0f && cameraYPos < 62.0f)
-            {
-                mScrollSpeed1Interpolation1 = 0.0f;
-
-                if (mScrollSpeed1Interpolation2 < 1.0f)
-                {
-                    mScrollSpeed1Interpolation2 += 0.075f * Time.deltaTime;
-
-                    if (mScrollSpeed1Interpolation2 > 1.0f)
-                    {
-                        mScrollSpeed1Interpolation2 = 1.0f;
-                    }
-
-                    ySpeedInterpolation = Mathf.Lerp(mScrollSpeed1, mScrollSpeed2, mScrollSpeed1Interpolation2);
-
-                    transformY = cameraYPos + (ySpeedInterpolation * Time.deltaTime);
-                }
-                else
-                {
-                    transformY = cameraYPos + (mScrollSpeed2 * Time.deltaTime);
-                }
-            }
-            else
-            {
-                if (mScrollSpeed1Interpolation1 < 1.0f)
-                {
-                    mScrollSpeed1Interpolation1 += 0.1f * Time.deltaTime;
-
-                    if (mScrollSpeed1Interpolation1 > 1.0f)
-                    {
-                        mScrollSpeed1Interpolation1 = 1.0f;
-                    }
-
-                    ySpeedInterpolation = Mathf.Lerp(mScrollSpeed2, 0.0f, mScrollSpeed1Interpolation1);
-
-                    transformY = cameraYPos + (ySpeedInterpolation * Time.deltaTime);
-                }
-                else
-                {
-                    transformY = cameraYPos;
-                }
-            }
-        }
-        else
-        {
-            transformY = mTransform.position.y;
-        }
-
-        //The final camera position.
-        Vector3 finalCameraPosition = new Vector3(mTransform.position.x, transformY,
-                                            mCameraTransform.position.z);
-
-        //Check if the camera is outside the x bounds.
-        if (curPosition.x < curBounds.min.x)
-        {
-            cameraOffset.x = curBounds.min.x - curPosition.x;
-        }
-        else if (curPosition.x > curBounds.max.x)
-        {
-            cameraOffset.x = curBounds.max.x - curPosition.x;
-        }
-
-        if (!cameraIsScrollingUp)
-        {
-            //Check if the camera is outside the y bounds.
-            if (curPosition.y < curBounds.min.y)
-            {
-                cameraOffset.y = curBounds.min.y - curPosition.y;
-            }
-            else if (curPosition.y > curBounds.max.y)
-            {
-                cameraOffset.y = curBounds.max.y - curPosition.y;
-            }
-        }
-
-        finalCameraPosition += cameraOffset;
-
-        mCameraTransform.position = finalCameraPosition;
-    }
-
-	void CheckIfBelowCamera()
-	{
-		if (!mIsDead && mTransform.position.y < (mCameraTransform.position.y - 6.0f)) 
-		{
-			mIsDead = true;
-			mWalkingLeft = false;
-			mWalkingRight = false;
-			mRigidBody2D.velocity = new Vector3 (0.0f, 0.0f, 0.0f);
-		}
-	}
 	
 	public void TakeDamage()
 	{
@@ -846,9 +693,6 @@ public class Player : MonoBehaviour
 				
 				mCurHealth--;
 			}
-			
-			//Make the camera shake.
-			mCameraScript.StartShake(0.1f, 0.20f);
 		}
 	}
 
@@ -921,6 +765,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void FallOutOfLevel()
+    {
+        mIsDead = true;
+        mWalkingLeft = false;
+        mWalkingRight = false;
+        mRigidBody2D.velocity = new Vector3(0, mRigidBody2D.velocity.y, 0);
+    }
+
 
 	
 	//Getters:
@@ -986,18 +838,6 @@ public class Player : MonoBehaviour
     //The maximum flash period amount in seconds.
     private float mFlashPeriod = 0.1f;
 
-    //The scrolling speed for the camera in the wall level at the bottom of the level.
-    public float mScrollSpeed1 = 0.3f;
-
-    //The scrolling speed for the camera in the wall level at the middle of the level.
-    public float mScrollSpeed2 = 0.6f;
-
-    //The interpolation for the scroll speed at the bottom of the level.
-    public float mScrollSpeed1Interpolation1 = 0.0f;
-
-    //The interpolation for the scroll speed at the middle of the level.
-    public float mScrollSpeed1Interpolation2 = 0.0f;
-
     //The maximum knockback amount in seconds.
     private float mKnockbackPeriod = 0.5f;
 	
@@ -1051,15 +891,6 @@ public class Player : MonoBehaviour
 
     //The firing key.
     private KeyCode mFiringKey;
-
-    //The main camera object.
-    private GameObject mCameraObject;
-
-    //The camera script for the main camera.
-    private CameraHandler mCameraScript;
-
-    //The camera transform component for the main camera.
-    private Transform mCameraTransform;
 
     //The global game data.
     private GlobalData mGlobalData;
