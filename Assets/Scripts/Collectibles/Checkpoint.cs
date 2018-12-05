@@ -30,7 +30,7 @@ public class Checkpoint : MonoBehaviour
                     GetComponent<SpriteRenderer>().color = new Color(0, 255, 0);
                     activated = true;
 
-                    if (GlobalData.instance.GetCurrency() >= 100)
+                    if (GlobalData.instance.GetCurrency() >= 100 && !GlobalData.instance.GetHasBeenToMinigame())
                     {
                         Instantiate(player.mMinigamePortalPrefab, new Vector2(transform.position.x, transform.position.y + 2.0f), Quaternion.identity);
                     }

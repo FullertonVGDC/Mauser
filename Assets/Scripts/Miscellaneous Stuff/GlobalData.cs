@@ -53,13 +53,15 @@ public class GlobalData : MonoBehaviour
 			}
 			else
                 Debug.Log("Error: Canvas object could not be found.");
-
+            
             if (mCurGameMapName == GameMapName.GAMEMAP_WALLS)
                 mMusicPlayer.clip = mWallSong;
             else if (mCurGameMapName == GameMapName.GAMEMAP_BASEMENT)
                 mMusicPlayer.clip = mBasementSong;
             else if (mCurGameMapName == GameMapName.GAMEMAP_KITCHEN)
                 mMusicPlayer.clip = mKitchenSong;
+            else if (mCurGameMapName == GameMapName.GAMEMAP_MINIGAME)
+                mMusicPlayer.clip = mMinigameSong;
 
             //Play the currently selected background music.
             mMusicPlayer.Play(0);
@@ -83,9 +85,9 @@ public class GlobalData : MonoBehaviour
 		SceneManager.LoadScene (sceneName);
 
 		//Choose the correct game map name for the camera boundaries.
-		if(sceneName == "level_wall_fade")
+		if(sceneName == "level_garage")
 		{
-			mCurGameMapName = GameMapName.GAMEMAP_WALLS;
+			mCurGameMapName = GameMapName.GAMEMAP_BASEMENT;
 		}
 		else if(sceneName == "level_wall")
 		{
@@ -95,7 +97,7 @@ public class GlobalData : MonoBehaviour
 		{
 			mCurGameMapName = GameMapName.GAMEMAP_KITCHEN;
 		}
-		else if(sceneName == "minigame")
+		else if(sceneName == "minigame_scene")
 		{
 			//todo: for now, use the main menu as the mini game.
 			mCurGameMapName = GameMapName.GAMEMAP_MINIGAME;
@@ -146,10 +148,32 @@ public class GlobalData : MonoBehaviour
 		return mSavedCurrency;
 	}
 
+    public string GetSavedMapName()
+    {
+        return mSavedMapName;
+    }
+
+    public bool GetHasBeenToMinigame()
+    {
+        return hasBeenToMinigame;
+    }
+
 	public GameMapName GetCurrentGameMapName()
 	{
 		return mCurGameMapName;
 	}
+
+    //Setters
+
+    public void SetSavedMapName(string newSavedMapName)
+    {
+        mSavedMapName = newSavedMapName;
+    }
+
+    public void SetHasBeenToMinigame(bool tmp)
+    {
+        hasBeenToMinigame = tmp;
+    }
 
     //Variables.
 
@@ -167,6 +191,12 @@ public class GlobalData : MonoBehaviour
 	
 	//The saved currency from the previous checkpoint.
 	private uint mSavedCurrency = 0;
+
+    //The saved map name when going to a minigame
+    string mSavedMapName;
+
+    //Value for if the player has already been to the minigame
+    bool hasBeenToMinigame;
 
 	//The current check point position.
 	private Vector3 mCheckpointPosition;
@@ -196,6 +226,9 @@ public class GlobalData : MonoBehaviour
 	
 	//The kitchen song.
 	public AudioClip mKitchenSong;
+
+    //The minigame song
+    public AudioClip mMinigameSong;
 	
 	//The main camera prefab.
 	public GameObject mMainCameraPrefab;

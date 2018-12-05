@@ -110,9 +110,9 @@ public class Player : MonoBehaviour
 				//Decide which scene to switch to.
 				if (sceneName == "level_garage") 
 				{
-					mGlobalData.ChangeMap ("level_wall_fade");
+					mGlobalData.ChangeMap ("level_wall");
 				}
-				else if (sceneName == "level_wall_fade") 
+				else if (sceneName == "level_wall") 
 				{
 					mGlobalData.ChangeMap ("level_kitchen");
 				}
@@ -140,8 +140,9 @@ public class Player : MonoBehaviour
 			{
 				//The name of the current scene.
 				string sceneName = SceneManager.GetActiveScene().name;
-
-				mGlobalData.ChangeMap ("minigame");
+                GlobalData.instance.SetSavedMapName(sceneName);
+                GlobalData.instance.SetHasBeenToMinigame(true);
+				mGlobalData.ChangeMap ("minigame_scene");
 			}
 			else
 			{
@@ -338,29 +339,6 @@ public class Player : MonoBehaviour
 				mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
 				
 				mAudioSource.PlayOneShot(mMauserFinishLevelAudioClip, 1.0f);
-			}
-		}
-
-		//Check if colliding with a portal for minigame object.
-		if (collider.gameObject.name == "MinigamePortal(Clone)") 
-		{
-			if(!mIsDead)
-			{
-				//Get the gui fader object and check if it exists. If not, it is destroyed.
-				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
-
-				//The component of the gui fader object.
-				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
-
-				//Set the fader to is fading in and make the player enter invincibility 
-				// mode and be stuck in place.
-				guiFaderComp.SetIsFadingIn(true);
-
-				mAudioSource.PlayOneShot(mMauserFinishLevelAudioClip, 1.0f);
-
-				mFoundMinigame = true;
-				mSpriteRenderer.enabled = false;
-				mRigidBody2D.gravityScale = 0.0f;
 			}
 		}
 	}
@@ -760,6 +738,12 @@ public class Player : MonoBehaviour
 	{
 		return mIsDead;
 	}
+
+    //Setters:
+    public void SetFoundMinigame(bool tmp)
+    {
+        mFoundMinigame = tmp;
+    }
 	
     //Variables:
 
