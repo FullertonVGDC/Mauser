@@ -5,7 +5,6 @@ using UnityEngine;
 public class circle : MonoBehaviour {
 
 	Rigidbody2D rb;
-	bool pause = false; 
 
 	// Use this for initialization
 	void Start () {

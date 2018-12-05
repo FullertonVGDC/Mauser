@@ -341,36 +341,6 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		//Check if colliding with a checkpoint object.
-		if (collider.gameObject.name == "Checkpoint") 
-		{
-			if(!mIsDead)
-			{
-				mGlobalData.SetCheckpointEnabled(true);
-				mGlobalData.SetCheckpointPosition (collider.gameObject.transform.position);
-				
-				mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
-				
-				if(mMovementGracePeriodAmount >= mMovementGracePeriod)
-				{
-					mAudioSource.PlayOneShot(mMauserCollectCheckpointAudioClip, 1.0f);
-				}
-
-				if (mGlobalData.GetCurrency () >= 100) 
-				{
-					//The transform of the checkpoint component.
-					Transform otherTransform = collider.gameObject.transform;
-
-					Instantiate (mMinigamePortalPrefab, new Vector2(
-						otherTransform.position.x, 
-						otherTransform.position.y + 2.0f),
-						Quaternion.identity);
-				}
-
-				Destroy(collider.gameObject);
-			}
-		}
-
 		//Check if colliding with a portal for minigame object.
 		if (collider.gameObject.name == "MinigamePortal(Clone)") 
 		{
