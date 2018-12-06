@@ -84,11 +84,11 @@ public class Spider : MonoBehaviour
         //Choose the walking direction speed and direction.
         if(mFacingLeft == true)
         {
-            mRigidBody2D.velocity = new Vector3(-mWalkingSpeed, mRigidBody2D.velocity.y, 0.0f);
+            mRigidBody2D.velocity = new Vector3(-mCurrentWalkingSpeed, mRigidBody2D.velocity.y, 0.0f);
         }
         else
         {
-            mRigidBody2D.velocity = new Vector3(mWalkingSpeed, mRigidBody2D.velocity.y, 0.0f);
+            mRigidBody2D.velocity = new Vector3(mCurrentWalkingSpeed, mRigidBody2D.velocity.y, 0.0f);
         }
 
         //Check if grounded.
@@ -106,7 +106,7 @@ public class Spider : MonoBehaviour
 
             //If the collision occurs, check if grounded. If not, assume the spider is in the air and set grounded to 
             // false.
-            if (groundRayL.collider != null) 
+            if (groundRayL.collider != null)
             {
                 float collisionDistance = mTransform.position.y - 0.75f - groundRayL.point.y;
 
@@ -140,10 +140,12 @@ public class Spider : MonoBehaviour
                 if(groundRayL.collider == null)
                 {
                     mFacingLeft = false;
+                    GetComponent<SpriteRenderer>().flipX = true;
                 }
                 else if(groundRayR.collider == null)
                 {
                     mFacingLeft = true;
+                    GetComponent<SpriteRenderer>().flipX = false;
                 }
             }
         }
@@ -193,7 +195,9 @@ public class Spider : MonoBehaviour
 			float collisionDistance = mTransform.position.y - 0.75f - groundRayL.point.y;
 
 			mGrounded = true;
-			mClimbingDown = false;
+            mAnimator.SetTrigger("Landing Trigger");
+
+            mClimbingDown = false;
 			mTransform.position = new Vector3(mTransform.position.x, 
 				mTransform.position.y - collisionDistance, 
 				mTransform.position.z);
@@ -204,7 +208,9 @@ public class Spider : MonoBehaviour
 			float collisionDistance = mTransform.position.y - 0.75f - groundRayR.point.y;
 
 			mGrounded = true;
-			mClimbingDown = false;
+            mAnimator.SetTrigger("Landing Trigger");
+
+            mClimbingDown = false;
 			mTransform.position = new Vector3(mTransform.position.x, 
 				mTransform.position.y - collisionDistance, 
 				mTransform.position.z);
@@ -229,11 +235,13 @@ public class Spider : MonoBehaviour
         if (wallRayL.collider != null)
         {
             mFacingLeft = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
 
         if (wallRayR.collider != null)
         {
             mFacingLeft = true;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 
@@ -257,7 +265,7 @@ public class Spider : MonoBehaviour
 
             mRigidBody2D.gravityScale = 2.0f;
             mCollider2D.isTrigger = true;
-            mAnimator.SetTrigger("Death Trigger");
+            mAnimator.Play("Death");
 
             if (GameObject.FindGameObjectWithTag("Player").transform.position.x < transform.position.x)
                 mDeathRotateAngle = Random.Range(-15f, -5f);
@@ -303,8 +311,13 @@ public class Spider : MonoBehaviour
         //If below the death line, destroy the spider.
         if (mTransform.position.y < -5.0f) 
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
+    }
+
+    public void StartMoving()
+    {
+        mCurrentWalkingSpeed = mMaxWalkingSpeed;
     }
 
 	public void Pause()
@@ -344,7 +357,10 @@ public class Spider : MonoBehaviour
 	//private float mPrevDistanceFromGroundR = 999.0f;
 
     //The speed by which the player walks.
-	private float mWalkingSpeed = 5.0f;
+	float mMaxWalkingSpeed = 5.0f;
+
+    //The current speed of the spider
+    float mCurrentWalkingSpeed;
 
     //The current health of the spider.
     private int mCurHealth = 5;

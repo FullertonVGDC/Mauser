@@ -439,12 +439,6 @@ public class Player : MonoBehaviour
                 }
             }
 
-            //Check if the quit key is down.
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit();
-            }
-
             //--------------------------------------------------------------------------------------------------------------
             //Checking for released keys.
             //--------------------------------------------------------------------------------------------------------------
