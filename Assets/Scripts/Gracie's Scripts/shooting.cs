@@ -59,7 +59,7 @@ public class shooting : MonoBehaviour {
 	void switch_scenes() {					// once the game timer reaches 30, it loads the prize screen with
 		if (minigame_timer > 30.0f) {		// 100 points, otherwise it will show the lose screen
 			if (score >= 100) {
-				SceneManager.LoadScene ("prize_screen");
+				SceneManager.LoadScene ("minigame_win_screen");
 			} else {
 				SceneManager.LoadScene ("minigame_lose_screen");
 			}

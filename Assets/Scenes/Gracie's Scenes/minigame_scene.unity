@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 87378182}
   - component: {fileID: 87378181}
   m_Layer: 0
-  m_Name: spawned_object (2)
+  m_Name: Matchstick
   m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -255,12 +255,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 142185197}
+  - component: {fileID: 142185194}
   - component: {fileID: 142185196}
   - component: {fileID: 142185195}
-  - component: {fileID: 142185194}
   - component: {fileID: 142185198}
   m_Layer: 0
-  m_Name: spawner
+  m_Name: Scissor Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,15 +278,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingObject: {fileID: 1932428225}
-  x_val: 0
-  y_val: 0
   launchPower: 20
   launchX: 40
   launchY: 15
-  min: 10
-  max: 40
-  timer: 0
-  spawnTime: 11
   destroyTime: 2
 --- !u!23 &142185195
 MeshRenderer:
@@ -352,7 +346,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -428,7 +422,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &184109468
 GameObject:
@@ -438,12 +432,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 184109473}
+  - component: {fileID: 184109470}
   - component: {fileID: 184109472}
   - component: {fileID: 184109471}
-  - component: {fileID: 184109470}
   - component: {fileID: 184109469}
   m_Layer: 0
-  m_Name: spawner (1)
+  m_Name: Key Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -458,7 +452,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -486,15 +480,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingObject: {fileID: 1228240241}
-  x_val: 0
-  y_val: 0
   launchPower: 20
   launchX: 35
   launchY: 15
-  min: 5
-  max: 35
-  timer: 0
-  spawnTime: 15
   destroyTime: 2
 --- !u!23 &184109471
 MeshRenderer:
@@ -581,10 +569,10 @@ RectTransform:
   m_Father: {fileID: 1337237980}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -334.1, y: 135.9}
-  m_SizeDelta: {x: 179.17, y: 25.1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 111, y: -31}
+  m_SizeDelta: {x: 179.17, y: 25.100006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308494602
 MonoBehaviour:
@@ -744,7 +732,7 @@ Transform:
   m_LocalScale: {x: 0.9149928, y: 0.49357143, z: 1.0494542}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &311493895
 MonoBehaviour:
@@ -767,6 +755,7 @@ GameObject:
   - component: {fileID: 344658488}
   - component: {fileID: 344658487}
   - component: {fileID: 344658486}
+  - component: {fileID: 344658489}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -834,6 +823,101 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &344658489
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 344658485}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 40bbdb37322ec2c40b77b53f2b371db4, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &552303001
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,12 +956,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 636294047}
+  - component: {fileID: 636294048}
   - component: {fileID: 636294046}
   - component: {fileID: 636294045}
   - component: {fileID: 636294043}
-  - component: {fileID: 636294044}
   m_Layer: 0
-  m_Name: reverse_spawner
+  m_Name: Screw Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -892,7 +976,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -908,28 +992,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &636294044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 636294042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb55bc565be064f608d0d60cd04b15ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallingObject: {fileID: 1562698435}
-  x_val: 0
-  y_val: 0
-  launchPower: 20
-  launchX: 35
-  launchY: 15
-  min: 5
-  max: 35
-  timer: 0
-  spawnTime: 5
-  destroyTime: 2
 --- !u!23 &636294045
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -985,6 +1047,22 @@ Transform:
   m_Father: {fileID: 985019917}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &636294048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 636294042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4f44b8410b94e8db75b90eb4d420cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingObject: {fileID: 1562698435}
+  launchPower: 20
+  launchX: -40
+  launchY: 20
+  destroyTime: 2
 --- !u!1 &637370430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,7 +1282,7 @@ Transform:
   m_LocalScale: {x: 0.4507853, y: 0.42431006, z: 2.2152703}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &665792940
 MonoBehaviour:
@@ -1233,8 +1311,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 985019917}
+  - component: {fileID: 985019918}
   m_Layer: 0
-  m_Name: spawners
+  m_Name: Spawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1257,6 +1336,24 @@ Transform:
   m_Father: {fileID: 552303002}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &985019918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 985019916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1768b0f8b0f1b4ab18e9af9fdae36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  introTimerLength: 2.1
+  spawners:
+  - {fileID: 142185194}
+  - {fileID: 636294048}
+  - {fileID: 1763138920}
+  - {fileID: 184109470}
+  spawnTimerLength: 0.5
 --- !u!1 &1228240241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1367,7 @@ GameObject:
   - component: {fileID: 1228240243}
   - component: {fileID: 1228240242}
   m_Layer: 0
-  m_Name: spawned_object (3)
+  m_Name: Key
   m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1372,7 +1469,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1499,7 +1596,7 @@ GameObject:
   - component: {fileID: 1562698437}
   - component: {fileID: 1562698436}
   m_Layer: 0
-  m_Name: spawned_object (1)
+  m_Name: Screw
   m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1601,7 +1698,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1732,7 +1829,7 @@ GameObject:
   - component: {fileID: 1658186461}
   - component: {fileID: 1658186460}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1805,39 +1902,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763138919}
+  - component: {fileID: 1763138920}
   - component: {fileID: 1763138918}
   - component: {fileID: 1763138917}
   - component: {fileID: 1763138916}
-  - component: {fileID: 1763138915}
   m_Layer: 0
-  m_Name: reverse_spawner (1)
+  m_Name: Matchstick Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1763138915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1763138914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb55bc565be064f608d0d60cd04b15ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallingObject: {fileID: 87378180}
-  x_val: 0
-  y_val: 0
-  launchPower: 20
-  launchX: 35
-  launchY: 15
-  min: 5
-  max: 35
-  timer: 0
-  spawnTime: 9
-  destroyTime: 2
 --- !u!61 &1763138916
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1847,7 +1922,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1918,6 +1993,22 @@ Transform:
   m_Father: {fileID: 985019917}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1763138920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1763138914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4f44b8410b94e8db75b90eb4d420cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingObject: {fileID: 87378180}
+  launchPower: 20
+  launchX: -35
+  launchY: 20
+  destroyTime: 2
 --- !u!1 &1932428225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,7 +2022,7 @@ GameObject:
   - component: {fileID: 1932428231}
   - component: {fileID: 1932428227}
   m_Layer: 0
-  m_Name: spawned_object
+  m_Name: Scissors
   m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1951,7 +2042,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -2014,7 +2105,7 @@ Transform:
   m_LocalScale: {x: 0.49345315, y: 0.41258165, z: 0.8772501}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1932428230
 BoxCollider2D:
@@ -2082,10 +2173,10 @@ RectTransform:
   m_Father: {fileID: 1337237980}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -334.1, y: 103.899994}
-  m_SizeDelta: {x: 179.17, y: 25.1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 111, y: -63}
+  m_SizeDelta: {x: 179.17, y: 25.100006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1992103893
 MonoBehaviour:
