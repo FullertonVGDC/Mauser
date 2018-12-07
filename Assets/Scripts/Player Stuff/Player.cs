@@ -335,6 +335,8 @@ public class Player : MonoBehaviour
 				guiFaderComp.SetIsFadingIn(true);
 				
 				mFoundExit = true;
+                mAnimator.Play("Idle");
+                mAnimator.SetBool("Moving", false);
 				
 				mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
 				
