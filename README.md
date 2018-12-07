@@ -1,2 +1,2 @@
-# Mouser
-Mouser game for the VGDC!
+# Mauser
+Mauser game for the VGDC!
