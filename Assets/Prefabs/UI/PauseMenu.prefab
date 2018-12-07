@@ -71,6 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224995777761786928}
+  - component: {fileID: 114496012043399048}
   - component: {fileID: 223826530528238706}
   - component: {fileID: 114049874089233740}
   - component: {fileID: 114270632324084966}
@@ -92,7 +93,6 @@ GameObject:
   - component: {fileID: 222215803775173698}
   - component: {fileID: 114176818389373264}
   - component: {fileID: 114164305531104756}
-  - component: {fileID: 114699706286419346}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -227,7 +227,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114176818389373264}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114496012043399048}
+        m_MethodName: ResumeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114176818389373264
@@ -273,6 +284,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114496012043399048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735187309650910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455709a93c96cc247ae40563da6841dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114571769805569292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -311,7 +333,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114613414053058072}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114496012043399048}
+        m_MethodName: QuitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114607464135922608
@@ -374,17 +407,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114699706286419346
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1737654774613076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c23455c7a8acb499c9a6a9a488e836, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114734092129385318
 MonoBehaviour:
   m_ObjectHideFlags: 1
