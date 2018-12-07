@@ -15,13 +15,11 @@ public class WallCamera : MonoBehaviour
 
     public Player player;
     public GameObject beePrefab;
-    CameraHandler cameraHandler;
 
 
 
     void Start()
     {
-        cameraHandler = GetComponent<CameraHandler>();
         GenerateBees();
 
         LeanTween.value(velY, 1, 5).setOnUpdate((float value) =>

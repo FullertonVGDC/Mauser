@@ -14,6 +14,7 @@ public class Pawser : MonoBehaviour
 
     Animator animator;
     public GameObject knifeHandlerPrefab;
+    public GameObject shockwaveSpawnerPrefab;
 
 
 
@@ -36,14 +37,15 @@ public class Pawser : MonoBehaviour
                     idleTimer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
 
                     //state = (State)Random.Range(1, 4);
-                    state = State.KnifeAttack;
+                    //state = State.KnifeAttack;
+                    state = State.FishAttack;
                     if (state == State.KnifeAttack)
                     {
                         animator.Play("Knife Throw");
                     }
                     else if (state == State.FishAttack)
                     {
-
+                        animator.Play("Fish Slam");
                     }
                     else if (state == State.HairballAttack)
                     {
@@ -57,6 +59,7 @@ public class Pawser : MonoBehaviour
                 break;
 
             case State.FishAttack:
+                //Also don't need anything here lol
                 break;
 
             case State.HairballAttack:
@@ -64,11 +67,25 @@ public class Pawser : MonoBehaviour
         }
     }
 
+    public void ResetToIdleState()
+    {
+        state = State.Idle;
+    }
+
     public void SpawnKnives()
     {
         GameObject knifeHandler = Instantiate(knifeHandlerPrefab);
         knifeHandler.GetComponent<KnifeHandler>().pawser = this;
     }
+
+    public void SpawnShockwaves()
+    {
+        Instantiate(shockwaveSpawnerPrefab, new Vector2(7.5f, 2), Quaternion.identity);
+        GameObject leftShockwave = Instantiate(shockwaveSpawnerPrefab, new Vector2(7.5f, 2), Quaternion.identity);
+        leftShockwave.GetComponent<ShockwaveSpawner>().xVelocity = -leftShockwave.GetComponent<ShockwaveSpawner>().xVelocity;
+    }
+
+
 	
 	public void Pause()
 	{
