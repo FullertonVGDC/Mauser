@@ -428,11 +428,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  idleTimerMinLength: 3
-  idleTimerMaxLength: 6
+  idleTimerMinLength: 2
+  idleTimerMaxLength: 4
   knifeHandlerPrefab: {fileID: 1737087849036138, guid: ce4e8df511ab3fb4aa73a6152c96d9b1,
     type: 2}
   shockwaveSpawnerPrefab: {fileID: 1821929992903000, guid: be64ffdb9ad22154d8dbc621c6df080c,
+    type: 2}
+  hairballPrefab: {fileID: 1797950442877146, guid: f64a4b98848480246939352071b2dcd2,
     type: 2}
 --- !u!1 &736244310
 GameObject:

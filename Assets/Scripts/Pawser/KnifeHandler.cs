@@ -21,8 +21,6 @@ public class KnifeHandler : MonoBehaviour
     public GameObject rightKnife;
 
     CameraHandler cameraHandler;
-    [HideInInspector]
-    public Pawser pawser;
 	
 	//The id of the first active LeanTween animation. Needed for pause functionality.
 	private int leanTweenActiveAnimID1 = -1;
@@ -75,7 +73,7 @@ public class KnifeHandler : MonoBehaviour
                 break;
 
             case State.FlyingDown:
-                leftKnife.transform.position = new Vector2(1, leftKnife.transform.position.y);
+                leftKnife.transform.position = new Vector2(1.75f, leftKnife.transform.position.y);
                 rightKnife.transform.position = new Vector2(leftKnife.transform.position.x + knifeWidth, leftKnife.transform.position.y);
                 leftKnife.transform.eulerAngles = new Vector3(0, 0, 0);
                 rightKnife.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -108,7 +106,7 @@ public class KnifeHandler : MonoBehaviour
 				leanTweenActiveAnimID1 = curLeanTweenAnim.id;
 				
 				//Move both knives to the right until they are offscreen. When they are offscreen, switch to the leaving state.
-                curLeanTweenAnim = LeanTween.moveX(gameObject, 17.5f, 6);
+                curLeanTweenAnim = LeanTween.moveX(gameObject, 14.5f, 6);
 				curLeanTweenAnim.setEase(LeanTweenType.easeInOutQuad);
 				curLeanTweenAnim.setOnComplete(() => 
 				{ 
@@ -126,7 +124,6 @@ public class KnifeHandler : MonoBehaviour
 				curLeanTweenAnim.setEase(LeanTweenType.easeInCubic);
 				curLeanTweenAnim.setOnComplete(() =>
                 {
-                    pawser.state = Pawser.State.Idle;
                     Destroy(gameObject);
 					leanTweenActiveAnimID1 = -1;
 					leanTweenActiveAnimID2 = -1;

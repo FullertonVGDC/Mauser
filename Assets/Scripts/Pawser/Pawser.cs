@@ -15,6 +15,7 @@ public class Pawser : MonoBehaviour
     Animator animator;
     public GameObject knifeHandlerPrefab;
     public GameObject shockwaveSpawnerPrefab;
+    public GameObject hairballPrefab;
 
 
 
@@ -36,9 +37,7 @@ public class Pawser : MonoBehaviour
                 {
                     idleTimer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
 
-                    //state = (State)Random.Range(1, 4);
-                    //state = State.KnifeAttack;
-                    state = State.FishAttack;
+                    state = (State)Random.Range(1, 4);
                     if (state == State.KnifeAttack)
                     {
                         animator.Play("Knife Throw");
@@ -49,7 +48,7 @@ public class Pawser : MonoBehaviour
                     }
                     else if (state == State.HairballAttack)
                     {
-
+                        animator.Play("Hairball");
                     }
                 }
                 break;
@@ -63,19 +62,21 @@ public class Pawser : MonoBehaviour
                 break;
 
             case State.HairballAttack:
+                //</'J'>/
                 break;
         }
     }
 
-    public void ResetToIdleState()
+
+
+    public void SetStateToIdle()
     {
         state = State.Idle;
     }
 
     public void SpawnKnives()
     {
-        GameObject knifeHandler = Instantiate(knifeHandlerPrefab);
-        knifeHandler.GetComponent<KnifeHandler>().pawser = this;
+        Instantiate(knifeHandlerPrefab);
     }
 
     public void SpawnShockwaves()
@@ -83,6 +84,26 @@ public class Pawser : MonoBehaviour
         Instantiate(shockwaveSpawnerPrefab, new Vector2(7.5f, 2), Quaternion.identity);
         GameObject leftShockwave = Instantiate(shockwaveSpawnerPrefab, new Vector2(7.5f, 2), Quaternion.identity);
         leftShockwave.GetComponent<ShockwaveSpawner>().xVelocity = -leftShockwave.GetComponent<ShockwaveSpawner>().xVelocity;
+    }
+
+    public void SpawnHairball()
+    {
+        if (Random.Range(0, 2) == 0)
+        {
+            GameObject leftHairball = Instantiate(hairballPrefab);
+            leftHairball.GetComponent<Hairball>().velocity = new Vector2(-4, 20);
+            GameObject rightHairball = Instantiate(hairballPrefab);
+            rightHairball.GetComponent<Hairball>().velocity = new Vector2(4, 20);
+        }
+        else
+        {
+            GameObject leftHairball = Instantiate(hairballPrefab);
+            leftHairball.GetComponent<Hairball>().velocity = new Vector2(-6, 20);
+            GameObject middleHairball = Instantiate(hairballPrefab);
+            middleHairball.GetComponent<Hairball>().velocity = new Vector2(0, 20);
+            GameObject rightHairball = Instantiate(hairballPrefab);
+            rightHairball.GetComponent<Hairball>().velocity = new Vector2(6, 20);
+        }
     }
 
 

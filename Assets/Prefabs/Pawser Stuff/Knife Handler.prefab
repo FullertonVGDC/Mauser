@@ -185,7 +185,6 @@ MonoBehaviour:
   finishedPanning: 0
   leftKnife: {fileID: 1923635572913282}
   rightKnife: {fileID: 1856162786314694}
-  pawser: {fileID: 0}
 --- !u!114 &114920281640834794
 MonoBehaviour:
   m_ObjectHideFlags: 1
