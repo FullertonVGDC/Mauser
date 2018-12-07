@@ -9,7 +9,7 @@ public class WallCamera : MonoBehaviour
     float velY;
 
     float[] speedChangeTimes = { 17f, 50f };
-    float[] speeds = { 3, 5 };
+    float[] speeds = { 2, 3 };
     float speedChangeTimer;
     int currentSpeed = 0;
 
@@ -20,6 +20,9 @@ public class WallCamera : MonoBehaviour
 
     void Start()
     {
+        if (GlobalData.instance.GetCheckpointEnabled())
+            transform.position = new Vector3(9.5f, 26.5f, transform.position.z);
+
         GenerateBees();
 
         LeanTween.value(velY, 1, 5).setOnUpdate((float value) =>

@@ -153,6 +153,11 @@ public class GlobalData : MonoBehaviour
 		return mSavedCurrency;
 	}
 
+    public bool GetCheckpointEnabled()
+    {
+        return mCheckpointEnabled;
+    }
+
     public string GetSavedMapName()
     {
         return mSavedMapName;
