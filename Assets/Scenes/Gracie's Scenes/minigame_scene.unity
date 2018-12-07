@@ -186,7 +186,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 87378180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b2021ddc8b843008a6da20fc3ab311, type: 3}
+  m_Script: {fileID: 11500000, guid: ade2ccb93629f4b46b665585075875c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &87378183
@@ -274,13 +274,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 142185192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4f44b8410b94e8db75b90eb4d420cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 76796127cd9e96f439221c2eb1b6113d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fallingObject: {fileID: 1932428225}
-  launchPower: 20
-  launchX: 40
-  launchY: 15
+  launchPower: 25
+  launchX: 20
+  launchY: 10
   destroyTime: 2
 --- !u!23 &142185195
 MeshRenderer:
@@ -476,13 +476,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 184109468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4f44b8410b94e8db75b90eb4d420cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 76796127cd9e96f439221c2eb1b6113d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fallingObject: {fileID: 1228240241}
-  launchPower: 20
-  launchX: 35
-  launchY: 15
+  launchPower: 25
+  launchX: 20
+  launchY: 10
   destroyTime: 2
 --- !u!23 &184109471
 MeshRenderer:
@@ -1055,13 +1055,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 636294042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4f44b8410b94e8db75b90eb4d420cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 76796127cd9e96f439221c2eb1b6113d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fallingObject: {fileID: 1562698435}
-  launchPower: 20
-  launchX: -40
-  launchY: 20
+  launchPower: 25
+  launchX: -20
+  launchY: 10
   destroyTime: 2
 --- !u!1 &637370430
 GameObject:
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1228240241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b2021ddc8b843008a6da20fc3ab311, type: 3}
+  m_Script: {fileID: 11500000, guid: ade2ccb93629f4b46b665585075875c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &1228240244
@@ -1656,7 +1656,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1562698435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b2021ddc8b843008a6da20fc3ab311, type: 3}
+  m_Script: {fileID: 11500000, guid: ade2ccb93629f4b46b665585075875c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &1562698438
@@ -2001,13 +2001,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1763138914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4f44b8410b94e8db75b90eb4d420cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 76796127cd9e96f439221c2eb1b6113d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fallingObject: {fileID: 87378180}
-  launchPower: 20
-  launchX: -35
-  launchY: 20
+  launchPower: 25
+  launchX: -20
+  launchY: 10
   destroyTime: 2
 --- !u!1 &1932428225
 GameObject:
@@ -2140,7 +2140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1932428225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b2021ddc8b843008a6da20fc3ab311, type: 3}
+  m_Script: {fileID: 11500000, guid: ade2ccb93629f4b46b665585075875c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1992103891
