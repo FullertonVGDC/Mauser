@@ -38,7 +38,7 @@ public class GlobalData : MonoBehaviour
 	//Update for when the scene changes.
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		Debug.Log("Got here.");
+		//Debug.Log("Got here.");
 		if(mChangedGameMap) 
         {
 			//A reference to the canvas object.
