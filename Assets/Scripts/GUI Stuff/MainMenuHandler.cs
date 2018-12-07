@@ -6,20 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : MonoBehaviour
 {
-    public Image pawserImage;
     public Image mauserImage;
     public Image titleImage;
 
     void Start()
     {
-        LeanTween.delayedCall(1, () =>
-        {
-            LeanTween.moveX(pawserImage.gameObject, pawserImage.transform.position.x + (Screen.width * 0.2f), 1).setEase(LeanTweenType.easeOutCubic);
-        });
-
         LeanTween.delayedCall(3, () =>
         {
-            LeanTween.moveX(mauserImage.gameObject, mauserImage.transform.position.x - (Screen.width * 0.2f), 1).setEase(LeanTweenType.easeOutCubic);
+            LeanTween.moveX(mauserImage.gameObject, mauserImage.transform.position.x - (Screen.width * 0.9f), 2).setEase(LeanTweenType.easeOutCubic);
         });
 
         LeanTween.delayedCall(6, () =>
