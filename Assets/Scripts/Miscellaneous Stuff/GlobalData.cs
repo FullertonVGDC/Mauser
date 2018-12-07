@@ -63,6 +63,7 @@ public class GlobalData : MonoBehaviour
                 mMusicPlayer.clip = mMinigameSong;
 
             //Play the currently selected background music.
+			mMusicPlayer.volume = 0.8f;
             mMusicPlayer.Play(0);
 			mChangedGameMap = false;
 		}

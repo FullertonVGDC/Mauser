@@ -15,6 +15,8 @@ public class PauseMenuHandler : MonoBehaviour
     {
         GlobalData.instance.StopMusic();
 		GlobalData.instance.UnPause();
+		GlobalData.instance.SetCheckpointEnabled (false);
+		GlobalData.instance.GetComponent<AudioSource>().volume = 0.8f;
         SceneManager.LoadScene("main_menu");
         Application.Quit();
     }
