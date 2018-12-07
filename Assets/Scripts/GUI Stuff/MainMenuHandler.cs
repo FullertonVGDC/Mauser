@@ -14,17 +14,17 @@ public class MainMenuHandler : MonoBehaviour
     {
         LeanTween.delayedCall(1, () =>
         {
-            LeanTween.moveX(pawserImage.gameObject, pawserImage.transform.position.x + 100, 1).setEase(LeanTweenType.easeOutCubic);
+            LeanTween.moveX(pawserImage.gameObject, pawserImage.transform.position.x + (Screen.width * 0.2f), 1).setEase(LeanTweenType.easeOutCubic);
         });
 
         LeanTween.delayedCall(3, () =>
         {
-            LeanTween.moveX(mauserImage.gameObject, mauserImage.transform.position.x - 100, 1).setEase(LeanTweenType.easeOutCubic);
+            LeanTween.moveX(mauserImage.gameObject, mauserImage.transform.position.x - (Screen.width * 0.2f), 1).setEase(LeanTweenType.easeOutCubic);
         });
 
         LeanTween.delayedCall(6, () =>
         {
-            LeanTween.moveY(titleImage.gameObject, titleImage.transform.position.y - 100, 1).setEase(LeanTweenType.easeOutCubic);
+            LeanTween.moveY(titleImage.gameObject, titleImage.transform.position.y - (Screen.height * 0.25f), 1).setEase(LeanTweenType.easeOutCubic);
         });
     }
 
