@@ -750,7 +750,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "Laurie Quach\r\nLorena Macias\r\nMelanie Ballesteros\r\nNathaniel Richards\r\nPaola
-    Rosales\r\nPreshus Dizon\r\nSamuel Na\r\nSebastian Hernandez\r\nStephanie Poai\r\nTara
+    Rosales\r\nPreshus Dizon\r\nSamuel Na\r\nSebastian Hernandez\r\nStephanie Pocci\nTara
     Nguyen\r\nTracy Origel\r\nWilliam Au\r\nYafu Deng\r\nYuri Pineda"
 --- !u!222 &711381060
 CanvasRenderer:
