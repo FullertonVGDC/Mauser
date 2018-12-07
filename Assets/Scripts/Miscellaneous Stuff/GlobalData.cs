@@ -106,6 +106,11 @@ public class GlobalData : MonoBehaviour
 		mChangedGameMap = true;
 	}
 
+    public void StopMusic()
+    {
+        mMusicPlayer.clip = null;
+    }
+
 	public void Pause()
 	{
 		enabled = false;

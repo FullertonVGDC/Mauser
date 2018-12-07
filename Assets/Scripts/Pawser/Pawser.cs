@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Pawser : MonoBehaviour
 {
-    public enum State { Idle, KnifeAttack, FishAttack, HairballAttack };
+    public enum State { Idle, KnifeAttack, FishAttack, HairballAttack, Dying };
     [HideInInspector]
     public State state;
 
@@ -13,10 +15,11 @@ public class Pawser : MonoBehaviour
 
     public float idleTimerMinLength;
     public float idleTimerMaxLength;
-    float idleTimer;
+    float timer;
 
     Animator animator;
     SpriteRenderer sr;
+    Image gfImage;
 
     public GameObject knifeHandlerPrefab;
     public GameObject shockwaveSpawnerPrefab;
@@ -28,9 +31,10 @@ public class Pawser : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        gfImage = GameObject.Find("GuiFader(Clone)").GetComponent<Image>();
 
         state = State.Idle;
-        idleTimer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
+        timer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
     }
 
     void Update()
@@ -44,10 +48,10 @@ public class Pawser : MonoBehaviour
         switch (state)
         {
             case State.Idle:
-                idleTimer -= Time.deltaTime;
-                if (idleTimer <= 0)
+                timer -= Time.deltaTime;
+                if (timer <= 0)
                 {
-                    idleTimer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
+                    timer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
 
                     state = (State)Random.Range(1, 4);
                     if (state == State.KnifeAttack)
@@ -75,6 +79,9 @@ public class Pawser : MonoBehaviour
 
             case State.HairballAttack:
                 //</'J'>/
+                break;
+
+            case State.Dying:
                 break;
         }
     }
@@ -136,11 +143,28 @@ public class Pawser : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "bullet")
+        if (other.gameObject.tag == "bullet" && state != State.Dying)
         {
-            health--;
-            damageTintStrength = 0.1f;
             Destroy(other.gameObject);
+            damageTintStrength = 0.1f;
+            health--;
+
+            if (health <= 0)
+            {
+                state = State.Dying;
+                animator.Play("Dying");
+                LeanTween.delayedCall(5, () =>
+                {
+                    LeanTween.value(0, 1, 3).setOnUpdate((float val) =>
+                    {
+                        gfImage.color = new Color(gfImage.color.r, gfImage.color.g, gfImage.color.b, val);
+                    }).setOnComplete(() =>
+                    {
+                        GlobalData.instance.StopMusic();
+                        SceneManager.LoadScene("credits");
+                    });
+                });
+            }
         }
     }
 }
