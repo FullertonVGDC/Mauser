@@ -306,6 +306,7 @@ GameObject:
   - component: {fileID: 732173547}
   - component: {fileID: 732173545}
   - component: {fileID: 732173544}
+  - component: {fileID: 732173548}
   - component: {fileID: 732173546}
   m_Layer: 0
   m_Name: Pawser
@@ -339,7 +340,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.627719, y: -0.10372162}
+  m_Offset: {x: -2.125722, y: -1.0658932}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -350,7 +351,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.140011, y: 18.524532}
+  m_Size: {x: 18.004736, y: 20.448875}
   m_EdgeRadius: 0
 --- !u!212 &732173545
 SpriteRenderer:
@@ -428,14 +429,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  health: 100
   idleTimerMinLength: 2
-  idleTimerMaxLength: 4
+  idleTimerMaxLength: 3
   knifeHandlerPrefab: {fileID: 1737087849036138, guid: ce4e8df511ab3fb4aa73a6152c96d9b1,
     type: 2}
   shockwaveSpawnerPrefab: {fileID: 1821929992903000, guid: be64ffdb9ad22154d8dbc621c6df080c,
     type: 2}
   hairballPrefab: {fileID: 1797950442877146, guid: f64a4b98848480246939352071b2dcd2,
     type: 2}
+--- !u!50 &732173548
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732173542}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &736244310
 GameObject:
   m_ObjectHideFlags: 0

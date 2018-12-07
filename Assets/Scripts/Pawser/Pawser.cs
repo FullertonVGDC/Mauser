@@ -8,11 +8,16 @@ public class Pawser : MonoBehaviour
     [HideInInspector]
     public State state;
 
+    public int health = 100;
+    float damageTintStrength;
+
     public float idleTimerMinLength;
     public float idleTimerMaxLength;
     float idleTimer;
 
     Animator animator;
+    SpriteRenderer sr;
+
     public GameObject knifeHandlerPrefab;
     public GameObject shockwaveSpawnerPrefab;
     public GameObject hairballPrefab;
@@ -22,6 +27,7 @@ public class Pawser : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
 
         state = State.Idle;
         idleTimer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
@@ -29,6 +35,12 @@ public class Pawser : MonoBehaviour
 
     void Update()
     {
+        //Handle damage tinting
+        if (damageTintStrength > 0) damageTintStrength -= (1f * Time.deltaTime);
+        else damageTintStrength = 0;
+        sr.color = new Color(1, 1 - damageTintStrength, 1 - damageTintStrength);
+
+        //Process behaviour of whatever state pawser is in
         switch (state)
         {
             case State.Idle:
@@ -119,4 +131,16 @@ public class Pawser : MonoBehaviour
 		enabled = true;
 		animator.enabled = true;
 	}
+
+
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "bullet")
+        {
+            health--;
+            damageTintStrength = 0.1f;
+            Destroy(other.gameObject);
+        }
+    }
 }

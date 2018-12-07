@@ -10,7 +10,10 @@ public class TileDebris : MonoBehaviour
     void Start()
     {
         velocity = new Vector2(Random.Range(-3f, 3f), Random.Range(2f, 4f));
-        LeanTween.alpha(gameObject, 0, 1).setEase(LeanTweenType.easeInCubic);
+        LeanTween.alpha(gameObject, 0, 1).setEase(LeanTweenType.easeInCubic).setOnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 
     void Update()
