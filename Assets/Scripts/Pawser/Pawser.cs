@@ -86,7 +86,32 @@ public class Pawser : MonoBehaviour
         }
     }
 
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "bullet" && state != State.Dying)
+		{
+			Destroy(other.gameObject);
+			damageTintStrength = 0.1f;
+			health--;
 
+			if (health <= 0)
+			{
+				state = State.Dying;
+				animator.Play("Dying");
+				LeanTween.delayedCall(5, () =>
+				{
+					LeanTween.value(0, 1, 3).setOnUpdate((float val) =>
+					{
+						gfImage.color = new Color(gfImage.color.r, gfImage.color.g, gfImage.color.b, val);
+					}).setOnComplete(() =>
+					{
+						GlobalData.instance.StopMusic();
+						SceneManager.LoadScene("credits");
+					});
+				});
+			}
+		}
+	}
 
     public void SetStateToIdle()
     {
@@ -101,6 +126,7 @@ public class Pawser : MonoBehaviour
     public void SpawnShockwaves()
     {
         Instantiate(shockwaveSpawnerPrefab, new Vector2(7.5f, 2), Quaternion.identity);
+
         GameObject leftShockwave = Instantiate(shockwaveSpawnerPrefab, new Vector2(7.5f, 2), Quaternion.identity);
         leftShockwave.GetComponent<ShockwaveSpawner>().xVelocity = -leftShockwave.GetComponent<ShockwaveSpawner>().xVelocity;
     }
@@ -111,6 +137,7 @@ public class Pawser : MonoBehaviour
         {
             GameObject leftHairball = Instantiate(hairballPrefab);
             leftHairball.GetComponent<Hairball>().velocity = new Vector2(-4, 20);
+
             GameObject rightHairball = Instantiate(hairballPrefab);
             rightHairball.GetComponent<Hairball>().velocity = new Vector2(4, 20);
         }
@@ -118,8 +145,10 @@ public class Pawser : MonoBehaviour
         {
             GameObject leftHairball = Instantiate(hairballPrefab);
             leftHairball.GetComponent<Hairball>().velocity = new Vector2(-6, 20);
+
             GameObject middleHairball = Instantiate(hairballPrefab);
             middleHairball.GetComponent<Hairball>().velocity = new Vector2(0, 20);
+
             GameObject rightHairball = Instantiate(hairballPrefab);
             rightHairball.GetComponent<Hairball>().velocity = new Vector2(6, 20);
         }
@@ -138,33 +167,4 @@ public class Pawser : MonoBehaviour
 		enabled = true;
 		animator.enabled = true;
 	}
-
-
-    
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "bullet" && state != State.Dying)
-        {
-            Destroy(other.gameObject);
-            damageTintStrength = 0.1f;
-            health--;
-
-            if (health <= 0)
-            {
-                state = State.Dying;
-                animator.Play("Dying");
-                LeanTween.delayedCall(5, () =>
-                {
-                    LeanTween.value(0, 1, 3).setOnUpdate((float val) =>
-                    {
-                        gfImage.color = new Color(gfImage.color.r, gfImage.color.g, gfImage.color.b, val);
-                    }).setOnComplete(() =>
-                    {
-                        GlobalData.instance.StopMusic();
-                        SceneManager.LoadScene("credits");
-                    });
-                });
-            }
-        }
-    }
 }

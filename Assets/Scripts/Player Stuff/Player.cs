@@ -38,117 +38,119 @@ public class Player : MonoBehaviour
 		}
 		
 		mSpriteRenderer.enabled = true;
-
-		//Compute invincibility period.
-		if(mIsHurt == true)
-		{
-			if(mHurtInvincibilityPeriodAmount > 0.1)
-			{
-				mSpriteRenderer.enabled = true;
-			}
-
-			mHurtInvincibilityPeriodAmount += Time.deltaTime;
-			mFlashPeriodAmount += Time.deltaTime;
-
-			if(mHurtInvincibilityPeriodAmount >= mHurtInvincibilityPeriod)
-			{
-				mIsHurt = false;
-			}
-			
-			if(mFlashPeriodAmount >= mFlashPeriod)
-			{
-				mSpriteRenderer.enabled = false;
-				mFlashPeriodAmount = 0.0f;
-			}
-		}
 		
 		//Code to run while dead.
-		if(mIsDead)
+		if (mIsDead) 
 		{
 			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+			GameObject guiFaderObj = GameObject.Find ("GuiFader(Clone)");
 			
 			//The component of the gui fader object.
-			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader> ();
 			
 			//If the gui fader object is destroyed, reload the current level. 
 			// Otherwise, make the fader fade in.
-			if(guiFaderComp.GetIsDoneFading() == true)
+			if (guiFaderComp.GetIsDoneFading () == true) 
 			{
 				//The name of the current scene being reloaded.
-				string sceneName = SceneManager.GetActiveScene().name;
+				string sceneName = SceneManager.GetActiveScene ().name;
 				
-				mGlobalData.SetCurrency(mGlobalData.GetSavedCurrency());
-				mGlobalData.ChangeMap(sceneName);
-			}
-			else
+				mGlobalData.SetCurrency (mGlobalData.GetSavedCurrency ());
+				mGlobalData.ChangeMap (sceneName);
+			} 
+			else 
 			{
-				guiFaderComp.SetIsFadingIn(true);
+				guiFaderComp.SetIsFadingIn (true);
 				mCurHealth = 0;
 				mCurArmor = 0;
 			}
-		}
-
-		//Code to run while won.
-		if(mFoundExit)
+		} 
+		else 
 		{
-			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
-
-			//The component of the gui fader object.
-			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
-
-			//If the gui fader object is destroyed, reload the current level. 
-			// Otherwise, make the fader fade in.
-			if(guiFaderComp.GetIsDoneFading() == true)
+			//Compute invincibility period.
+			if(mIsHurt == true)
 			{
-				//The name of the current scene.
-				string sceneName = SceneManager.GetActiveScene().name;
-
-				mGlobalData.SetCheckpointEnabled(false);
-
-				//Decide which scene to switch to.
-				if (sceneName == "level_garage") 
+				if(mHurtInvincibilityPeriodAmount > 0.1)
 				{
-					mGlobalData.ChangeMap ("level_wall");
+					mSpriteRenderer.enabled = true;
 				}
-				else if (sceneName == "level_wall") 
+
+				mHurtInvincibilityPeriodAmount += Time.deltaTime;
+				mFlashPeriodAmount += Time.deltaTime;
+
+				if(mHurtInvincibilityPeriodAmount >= mHurtInvincibilityPeriod)
 				{
-					mGlobalData.ChangeMap ("level_kitchen");
+					mIsHurt = false;
+				}
+
+				if(mFlashPeriodAmount >= mFlashPeriod)
+				{
+					mSpriteRenderer.enabled = false;
+					mFlashPeriodAmount = 0.0f;
 				}
 			}
-			else
+
+			//Code to run while won.
+			if(mFoundExit)
 			{
-				guiFaderComp.SetIsFadingIn(true);
+				//Get the gui fader object and check if it exists. If not, it is destroyed.
+				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+
+				//The component of the gui fader object.
+				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+
+				//If the gui fader object is destroyed, reload the current level. 
+				// Otherwise, make the fader fade in.
+				if(guiFaderComp.GetIsDoneFading() == true)
+				{
+					//The name of the current scene.
+					string sceneName = SceneManager.GetActiveScene().name;
+
+					mGlobalData.SetCheckpointEnabled(false);
+
+					//Decide which scene to switch to.
+					if (sceneName == "level_garage") 
+					{
+						mGlobalData.ChangeMap ("level_wall");
+					}
+					else if (sceneName == "level_wall") 
+					{
+						mGlobalData.ChangeMap ("level_kitchen");
+					}
+				}
+				else
+				{
+					guiFaderComp.SetIsFadingIn(true);
+				}
 			}
-		}
 
-		//Code to run while found the minigame.
-		if(mFoundMinigame)
-		{
-			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
-
-			//The component of the gui fader object.
-			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
-
-			mRigidBody2D.velocity = new Vector2 (0.0f, 0.0f);
-
-			//If the gui fader object is destroyed, reload the current level. 
-			// Otherwise, make the fader fade in.
-			if(guiFaderComp.GetIsDoneFading() == true)
+			//Code to run while found the minigame.
+			if(mFoundMinigame)
 			{
-				//The name of the current scene.
-				string sceneName = SceneManager.GetActiveScene().name;
-                GlobalData.instance.SetSavedMapName(sceneName);
-                GlobalData.instance.SetHasBeenToMinigame(true);
-				mGlobalData.ChangeMap ("minigame_scene");
-			}
-			else
-			{
-				guiFaderComp.SetIsFadingIn(true);
-				guiFaderComp.SetGraceFadeOutPeriodAmount (3.0f);
-			}
+				//Get the gui fader object and check if it exists. If not, it is destroyed.
+				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+
+				//The component of the gui fader object.
+				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+
+				mRigidBody2D.velocity = new Vector2 (0.0f, 0.0f);
+
+				//If the gui fader object is destroyed, reload the current level. 
+				// Otherwise, make the fader fade in.
+				if(guiFaderComp.GetIsDoneFading() == true)
+				{
+					//The name of the current scene.
+					string sceneName = SceneManager.GetActiveScene().name;
+					GlobalData.instance.SetSavedMapName(sceneName);
+					GlobalData.instance.SetHasBeenToMinigame(true);
+					mGlobalData.ChangeMap ("minigame_scene");
+				}
+				else
+				{
+					guiFaderComp.SetIsFadingIn(true);
+					guiFaderComp.SetGraceFadeOutPeriodAmount (3.0f);
+				}
+			}	
 		}
 	}
 
@@ -162,15 +164,15 @@ public class Player : MonoBehaviour
 
 			//The Left ray.
 			RaycastHit2D groundRayL = Physics2D.Raycast(mTransform.position - new Vector3(0.4f, 0.5f, 0.0f), 
-				new Vector3(0.0f, -1.0f, 0.0f), 0.2f, collidableLayerMask);
+				new Vector3(0.0f, -1.0f, 0.0f), 0.5f, collidableLayerMask);
 
 			//The right ray.
 			RaycastHit2D groundRayR = Physics2D.Raycast(mTransform.position - new Vector3(-0.4f, 0.5f, 0.0f), 
-				new Vector3(0.0f, -1.0f, 0.0f), 0.2f, collidableLayerMask);
+				new Vector3(0.0f, -1.0f, 0.0f), 0.5f, collidableLayerMask);
 
             //The middle ray.
             RaycastHit2D groundRayM = Physics2D.Raycast(mTransform.position - new Vector3(0.0f, 0.5f, 0.0f),
-                new Vector3(0.0f, -1.0f, 0.0f), 0.2f, collidableLayerMask);
+                new Vector3(0.0f, -1.0f, 0.0f), 0.5f, collidableLayerMask);
 
             //If the collision occurs, check if grounded. If not, assume the player is in the air and set grounded to 
             // false.
@@ -351,15 +353,15 @@ public class Player : MonoBehaviour
         //Check if colliding with an enemy.
         if (collider.gameObject.tag == "enemy1")
         {
-			if(!mIsDead)
+			if (!mIsDead) 
 			{
 				//The other enemy that the player is colliding with.
-				DustBunny enemy1 = collider.gameObject.GetComponent<DustBunny>();
+				DustBunny enemy1 = collider.gameObject.GetComponent<DustBunny> ();
 
 				//Only get affected by the enemy if it isn't already dead.
-				if (!enemy1.GetIsDead())
+				if (!enemy1.GetIsDead ()) 
 				{
-					TakeDamage();
+					TakeDamage ();
 				}
 			}
 		} 
@@ -412,7 +414,7 @@ public class Player : MonoBehaviour
             }
 
             //Check if the right walking keys are down.
-            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 mFacingRight = true;
                 mWalkingRight = true;
@@ -420,10 +422,13 @@ public class Player : MonoBehaviour
                 mSpriteRenderer.flipX = false;
             }
 
-            else
-            {
-                mAnimator.SetBool("Moving", false);
-            }
+			//Check if the player is holding down both left and right keys.
+			if (mWalkingLeft && mWalkingRight || !(mWalkingLeft || mWalkingRight)) 
+			{
+				mAnimator.SetBool("Moving", false);
+				mWalkingLeft = false;
+				mWalkingRight = false;
+			}
 
             //Check if the jumping keys are down.
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))

@@ -197,6 +197,27 @@ public class GameplayGUI : MonoBehaviour
 				
 				knifeComp.UnPause();
 			}
+
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("tilechunk"))
+			{
+				TileChunk tileChunkComp = gameObject.GetComponent<TileChunk>();
+
+				tileChunkComp.UnPause();
+			}
+
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("shockwaveSpawner"))
+			{
+				ShockwaveSpawner curComp = gameObject.GetComponent<ShockwaveSpawner>();
+
+				curComp.UnPause();
+			}
+
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("hairball"))
+			{
+				Hairball curComp = gameObject.GetComponent<Hairball>();
+
+				curComp.UnPause();
+			}
 			
 			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))
 			{
@@ -269,6 +290,27 @@ public class GameplayGUI : MonoBehaviour
 				Knife knifeComp = gameObject.GetComponent<Knife>();
 				
 				knifeComp.Pause();
+			}
+
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("tilechunk"))
+			{
+				TileChunk tileChunkComp = gameObject.GetComponent<TileChunk>();
+
+				tileChunkComp.Pause();
+			}
+
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("shockwaveSpawner"))
+			{
+				ShockwaveSpawner curComp = gameObject.GetComponent<ShockwaveSpawner>();
+
+				curComp.Pause();
+			}
+
+			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("hairball"))
+			{
+				Hairball curComp = gameObject.GetComponent<Hairball>();
+
+				curComp.Pause();
 			}
 			
 			foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("debris"))

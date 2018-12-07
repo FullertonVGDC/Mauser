@@ -25,4 +25,14 @@ public class Hairball : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+	public void Pause()
+	{
+		enabled = false;
+	}
+
+	public void UnPause()
+	{
+		enabled = true;
+	}
 }
