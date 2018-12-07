@@ -9,37 +9,36 @@ public class GlobalData : MonoBehaviour
 {
 	void Awake ()
 	{
-		DontDestroyOnLoad (gameObject);
+		//Allow only one instance of this game object to exist.
+		if(instance == null)
+		{
+			instance = this;
+			DontDestroyOnLoad (gameObject);
+			
+			mMusicPlayer = GetComponent<AudioSource>();
+			
+			SceneManager.sceneLoaded += OnSceneLoaded;
+		}
+		else if(instance != this)
+		{
+			Destroy(gameObject);
+		}
 	}
 
 	void Start () 
 	{
-        instance = this;
-		mMusicPlayer = GetComponent<AudioSource>();
+		
     }
 
     void Update () 
 	{
         
     }
-
-	//Scene loading event management.
-	
-	//Add the event listener for loading the next scene.
-	void OnEnable()
-	{
-		SceneManager.sceneLoaded += OnSceneLoaded;
-	}
-	
-	//Remove the event listener for loading the next scene.
-	void OnDisable()
-	{
-		SceneManager.sceneLoaded -= OnSceneLoaded;
-	}
 	
 	//Update for when the scene changes.
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
+		Debug.Log("Got here.");
 		if(mChangedGameMap) 
         {
 			//A reference to the canvas object.
@@ -114,11 +113,13 @@ public class GlobalData : MonoBehaviour
 	public void Pause()
 	{
 		enabled = false;
+		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 	
 	public void UnPause()
 	{
 		enabled = true;
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 	
     //Setters.
@@ -187,7 +188,7 @@ public class GlobalData : MonoBehaviour
 
     //Variables.
 
-    //Singleton instance of GlobalData (this can be called from ANYWHERE)
+    //Singleton instance of GlobalData (this can be called from ANYWHERE, except the awake() function).
     public static GlobalData instance;
 
     //Checks if currently changing the game map.

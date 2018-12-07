@@ -13,8 +13,9 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void QuitButton()
     {
-        //GlobalData.instance.StopMusic();
-        //SceneManager.LoadScene("main_menu");
+        GlobalData.instance.StopMusic();
+		GlobalData.instance.UnPause();
+        SceneManager.LoadScene("main_menu");
         Application.Quit();
     }
 }
