@@ -4,6 +4,10 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - mBasementSong: {instanceID: 0}
+  - mWallSong: {fileID: 8300000, guid: caa7240f62acb7b42923b70bb4b60f50, type: 3}
+  - mKitchenSong: {fileID: 8300000, guid: b6e4873e73b99c242a7074a2eeed09b9, type: 3}
+  - mMinigameSong: {instanceID: 0}
   - mMainCameraPrefab: {fileID: 1061235340640308, guid: aba8fead8132f4f06bfd576963861601,
       type: 2}
   - mGuiFaderPrefab: {fileID: 1161520881893266, guid: 525cfd63500da6e4b932fb39deff5abd,
