@@ -8,7 +8,7 @@ public class PauseMenuHandler : MonoBehaviour
     public void ResumeButton()
     {
         GameObject.Find("GameplayGUI").GetComponent<GameplayGUI>().SetPaused(false);
-        GlobalData.instance.GetComponent<AudioSource>().volume = 0.8f;
+        //GlobalData.instance.GetComponent<AudioSource>().volume = 0.8f;
     }
 
     public void QuitButton()

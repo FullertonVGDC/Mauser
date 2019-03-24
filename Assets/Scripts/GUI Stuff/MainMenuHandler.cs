@@ -8,6 +8,11 @@ public class MainMenuHandler : MonoBehaviour
 {
     public Image mauserImage;
     public Image titleImage;
+    public GameObject secretPanel;
+
+    public KeyCode[] keysToPress;
+    int currentKey;
+    bool secretActivated;
 
     void Start()
     {
@@ -20,6 +25,32 @@ public class MainMenuHandler : MonoBehaviour
         {
             LeanTween.moveY(titleImage.gameObject, titleImage.transform.position.y - (Screen.height * 0.42f), 1).setEase(LeanTweenType.easeOutCubic);
         });
+    }
+
+
+
+    void Update()
+    {
+        //Konami code handler
+        if (!secretActivated)
+        {
+            if (Input.anyKeyDown)
+            {
+                if (Input.GetKeyDown(keysToPress[currentKey]))
+                {
+                    currentKey++;
+                    if (currentKey >= keysToPress.Length)
+                    {
+                        secretPanel.SetActive(true);
+                        secretActivated = true;
+                    }
+                }
+                else
+                {
+                    currentKey = 0;
+                }
+            }
+        }
     }
 
 

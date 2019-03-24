@@ -56,7 +56,7 @@ public class GlobalData : MonoBehaviour
             if (mCurGameMapName == GameMapName.GAMEMAP_WALLS)
             {
                 mMusicPlayer.clip = mWallSong;
-                mMusicPlayer.volume = 0.75f;
+                mMusicPlayer.volume = 0.5f;
             }
             else if (mCurGameMapName == GameMapName.GAMEMAP_BASEMENT)
             {
@@ -66,12 +66,12 @@ public class GlobalData : MonoBehaviour
             else if (mCurGameMapName == GameMapName.GAMEMAP_KITCHEN)
             {
                 mMusicPlayer.clip = mKitchenSong;
-                mMusicPlayer.volume = 0.75f;
+                mMusicPlayer.volume = 0.5f;
             }
             else if (mCurGameMapName == GameMapName.GAMEMAP_MINIGAME)
             {
                 mMusicPlayer.clip = mMinigameSong;
-                mMusicPlayer.volume = 0.75f;
+                mMusicPlayer.volume = 0.5f;
             }
 
             //Play the currently selected background music.
