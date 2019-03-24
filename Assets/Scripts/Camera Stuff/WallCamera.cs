@@ -13,6 +13,8 @@ public class WallCamera : MonoBehaviour
     float speedChangeTimer;
     int currentSpeed = 0;
 
+    bool paused;
+
     public Player player;
     public GameObject beePrefab;
 
@@ -33,10 +35,13 @@ public class WallCamera : MonoBehaviour
 
     void Update()
     {
-        if (currentSpeed < speedChangeTimes.Length) CheckForSpeedUp();
-        transform.Translate(Vector2.up * velY * Time.deltaTime);
-        transform.position = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-        KeepCameraInHorizontalBounds();
+        if (!paused)
+        {
+            if (currentSpeed < speedChangeTimes.Length) CheckForSpeedUp();
+            transform.Translate(Vector2.up * velY * Time.deltaTime);
+            transform.position = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+            KeepCameraInHorizontalBounds();
+        }
     }
 
     void CheckForSpeedUp()
@@ -89,5 +94,17 @@ public class WallCamera : MonoBehaviour
             beeSpawnPos.x = bottomLeftCameraPoint.x;
             beeSpawnPos.y += spacingBetweenRows;
         }
+    }
+
+    public void Pause()
+    {
+        paused = true;
+        LeanTween.pauseAll();
+    }
+
+    public void UnPause()
+    {
+        paused = false;
+        LeanTween.resumeAll();
     }
 }

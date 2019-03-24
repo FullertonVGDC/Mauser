@@ -24,16 +24,6 @@ public class GlobalData : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
-	void Start () 
-	{
-		
-    }
-
-    void Update () 
-	{
-        
-    }
 	
 	//Update for when the scene changes.
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
