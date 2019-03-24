@@ -54,16 +54,27 @@ public class GlobalData : MonoBehaviour
                 Debug.Log("Error: Canvas object could not be found.");
             
             if (mCurGameMapName == GameMapName.GAMEMAP_WALLS)
+            {
                 mMusicPlayer.clip = mWallSong;
+                mMusicPlayer.volume = 0.75f;
+            }
             else if (mCurGameMapName == GameMapName.GAMEMAP_BASEMENT)
+            {
                 mMusicPlayer.clip = mBasementSong;
+                mMusicPlayer.volume = 0.1f;
+            }
             else if (mCurGameMapName == GameMapName.GAMEMAP_KITCHEN)
+            {
                 mMusicPlayer.clip = mKitchenSong;
+                mMusicPlayer.volume = 0.75f;
+            }
             else if (mCurGameMapName == GameMapName.GAMEMAP_MINIGAME)
+            {
                 mMusicPlayer.clip = mMinigameSong;
+                mMusicPlayer.volume = 0.75f;
+            }
 
             //Play the currently selected background music.
-			mMusicPlayer.volume = 0.8f;
             mMusicPlayer.Play(0);
 			mChangedGameMap = false;
 		}

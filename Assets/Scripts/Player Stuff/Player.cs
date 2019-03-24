@@ -16,159 +16,157 @@ public class Player : MonoBehaviour
 
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
-		mAudioSource = GetComponent<AudioSource>();
-		
+        mAudioSource = GetComponent<AudioSource>();
+
         //Get the global data.
         mGlobalData = GameObject.Find("GlobalData").GetComponent<GlobalData>();
+    }
 
-	    mFiringKey = KeyCode.F;
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        if ((mMovementGracePeriodAmount < mMovementGracePeriod))
+        {
+            mMovementGracePeriodAmount += Time.deltaTime;
+        }
+        else
+        {
+            Movement();
+            BulletCreation();
+        }
 
-	// Update is called once per frame
-	void Update() 
-	{
-		if((mMovementGracePeriodAmount < mMovementGracePeriod))
-		{
-			mMovementGracePeriodAmount += Time.deltaTime;
-		}
-		else
-		{
-			Movement();
-			BulletCreation();
-		}
-		
-		mSpriteRenderer.enabled = true;
-		
-		//Code to run while dead.
-		if (mIsDead) 
-		{
-			//Get the gui fader object and check if it exists. If not, it is destroyed.
-			GameObject guiFaderObj = GameObject.Find ("GuiFader(Clone)");
-			
-			//The component of the gui fader object.
-			GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader> ();
-			
-			//If the gui fader object is destroyed, reload the current level. 
-			// Otherwise, make the fader fade in.
-			if (guiFaderComp.GetIsDoneFading () == true) 
-			{
-				//The name of the current scene being reloaded.
-				string sceneName = SceneManager.GetActiveScene ().name;
-				
-				mGlobalData.SetCurrency (mGlobalData.GetSavedCurrency ());
-				mGlobalData.ChangeMap (sceneName);
-			} 
-			else 
-			{
-				guiFaderComp.SetIsFadingIn (true);
-				mCurHealth = 0;
-				mCurArmor = 0;
-			}
-		} 
-		else 
-		{
-			//Compute invincibility period.
-			if(mIsHurt == true)
-			{
-				if(mHurtInvincibilityPeriodAmount > 0.1)
-				{
-					mSpriteRenderer.enabled = true;
-				}
+        mSpriteRenderer.enabled = true;
 
-				mHurtInvincibilityPeriodAmount += Time.deltaTime;
-				mFlashPeriodAmount += Time.deltaTime;
+        //Code to run while dead.
+        if (mIsDead)
+        {
+            //Get the gui fader object and check if it exists. If not, it is destroyed.
+            GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
 
-				if(mHurtInvincibilityPeriodAmount >= mHurtInvincibilityPeriod)
-				{
-					mIsHurt = false;
-				}
+            //The component of the gui fader object.
+            GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
 
-				if(mFlashPeriodAmount >= mFlashPeriod)
-				{
-					mSpriteRenderer.enabled = false;
-					mFlashPeriodAmount = 0.0f;
-				}
-			}
+            //If the gui fader object is destroyed, reload the current level. 
+            // Otherwise, make the fader fade in.
+            if (guiFaderComp.GetIsDoneFading() == true)
+            {
+                //The name of the current scene being reloaded.
+                string sceneName = SceneManager.GetActiveScene().name;
 
-			//Code to run while won.
-			if(mFoundExit)
-			{
-				//Get the gui fader object and check if it exists. If not, it is destroyed.
-				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+                mGlobalData.SetCurrency(mGlobalData.GetSavedCurrency());
+                mGlobalData.ChangeMap(sceneName);
+            }
+            else
+            {
+                guiFaderComp.SetIsFadingIn(true);
+                mCurHealth = 0;
+                mCurArmor = 0;
+            }
+        }
+        else
+        {
+            //Compute invincibility period.
+            if (mIsHurt == true)
+            {
+                if (mHurtInvincibilityPeriodAmount > 0.1)
+                {
+                    mSpriteRenderer.enabled = true;
+                }
 
-				//The component of the gui fader object.
-				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+                mHurtInvincibilityPeriodAmount += Time.deltaTime;
+                mFlashPeriodAmount += Time.deltaTime;
 
-				//If the gui fader object is destroyed, reload the current level. 
-				// Otherwise, make the fader fade in.
-				if(guiFaderComp.GetIsDoneFading() == true)
-				{
-					//The name of the current scene.
-					string sceneName = SceneManager.GetActiveScene().name;
+                if (mHurtInvincibilityPeriodAmount >= mHurtInvincibilityPeriod)
+                {
+                    mIsHurt = false;
+                }
 
-					mGlobalData.SetCheckpointEnabled(false);
+                if (mFlashPeriodAmount >= mFlashPeriod)
+                {
+                    mSpriteRenderer.enabled = false;
+                    mFlashPeriodAmount = 0.0f;
+                }
+            }
 
-					//Decide which scene to switch to.
-					if (sceneName == "level_garage") 
-					{
-						mGlobalData.ChangeMap ("level_wall");
-					}
-					else if (sceneName == "level_wall") 
-					{
-						mGlobalData.ChangeMap ("level_kitchen");
-					}
-				}
-				else
-				{
-					guiFaderComp.SetIsFadingIn(true);
-				}
-			}
+            //Code to run while won.
+            if (mFoundExit)
+            {
+                //Get the gui fader object and check if it exists. If not, it is destroyed.
+                GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
 
-			//Code to run while found the minigame.
-			if(mFoundMinigame)
-			{
-				//Get the gui fader object and check if it exists. If not, it is destroyed.
-				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+                //The component of the gui fader object.
+                GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
 
-				//The component of the gui fader object.
-				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+                //If the gui fader object is destroyed, reload the current level. 
+                // Otherwise, make the fader fade in.
+                if (guiFaderComp.GetIsDoneFading() == true)
+                {
+                    //The name of the current scene.
+                    string sceneName = SceneManager.GetActiveScene().name;
 
-				mRigidBody2D.velocity = new Vector2 (0.0f, 0.0f);
+                    mGlobalData.SetCheckpointEnabled(false);
 
-				//If the gui fader object is destroyed, reload the current level. 
-				// Otherwise, make the fader fade in.
-				if(guiFaderComp.GetIsDoneFading() == true)
-				{
-					//The name of the current scene.
-					string sceneName = SceneManager.GetActiveScene().name;
-					GlobalData.instance.SetSavedMapName(sceneName);
-					GlobalData.instance.SetHasBeenToMinigame(true);
-					mGlobalData.ChangeMap ("minigame_scene");
-				}
-				else
-				{
-					guiFaderComp.SetIsFadingIn(true);
-					guiFaderComp.SetGraceFadeOutPeriodAmount (3.0f);
-				}
-			}	
-		}
-	}
+                    //Decide which scene to switch to.
+                    if (sceneName == "level_garage")
+                    {
+                        mGlobalData.ChangeMap("level_wall");
+                    }
+                    else if (sceneName == "level_wall")
+                    {
+                        mGlobalData.ChangeMap("level_kitchen");
+                    }
+                }
+                else
+                {
+                    guiFaderComp.SetIsFadingIn(true);
+                }
+            }
 
-	//Use this for anything involving collision or anything else that is discrete every 1 / 60th of a frame.
-	void FixedUpdate()
-	{
-		//Check if grounded.
-		if(mRigidBody2D.velocity.y <= 0.0f)
-		{
-			//Perform a raycast below the player to check if the player is grounded.
+            //Code to run while found the minigame.
+            if (mFoundMinigame)
+            {
+                //Get the gui fader object and check if it exists. If not, it is destroyed.
+                GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
 
-			//The Left ray.
-			RaycastHit2D groundRayL = Physics2D.Raycast(mTransform.position - new Vector3(0.4f, 0.5f, 0.0f), 
-				new Vector3(0.0f, -1.0f, 0.0f), 0.5f, collidableLayerMask);
+                //The component of the gui fader object.
+                GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
 
-			//The right ray.
-			RaycastHit2D groundRayR = Physics2D.Raycast(mTransform.position - new Vector3(-0.4f, 0.5f, 0.0f), 
-				new Vector3(0.0f, -1.0f, 0.0f), 0.5f, collidableLayerMask);
+                mRigidBody2D.velocity = new Vector2(0.0f, 0.0f);
+
+                //If the gui fader object is destroyed, reload the current level. 
+                // Otherwise, make the fader fade in.
+                if (guiFaderComp.GetIsDoneFading() == true)
+                {
+                    //The name of the current scene.
+                    string sceneName = SceneManager.GetActiveScene().name;
+                    GlobalData.instance.SetSavedMapName(sceneName);
+                    GlobalData.instance.SetHasBeenToMinigame(true);
+                    mGlobalData.ChangeMap("minigame_scene");
+                }
+                else
+                {
+                    guiFaderComp.SetIsFadingIn(true);
+                    guiFaderComp.SetGraceFadeOutPeriodAmount(3.0f);
+                }
+            }
+        }
+    }
+
+    //Use this for anything involving collision or anything else that is discrete every 1 / 60th of a frame.
+    void FixedUpdate()
+    {
+        //Check if grounded.
+        if (mRigidBody2D.velocity.y <= 0.0f)
+        {
+            //Perform a raycast below the player to check if the player is grounded.
+
+            //The Left ray.
+            RaycastHit2D groundRayL = Physics2D.Raycast(mTransform.position - new Vector3(0.4f, 0.5f, 0.0f),
+                new Vector3(0.0f, -1.0f, 0.0f), 0.5f, collidableLayerMask);
+
+            //The right ray.
+            RaycastHit2D groundRayR = Physics2D.Raycast(mTransform.position - new Vector3(-0.4f, 0.5f, 0.0f),
+                new Vector3(0.0f, -1.0f, 0.0f), 0.5f, collidableLayerMask);
 
             //The middle ray.
             RaycastHit2D groundRayM = Physics2D.Raycast(mTransform.position - new Vector3(0.0f, 0.5f, 0.0f),
@@ -188,7 +186,7 @@ public class Player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundL = 999.0f;
                     mGrounded = true;
-					mIsAbleToJump = true;
+                    mIsAbleToJump = true;
                     mAnimator.SetBool("Grounded", true);
                 }
             }
@@ -204,7 +202,7 @@ public class Player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundR = 999.0f;
                     mGrounded = true;
-					mIsAbleToJump = true;
+                    mIsAbleToJump = true;
                     mAnimator.SetBool("Grounded", true);
                 }
             }
@@ -220,35 +218,35 @@ public class Player : MonoBehaviour
                 {
                     mPrevDistanceFromGroundM = 999.0f;
                     mGrounded = true;
-					mIsAbleToJump = true;
+                    mIsAbleToJump = true;
                     mAnimator.SetBool("Grounded", true);
                 }
             }
             else
             {
-				//Set the jump grace frame period amount to zero if the player is currently grounded.
-				if(mGrounded)
-				{
-					mJumpGraceFramePeriodAmount = 0.0f;
-				}
-				
+                //Set the jump grace frame period amount to zero if the player is currently grounded.
+                if (mGrounded)
+                {
+                    mJumpGraceFramePeriodAmount = 0.0f;
+                }
+
                 mGrounded = false;
                 mAnimator.SetBool("Grounded", false);
             }
         }
-		
-		//If just falling off a surface, check if a certain amount of time has passed 
-		// before making it so that the player cannot jump.
-		if(mIsAbleToJump && !mGrounded)
-		{
-			mJumpGraceFramePeriodAmount += Time.fixedDeltaTime;
-			
-			if(mJumpGraceFramePeriodAmount >= mJumpGraceFramePeriod)
-			{
-				mJumpGraceFramePeriodAmount = mJumpGraceFramePeriod;
-				mIsAbleToJump = false;
-			}
-		}
+
+        //If just falling off a surface, check if a certain amount of time has passed 
+        // before making it so that the player cannot jump.
+        if (mIsAbleToJump && !mGrounded)
+        {
+            mJumpGraceFramePeriodAmount += Time.fixedDeltaTime;
+
+            if (mJumpGraceFramePeriodAmount >= mJumpGraceFramePeriod)
+            {
+                mJumpGraceFramePeriodAmount = mJumpGraceFramePeriod;
+                mIsAbleToJump = false;
+            }
+        }
     }
 
     //Collision Callbacks (Non-Trigger).
@@ -263,89 +261,89 @@ public class Player : MonoBehaviour
         //Check if colliding with bottle caps.
         if (collider.gameObject.tag == "gold")
         {
-			if(!mIsDead)
-			{
-				//The bottle cap object being collided with.
-				BottleCap bottleCap1 = collider.gameObject.GetComponent<BottleCap>();
+            if (!mIsDead)
+            {
+                //The bottle cap object being collided with.
+                BottleCap bottleCap1 = collider.gameObject.GetComponent<BottleCap>();
 
-				mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
+                mGlobalData.SetCurrency(mGlobalData.GetCurrency() + bottleCap1.GetCurrency());
 
-				Destroy(collider.gameObject);
-				
-				if(bottleCap1.GetCurrency() == 1)
-				{
-					mAudioSource.PlayOneShot(mMauserCollectRedCapAudioClip, 1.0f);
-				}
-				else if(bottleCap1.GetCurrency() == 5)
-				{
-					mAudioSource.PlayOneShot(mMauserCollectGoldCapAudioClip, 1.0f);
-				}
-				else
-				{
-					mAudioSource.PlayOneShot(mMauserCollectDebugCapAudioClip, 1.0f);
-				}
-			}
+                Destroy(collider.gameObject);
+
+                if (bottleCap1.GetCurrency() == 1)
+                {
+                    mAudioSource.PlayOneShot(mMauserCollectRedCapAudioClip, 1.0f);
+                }
+                else if (bottleCap1.GetCurrency() == 5)
+                {
+                    mAudioSource.PlayOneShot(mMauserCollectGoldCapAudioClip, 1.0f);
+                }
+                else
+                {
+                    mAudioSource.PlayOneShot(mMauserCollectDebugCapAudioClip, 1.0f);
+                }
+            }
         }
 
         //Check if colliding with a cookie.
         if (collider.gameObject.tag == "cookie")
         {
-			if(!mIsDead)
-			{
-				if(mCurArmor == 0)
-				{
-					mCurHealth++;
+            if (!mIsDead)
+            {
+                if (mCurArmor == 0)
+                {
+                    mCurHealth++;
 
-					if (mCurHealth > mMaxHealth)
-					{
-						mCurHealth = mMaxHealth;
-					}
-				}
+                    if (mCurHealth > mMaxHealth)
+                    {
+                        mCurHealth = mMaxHealth;
+                    }
+                }
 
-				Destroy(collider.gameObject);
-				
-				mAudioSource.PlayOneShot(mMauserCollectHealthCookieAudioClip, 1.0f);
-			}
-		}
-		
-		 //Check if colliding with an armor cookie.
+                Destroy(collider.gameObject);
+
+                mAudioSource.PlayOneShot(mMauserCollectHealthCookieAudioClip, 1.0f);
+            }
+        }
+
+        //Check if colliding with an armor cookie.
         if (collider.gameObject.tag == "armor_cookie")
         {
-			if(!mIsDead)
-			{
-				mCurArmor += 1;
+            if (!mIsDead)
+            {
+                mCurArmor += 1;
 
-				Destroy(collider.gameObject);
-				
-				mAudioSource.PlayOneShot(mMauserCollectArmorCookieAudioClip, 1.0f);
-			}
-		}
-		
-		//Check if colliding with a scene exit.
-		if (collider.gameObject.name == "SceneExit") 
-		{
-			if(!mIsDead)
-			{
-				//Get the gui fader object and check if it exists. If not, it is destroyed.
-				GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
-				
-				//The component of the gui fader object.
-				GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
-				
-				//Set the fader to is fading in and make the player enter invincibility 
-				// mode and be stuck in place.
-				guiFaderComp.SetIsFadingIn(true);
-				
-				mFoundExit = true;
+                Destroy(collider.gameObject);
+
+                mAudioSource.PlayOneShot(mMauserCollectArmorCookieAudioClip, 1.0f);
+            }
+        }
+
+        //Check if colliding with a scene exit.
+        if (collider.gameObject.name == "SceneExit")
+        {
+            if (!mIsDead)
+            {
+                //Get the gui fader object and check if it exists. If not, it is destroyed.
+                GameObject guiFaderObj = GameObject.Find("GuiFader(Clone)");
+
+                //The component of the gui fader object.
+                GuiFader guiFaderComp = guiFaderObj.GetComponent<GuiFader>();
+
+                //Set the fader to is fading in and make the player enter invincibility 
+                // mode and be stuck in place.
+                guiFaderComp.SetIsFadingIn(true);
+
+                mFoundExit = true;
                 mAnimator.Play("Idle");
                 mAnimator.SetBool("Moving", false);
-				
-				mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
-				
-				mAudioSource.PlayOneShot(mMauserFinishLevelAudioClip, 1.0f);
-			}
-		}
-	}
+
+                mGlobalData.SetSavedCurrency(mGlobalData.GetCurrency());
+
+                mAudioSource.PlayOneShot(mMauserFinishLevelAudioClip, 1.0f);
+            }
+        }
+    }
 
     //Collision Callbacks on Stay(Trigger).
     void OnTriggerStay2D(Collider2D collider)
@@ -353,68 +351,68 @@ public class Player : MonoBehaviour
         //Check if colliding with an enemy.
         if (collider.gameObject.tag == "enemy1")
         {
-			if (!mIsDead) 
-			{
-				//The other enemy that the player is colliding with.
-				DustBunny enemy1 = collider.gameObject.GetComponent<DustBunny> ();
+            if (!mIsDead)
+            {
+                //The other enemy that the player is colliding with.
+                DustBunny enemy1 = collider.gameObject.GetComponent<DustBunny>();
 
-				//Only get affected by the enemy if it isn't already dead.
-				if (!enemy1.GetIsDead ()) 
-				{
-					TakeDamage ();
-				}
-			}
-		} 
-		else if (collider.gameObject.tag == "spider") 
-		{
-			if(!mIsDead)
-			{
-				//The other enemy that the player is colliding with.
-				Spider spiderComp = collider.gameObject.GetComponent<Spider>();
+                //Only get affected by the enemy if it isn't already dead.
+                if (!enemy1.GetIsDead())
+                {
+                    TakeDamage();
+                }
+            }
+        }
+        else if (collider.gameObject.tag == "spider")
+        {
+            if (!mIsDead)
+            {
+                //The other enemy that the player is colliding with.
+                Spider spiderComp = collider.gameObject.GetComponent<Spider>();
 
-				//Only get affected by the enemy if it isn't already dead.
-				if (!spiderComp.GetIsDead())
-				{
-					TakeDamage();
-				}
-			}
-		}
-	}
+                //Only get affected by the enemy if it isn't already dead.
+                if (!spiderComp.GetIsDead())
+                {
+                    TakeDamage();
+                }
+            }
+        }
+    }
 
-	//Methods.
-	void Movement()
-	{
-		//Only allow the player to move if the player is not dead and not being knocked back.
-		if(mIsBeingKnockedBack == false && mIsDead == false && mFoundExit == false && mFoundMinigame == false)
-		{
-			//The final walk speed.
-			float finalWalkSpeed = 0.0f;
+    //Methods.
+    void Movement()
+    {
+        //Only allow the player to move if the player is not dead and not being knocked back.
+        if (mIsBeingKnockedBack == false && mIsDead == false && mFoundExit == false && mFoundMinigame == false)
+        {
+            //The final walk speed.
+            float finalWalkSpeed = 0.0f;
 
-			//The final vertical speed.
-			float finalVerticalSpeed = mRigidBody2D.velocity.y;
+            //The final vertical speed.
+            float finalVerticalSpeed = mRigidBody2D.velocity.y;
 
-			//Checks if the jump key is pressed.
-			bool jumpingKeyPressed = false;
+            //Checks if the jump key is pressed.
+            bool jumpingKeyPressed = false;
 
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			//Process movement for left and right walking.
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            //Process movement for left and right walking.
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-			//--------------------------------------------------------------------------------------------------------------
-			//Checking for pressed keys.
-			//--------------------------------------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------------------------------------
+            //Checking for pressed keys.
+            //--------------------------------------------------------------------------------------------------------------
 
-			//Check if the left walking keys are down.
-			if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-			{
-	            mFacingRight = false;
-				mWalkingLeft = true;
+            //Check if the left walking keys are down.
+            if (Input.GetAxisRaw("Horizontal") == -1)
+            {
+                mFacingRight = false;
+                mWalkingLeft = true;
                 mAnimator.SetBool("Moving", true);
                 mSpriteRenderer.flipX = true;
             }
 
             //Check if the right walking keys are down.
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetAxisRaw("Horizontal") == 1)
             {
                 mFacingRight = true;
                 mWalkingRight = true;
@@ -422,27 +420,27 @@ public class Player : MonoBehaviour
                 mSpriteRenderer.flipX = false;
             }
 
-			//Check if the player is holding down both left and right keys.
-			if (mWalkingLeft && mWalkingRight || !(mWalkingLeft || mWalkingRight)) 
-			{
-				mAnimator.SetBool("Moving", false);
-				mWalkingLeft = false;
-				mWalkingRight = false;
-			}
+            //Check if the player is holding down both left and right keys.
+            if (mWalkingLeft && mWalkingRight || !(mWalkingLeft || mWalkingRight))
+            {
+                mAnimator.SetBool("Moving", false);
+                mWalkingLeft = false;
+                mWalkingRight = false;
+            }
 
             //Check if the jumping keys are down.
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetButtonDown("Jump"))
             {
                 //Only jump if the player is grounded.
                 if (mIsAbleToJump)
                 {
                     mGrounded = false;
-					mIsAbleToJump = false;
+                    mIsAbleToJump = false;
                     mAnimator.SetBool("Grounded", false);
                     jumpingKeyPressed = true;
                     KickUpJumpDust();
-					
-					mAudioSource.PlayOneShot(mMauserJumpAudioClip, 1.0f);
+
+                    mAudioSource.PlayOneShot(mMauserJumpAudioClip, 1.0f);
                 }
             }
 
@@ -451,13 +449,13 @@ public class Player : MonoBehaviour
             //--------------------------------------------------------------------------------------------------------------
 
             //Check if the left walking keys are released.
-            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
+            if (Input.GetAxisRaw("Horizontal") != -1)
             {
                 mWalkingLeft = false;
             }
 
             //Check if the right walking keys are released.
-            else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
+            if (Input.GetAxisRaw("Horizontal") != 1)
             {
                 mWalkingRight = false;
             }
@@ -492,13 +490,13 @@ public class Player : MonoBehaviour
         }
         else
         {
-			//If grounded, set the proper velocity.
+            //If grounded, set the proper velocity.
             if (mGrounded)
             {
                 mRigidBody2D.velocity = new Vector2(0.0f, mRigidBody2D.velocity.y);
             }
 
-			//If invincible, check if the invincibility runs out after the knockback period.
+            //If invincible, check if the invincibility runs out after the knockback period.
             if (mHurtInvincibilityPeriodAmount >= mKnockbackPeriod)
             {
                 mIsBeingKnockedBack = false;
@@ -508,162 +506,162 @@ public class Player : MonoBehaviour
 
     void BulletCreation()
     {
-		if(!mIsDead && mFoundExit == false && mFoundMinigame == false)
-		{
-			//Check if the left walking keys are down.
-			if (Input.GetKeyDown(mFiringKey))
-			{
-				if (mIsFiringBullets == false)
-				{
-					mIsFiringBullets = true;
-					mFiringPeriodAmount = mFiringPeriod;
-				}
-			}
+        if (!mIsDead && mFoundExit == false && mFoundMinigame == false)
+        {
+            //Check if the left walking keys are down.
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (mIsFiringBullets == false)
+                {
+                    mIsFiringBullets = true;
+                    mFiringPeriodAmount = mFiringPeriod;
+                }
+            }
 
-			else if (Input.GetKeyUp(mFiringKey))
-			{
-				mIsFiringBullets = false;
-			}
+            else if (Input.GetButtonUp("Fire1"))
+            {
+                mIsFiringBullets = false;
+            }
 
-			mFiringPeriodAmount += Time.deltaTime;
+            mFiringPeriodAmount += Time.deltaTime;
 
-			//If firing bullets, create them after the correct amount of time has elapsed.
-			if (mIsFiringBullets == true)
-			{
-				while (mFiringPeriodAmount >= mFiringPeriod)
-				{
-					//The bullet offset amount on the x axis.
-					float xOffset = 0.0f;
-					
-					if(mFacingRight)
-					{
-						xOffset = 1.0f;
-					}
-					else
-					{
-						xOffset = -1.0f;
-					}
-					
-					GameObject bulletPrefab = Instantiate(mBulletPrefab, new Vector2(
-						transform.position.x + xOffset, transform.position.y + 0.5f), 
-						Quaternion.identity);
-						
-					Bullet bulletComponent = bulletPrefab.GetComponent<Bullet>();
-					bulletComponent.SetFacingRight(mFacingRight);
-					mFiringPeriodAmount -= mFiringPeriod;
-					
-					mAudioSource.PlayOneShot(mMauserFireAudioClip, 0.7f);
-				}
-			}
-		}
+            //If firing bullets, create them after the correct amount of time has elapsed.
+            if (mIsFiringBullets == true)
+            {
+                while (mFiringPeriodAmount >= mFiringPeriod)
+                {
+                    //The bullet offset amount on the x axis.
+                    float xOffset = 0.0f;
+
+                    if (mFacingRight)
+                    {
+                        xOffset = 1.0f;
+                    }
+                    else
+                    {
+                        xOffset = -1.0f;
+                    }
+
+                    GameObject bulletPrefab = Instantiate(mBulletPrefab, new Vector2(
+                        transform.position.x + xOffset, transform.position.y + 0.5f),
+                        Quaternion.identity);
+
+                    Bullet bulletComponent = bulletPrefab.GetComponent<Bullet>();
+                    bulletComponent.SetFacingRight(mFacingRight);
+                    mFiringPeriodAmount -= mFiringPeriod;
+
+                    mAudioSource.PlayOneShot(mMauserFireAudioClip, 0.7f);
+                }
+            }
+        }
     }
-	
-	public void TakeDamage()
-	{
-		//If the player isn't currently hurt, hurt the player.
-		if (mIsHurt == false && mIsDead == false && mFoundExit == false && mFoundMinigame == false)
-		{
-			mIsBeingKnockedBack = true;
-			mWalkingLeft = false;
-			mWalkingRight = false;
-			mGrounded = false;
-			mIsAbleToJump = false;
+
+    public void TakeDamage()
+    {
+        //If the player isn't currently hurt, hurt the player.
+        if (mIsHurt == false && mIsDead == false && mFoundExit == false && mFoundMinigame == false)
+        {
+            mIsBeingKnockedBack = true;
+            mWalkingLeft = false;
+            mWalkingRight = false;
+            mGrounded = false;
+            mIsAbleToJump = false;
             mAnimator.SetBool("Grounded", false);
             mIsHurt = true;
             mAnimator.Play("Hurt");
 
-			mSpriteRenderer.enabled = false;
-			
-			mAudioSource.PlayOneShot(mMauserHurtAudioClip, 1.0f);
+            mSpriteRenderer.enabled = false;
 
-			if(mCurArmor != 0)
-			{
-				mCurArmor -= 1;
-				
-				mHurtInvincibilityPeriodAmount = 0.0f;
+            mAudioSource.PlayOneShot(mMauserHurtAudioClip, 1.0f);
 
-				if (mRigidBody2D.velocity.x > 0)
-				{
-					mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
-					mFacingRight = true;
-				}
-				else if (mRigidBody2D.velocity.x < 0)
-				{
-					mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
-					mFacingRight = false;
-				}
-				else
-				{
-					mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
-				}
-			}
-			else
-			{
-				//Kill the player if out of health. Otherwise take damage.
-				if (mCurHealth == 1)
-				{
-					mIsDead = true;
-					mAnimator.Play("Death");
+            if (mCurArmor != 0)
+            {
+                mCurArmor -= 1;
 
-					if (mRigidBody2D.velocity.x > 0)
-					{
-						mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
-						mFacingRight = true;
-					}
-					else if (mRigidBody2D.velocity.x < 0)
-					{
-						mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
-						mFacingRight = false;
-					}
-					else
-					{
-						mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
-					}
-				}
-				else
-				{
-					mHurtInvincibilityPeriodAmount = 0.0f;
+                mHurtInvincibilityPeriodAmount = 0.0f;
 
-					if (mRigidBody2D.velocity.x > 0)
-					{
-						mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
-						mFacingRight = true;
-					}
-					else if (mRigidBody2D.velocity.x < 0)
-					{
-						mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
-						mFacingRight = false;
-					}
-					else
-					{
-						mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
-					}
-				}
-				
-				mCurHealth--;
-			}
-		}
-	}
+                if (mRigidBody2D.velocity.x > 0)
+                {
+                    mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
+                    mFacingRight = true;
+                }
+                else if (mRigidBody2D.velocity.x < 0)
+                {
+                    mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
+                    mFacingRight = false;
+                }
+                else
+                {
+                    mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
+                }
+            }
+            else
+            {
+                //Kill the player if out of health. Otherwise take damage.
+                if (mCurHealth == 1)
+                {
+                    mIsDead = true;
+                    mAnimator.Play("Death");
 
-	public void Pause()
-	{
-		enabled = false;
-		mRigidBody2D.gravityScale = 0.0f;
-		mPausedVelocity = mRigidBody2D.velocity;
-		mRigidBody2D.velocity = new Vector2(0.0f, 0.0f);
-		mWalkingLeft = false;
-		mWalkingRight = false;
-		mIsFiringBullets = false;
-		mAnimator.enabled = false;
-	}
-	
-	public void UnPause()
-	{
-		enabled = true;
-		mRigidBody2D.gravityScale = 4.0f;
-		mRigidBody2D.velocity = mPausedVelocity;
-		mAnimator.enabled = true;
-	}
+                    if (mRigidBody2D.velocity.x > 0)
+                    {
+                        mRigidBody2D.velocity = new Vector2(-5.0f, 20.0f);
+                        mFacingRight = true;
+                    }
+                    else if (mRigidBody2D.velocity.x < 0)
+                    {
+                        mRigidBody2D.velocity = new Vector2(5.0f, 20.0f);
+                        mFacingRight = false;
+                    }
+                    else
+                    {
+                        mRigidBody2D.velocity = new Vector2(0.0f, 20.0f);
+                    }
+                }
+                else
+                {
+                    mHurtInvincibilityPeriodAmount = 0.0f;
+
+                    if (mRigidBody2D.velocity.x > 0)
+                    {
+                        mRigidBody2D.velocity = new Vector2(-3.0f, 10.0f);
+                        mFacingRight = true;
+                    }
+                    else if (mRigidBody2D.velocity.x < 0)
+                    {
+                        mRigidBody2D.velocity = new Vector2(3.0f, 10.0f);
+                        mFacingRight = false;
+                    }
+                    else
+                    {
+                        mRigidBody2D.velocity = new Vector2(0.0f, 10.0f);
+                    }
+                }
+
+                mCurHealth--;
+            }
+        }
+    }
+
+    public void Pause()
+    {
+        enabled = false;
+        mRigidBody2D.gravityScale = 0.0f;
+        mPausedVelocity = mRigidBody2D.velocity;
+        mRigidBody2D.velocity = new Vector2(0.0f, 0.0f);
+        mWalkingLeft = false;
+        mWalkingRight = false;
+        mIsFiringBullets = false;
+        mAnimator.enabled = false;
+    }
+
+    public void UnPause()
+    {
+        enabled = true;
+        mRigidBody2D.gravityScale = 4.0f;
+        mRigidBody2D.velocity = mPausedVelocity;
+        mAnimator.enabled = true;
+    }
 
     public void KickUpRunDust()
     {
@@ -723,36 +721,36 @@ public class Player : MonoBehaviour
     }
 
 
-	
-	//Getters:
-	public uint GetHealth()
-	{
-		return mCurHealth;
-	}
-	
-	public uint GetArmor()
-	{
-		return mCurArmor;
-	}
-	
-	public bool GetIsDead()
-	{
-		return mIsDead;
-	}
+
+    //Getters:
+    public uint GetHealth()
+    {
+        return mCurHealth;
+    }
+
+    public uint GetArmor()
+    {
+        return mCurArmor;
+    }
+
+    public bool GetIsDead()
+    {
+        return mIsDead;
+    }
 
     //Setters:
     public void SetFoundMinigame(bool tmp)
     {
         mFoundMinigame = tmp;
     }
-	
+
     //Variables:
 
     //The current health the player has.
     private uint mCurHealth = 3;
-	
-	//The current armor the player has.
-	private uint mCurArmor = 0;
+
+    //The current armor the player has.
+    private uint mCurArmor = 0;
 
     //The maximum health the player can hold.
     private uint mMaxHealth = 3;
@@ -785,8 +783,8 @@ public class Player : MonoBehaviour
 
     //The maximum hurt invincibility amount in seconds.
     private float mHurtInvincibilityPeriod = 2.0f;
-	
-	 //The current flashing amount after the player gets hurt. When equal to max, the player
+
+    //The current flashing amount after the player gets hurt. When equal to max, the player
     // flashes once.
     private float mFlashPeriodAmount = 0.0f;
 
@@ -795,18 +793,18 @@ public class Player : MonoBehaviour
 
     //The maximum knockback amount in seconds.
     private float mKnockbackPeriod = 0.5f;
-	
-	//The maximum jump grace frame amount in seconds.
-	private float mJumpGraceFramePeriod = 0.2f;
-	
-	//The current jump grace frame amount in seconds.
-	private float mJumpGraceFramePeriodAmount = 0.0f;
-	
-	//The maximum movement grace frame amount in seconds.
-	private float mMovementGracePeriod = 1.0f;
-	
-	//The current movement grace frame amount in seconds.
-	private float mMovementGracePeriodAmount = 0.0f;
+
+    //The maximum jump grace frame amount in seconds.
+    private float mJumpGraceFramePeriod = 0.2f;
+
+    //The current jump grace frame amount in seconds.
+    private float mJumpGraceFramePeriodAmount = 0.0f;
+
+    //The maximum movement grace frame amount in seconds.
+    private float mMovementGracePeriod = 1.0f;
+
+    //The current movement grace frame amount in seconds.
+    private float mMovementGracePeriodAmount = 0.0f;
 
     //Used to check if the player is walking left.
     private bool mWalkingLeft = false;
@@ -826,26 +824,23 @@ public class Player : MonoBehaviour
     //Checks if the player has taken damage by an enemy.
     private bool mIsHurt = false;
 
-	//Checks if the player is dead.
-	private bool mIsDead = false;
-	
-	//Checks if the player found the exit.
-	private bool mFoundExit = false;
+    //Checks if the player is dead.
+    private bool mIsDead = false;
 
-	//Checks if the player found the minigame.
-	private bool mFoundMinigame = false;
+    //Checks if the player found the exit.
+    private bool mFoundExit = false;
+
+    //Checks if the player found the minigame.
+    private bool mFoundMinigame = false;
 
     //Checks if the player is being knocked back.
     private bool mIsBeingKnockedBack = false;
-	
-	//Checks if the player is currently able to jump.
-	private bool mIsAbleToJump = false;
-	
-	//The paused velocity of the object.
-	private Vector2 mPausedVelocity;
 
-    //The firing key.
-    private KeyCode mFiringKey;
+    //Checks if the player is currently able to jump.
+    private bool mIsAbleToJump = false;
+
+    //The paused velocity of the object.
+    private Vector2 mPausedVelocity;
 
     //The global game data.
     private GlobalData mGlobalData;
@@ -864,9 +859,9 @@ public class Player : MonoBehaviour
 
     //The animator.
     private Animator mAnimator;
-	
-	//The audio source.
-	private AudioSource mAudioSource;
+
+    //The audio source.
+    private AudioSource mAudioSource;
 
     //Public variables:
 
@@ -876,36 +871,36 @@ public class Player : MonoBehaviour
     //Dust particle prefab.
     public GameObject mDustParticlePrefab;
 
-	// The prefab for the minigame portal object.
-	public GameObject mMinigamePortalPrefab;
-	
-	//The audio clip for when mauser jumps.
-	public AudioClip mMauserJumpAudioClip;
-	
-	//The audio clip for when mauser is hurt.
-	public AudioClip mMauserHurtAudioClip;
-	
-	//The audio clip for when mauser fires a rubber band.
-	public AudioClip mMauserFireAudioClip;
-	
-	//The audio clip for when mauser collects a red cap.
-	public AudioClip mMauserCollectRedCapAudioClip;
-	
-	//The audio clip for when mauser collects a gold cap.
-	public AudioClip mMauserCollectGoldCapAudioClip;
-	
-	//The audio clip for when mauser collects a debug cap.
-	public AudioClip mMauserCollectDebugCapAudioClip;
-	
-	//The audio clip for when mauser collects a health cookie.
-	public AudioClip mMauserCollectHealthCookieAudioClip;
-	
-	//The audio clip for when mauser collects an armor cookie.
-	public AudioClip mMauserCollectArmorCookieAudioClip;
-	
-	//The audio clip for when mauser collects a checkpoint object.
-	public AudioClip mMauserCollectCheckpointAudioClip;
-	
-	//The audio clip for when mauser finishes a level.
-	public AudioClip mMauserFinishLevelAudioClip;
+    // The prefab for the minigame portal object.
+    public GameObject mMinigamePortalPrefab;
+
+    //The audio clip for when mauser jumps.
+    public AudioClip mMauserJumpAudioClip;
+
+    //The audio clip for when mauser is hurt.
+    public AudioClip mMauserHurtAudioClip;
+
+    //The audio clip for when mauser fires a rubber band.
+    public AudioClip mMauserFireAudioClip;
+
+    //The audio clip for when mauser collects a red cap.
+    public AudioClip mMauserCollectRedCapAudioClip;
+
+    //The audio clip for when mauser collects a gold cap.
+    public AudioClip mMauserCollectGoldCapAudioClip;
+
+    //The audio clip for when mauser collects a debug cap.
+    public AudioClip mMauserCollectDebugCapAudioClip;
+
+    //The audio clip for when mauser collects a health cookie.
+    public AudioClip mMauserCollectHealthCookieAudioClip;
+
+    //The audio clip for when mauser collects an armor cookie.
+    public AudioClip mMauserCollectArmorCookieAudioClip;
+
+    //The audio clip for when mauser collects a checkpoint object.
+    public AudioClip mMauserCollectCheckpointAudioClip;
+
+    //The audio clip for when mauser finishes a level.
+    public AudioClip mMauserFinishLevelAudioClip;
 }
