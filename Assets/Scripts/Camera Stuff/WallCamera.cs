@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WallCamera : MonoBehaviour
 {
-    float leftBound = 2;
-    float rightBound = 20;
+    float leftBound = -6;
+    float rightBound = 28;
     float velY;
 
     float[] speedChangeTimes = { 17f, 50f };
-    float[] speeds = { 2, 3 };
+    float[] speeds = { 1.5f, 2f };
     float speedChangeTimer;
     int currentSpeed = 0;
 
@@ -23,11 +23,11 @@ public class WallCamera : MonoBehaviour
     void Start()
     {
         if (GlobalData.instance.GetCheckpointEnabled())
-            transform.position = new Vector3(9.5f, 26.5f, transform.position.z);
+            transform.position = new Vector3(10, 60, transform.position.z);
 
         GenerateBees();
 
-        LeanTween.value(velY, 1, 5).setOnUpdate((float value) =>
+        LeanTween.value(velY, 0.5f, 5).setOnUpdate((float value) =>
         {
             velY = value;
         });
