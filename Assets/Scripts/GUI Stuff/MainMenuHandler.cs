@@ -16,6 +16,9 @@ public class MainMenuHandler : MonoBehaviour
 
     void Start()
     {
+        GlobalData.instance.SetCurrency(0); //Absolutely filthy way of ensuring caps don't carry over into subsequent playthroughs
+        GlobalData.instance.SetSavedCurrency(0);
+
         LeanTween.delayedCall(3, () =>
         {
             LeanTween.moveX(mauserImage.gameObject, mauserImage.transform.position.x - (Screen.width * 1f), 2).setEase(LeanTweenType.easeOutCubic);

@@ -106,7 +106,7 @@ public class Pawser : MonoBehaviour
 					}).setOnComplete(() =>
 					{
 						GlobalData.instance.StopMusic();
-						SceneManager.LoadScene("credits");
+                        SceneManager.LoadScene("credits");
 					});
 				});
 			}
