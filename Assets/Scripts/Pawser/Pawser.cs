@@ -10,7 +10,8 @@ public class Pawser : MonoBehaviour
     [HideInInspector]
     public State state;
 
-    public int health = 100;
+    public int health;
+    int maxHealth;
     float damageTintStrength;
 
     public float idleTimerMinLength;
@@ -20,6 +21,8 @@ public class Pawser : MonoBehaviour
     Animator animator;
     SpriteRenderer sr;
     Image gfImage;
+
+    public Image healthBar;
 
     public GameObject knifeHandlerPrefab;
     public GameObject shockwaveSpawnerPrefab;
@@ -35,6 +38,7 @@ public class Pawser : MonoBehaviour
 
         state = State.Idle;
         timer = Random.Range(idleTimerMinLength, idleTimerMaxLength);
+        maxHealth = health;
     }
 
     void Update()
@@ -86,32 +90,33 @@ public class Pawser : MonoBehaviour
         }
     }
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.gameObject.tag == "bullet" && state != State.Dying)
-		{
-			Destroy(other.gameObject);
-			damageTintStrength = 0.1f;
-			health--;
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "bullet" && state != State.Dying)
+        {
+            Destroy(other.gameObject);
+            damageTintStrength = 0.15f;
+            health--;
+            healthBar.fillAmount = health / (float)maxHealth;
 
-			if (health <= 0)
-			{
-				state = State.Dying;
-				animator.Play("Dying");
-				LeanTween.delayedCall(5, () =>
-				{
-					LeanTween.value(0, 1, 3).setOnUpdate((float val) =>
-					{
-						gfImage.color = new Color(gfImage.color.r, gfImage.color.g, gfImage.color.b, val);
-					}).setOnComplete(() =>
-					{
-						GlobalData.instance.StopMusic();
+            if (health <= 0)
+            {
+                state = State.Dying;
+                animator.Play("Dying");
+                LeanTween.delayedCall(5, () =>
+                {
+                    LeanTween.value(0, 1, 3).setOnUpdate((float val) =>
+                    {
+                        gfImage.color = new Color(gfImage.color.r, gfImage.color.g, gfImage.color.b, val);
+                    }).setOnComplete(() =>
+                    {
+                        GlobalData.instance.StopMusic();
                         SceneManager.LoadScene("credits");
-					});
-				});
-			}
-		}
-	}
+                    });
+                });
+            }
+        }
+    }
 
     public void SetStateToIdle()
     {
@@ -155,16 +160,16 @@ public class Pawser : MonoBehaviour
     }
 
 
-	
-	public void Pause()
-	{
-		enabled = false;
-		animator.enabled = false;
-	}
-	
-	public void UnPause()
-	{
-		enabled = true;
-		animator.enabled = true;
-	}
+
+    public void Pause()
+    {
+        enabled = false;
+        animator.enabled = false;
+    }
+
+    public void UnPause()
+    {
+        enabled = true;
+        animator.enabled = true;
+    }
 }
