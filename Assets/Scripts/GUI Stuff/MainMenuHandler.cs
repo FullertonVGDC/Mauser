@@ -18,6 +18,8 @@ public class MainMenuHandler : MonoBehaviour
     {
         GlobalData.instance.SetCurrency(0); //Absolutely filthy way of ensuring caps don't carry over into subsequent playthroughs
         GlobalData.instance.SetSavedCurrency(0);
+        GlobalData.instance.StopTime();
+        GlobalData.instance.SetTimer(0);
 
         LeanTween.delayedCall(3, () =>
         {
@@ -61,6 +63,7 @@ public class MainMenuHandler : MonoBehaviour
     public void PlayGame()
     {
         LeanTween.cancelAll();
+        GlobalData.instance.StartTime();
         GlobalData.instance.ChangeMap("level_garage");
     }
 
@@ -79,18 +82,24 @@ public class MainMenuHandler : MonoBehaviour
     public void GoToGarageScene()
     {
         LeanTween.cancelAll();
+        GlobalData.instance.SetTimer(9999);
+        GlobalData.instance.StartTime();
         GlobalData.instance.ChangeMap("level_garage");
     }
 
     public void GoToWallScene()
     {
         LeanTween.cancelAll();
+        GlobalData.instance.SetTimer(9999);
+        GlobalData.instance.StartTime();
         GlobalData.instance.ChangeMap("level_wall");
     }
 
     public void GoToKitchenScene()
     {
         LeanTween.cancelAll();
+        GlobalData.instance.SetTimer(9999);
+        GlobalData.instance.StartTime();
         GlobalData.instance.ChangeMap("level_kitchen");
     }
 }

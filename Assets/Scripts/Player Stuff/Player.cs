@@ -653,6 +653,7 @@ public class Player : MonoBehaviour
         mWalkingRight = false;
         mIsFiringBullets = false;
         mAnimator.enabled = false;
+        GlobalData.instance.StopTime();
     }
 
     public void UnPause()
@@ -661,6 +662,7 @@ public class Player : MonoBehaviour
         mRigidBody2D.gravityScale = 4.0f;
         mRigidBody2D.velocity = mPausedVelocity;
         mAnimator.enabled = true;
+        GlobalData.instance.StartTime();
     }
 
     public void KickUpRunDust()

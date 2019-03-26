@@ -111,6 +111,10 @@ public class Pawser : MonoBehaviour
                     }).setOnComplete(() =>
                     {
                         GlobalData.instance.StopMusic();
+                        GlobalData.instance.CheckToSaveBestCurrency();
+                        GlobalData.instance.CheckToSaveBestTime();
+                        GlobalData.instance.StopTime();
+                        GlobalData.instance.SetTimer(0);
                         SceneManager.LoadScene("credits");
                     });
                 });
