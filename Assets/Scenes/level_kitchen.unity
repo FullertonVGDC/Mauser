@@ -444,9 +444,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  health: 150
-  idleTimerMinLength: 2
-  idleTimerMaxLength: 3
+  health: 200
+  idleTimerMinLength: 0.5
+  idleTimerMaxLength: 1
   knifeHandlerPrefab: {fileID: 1737087849036138, guid: ce4e8df511ab3fb4aa73a6152c96d9b1,
     type: 3}
   shockwaveSpawnerPrefab: {fileID: 1821929992903000, guid: be64ffdb9ad22154d8dbc621c6df080c,
