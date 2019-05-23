@@ -403,7 +403,7 @@ public class Player : MonoBehaviour
             //--------------------------------------------------------------------------------------------------------------
 
             //Check if the left walking keys are down.
-            if (Input.GetAxisRaw("Horizontal") == -1)
+            if (Input.GetAxisRaw("Horizontal") < -0.5f)
             {
                 mFacingRight = false;
                 mWalkingLeft = true;
@@ -412,7 +412,7 @@ public class Player : MonoBehaviour
             }
 
             //Check if the right walking keys are down.
-            if (Input.GetAxisRaw("Horizontal") == 1)
+            if (Input.GetAxisRaw("Horizontal") > 0.5f)
             {
                 mFacingRight = true;
                 mWalkingRight = true;
@@ -449,13 +449,13 @@ public class Player : MonoBehaviour
             //--------------------------------------------------------------------------------------------------------------
 
             //Check if the left walking keys are released.
-            if (Input.GetAxisRaw("Horizontal") != -1)
+            if (Input.GetAxisRaw("Horizontal") > -0.5f)
             {
                 mWalkingLeft = false;
             }
 
             //Check if the right walking keys are released.
-            if (Input.GetAxisRaw("Horizontal") != 1)
+            if (Input.GetAxisRaw("Horizontal") < 0.5f)
             {
                 mWalkingRight = false;
             }
